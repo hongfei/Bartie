@@ -1,0 +1,607 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4130745539869E8F830B93B1 /* StationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413071F944FCD352DAEFC217 /* StationPickerViewController.swift */; };
+		41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307364E5D83BA352CC2173 /* TrainViewController.swift */; };
+		4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 41307814C2BF08E75FBBC622 /* .gitignore */; };
+		41307B1186FB038F6D848D5A /* TrainDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */; };
+		41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076193A7889F204B1D7AF /* BartTabBarController.swift */; };
+		41307E79C0413D852CD6F281 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */; };
+		AB63C0682117DC8D00540528 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB63C0672117DC8D00540528 /* LaunchScreen.storyboard */; };
+		ABFAA6662117A9E9006C0B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */; };
+		ABFAA6712117A9EA006C0B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABFAA6702117A9EA006C0B47 /* Assets.xcassets */; };
+		ABFAA67F2117A9EA006C0B47 /* Go_BartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA67E2117A9EA006C0B47 /* Go_BartTests.swift */; };
+		ABFAA68A2117A9EA006C0B47 /* Go_BartUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ABFAA67B2117A9EA006C0B47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABFAA65A2117A9E9006C0B47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABFAA6612117A9E9006C0B47;
+			remoteInfo = "Go Bart";
+		};
+		ABFAA6862117A9EA006C0B47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABFAA65A2117A9E9006C0B47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABFAA6612117A9E9006C0B47;
+			remoteInfo = "Go Bart";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		413071F944FCD352DAEFC217 /* StationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationPickerViewController.swift; sourceTree = "<group>"; };
+		41307364E5D83BA352CC2173 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
+		413076193A7889F204B1D7AF /* BartTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartTabBarController.swift; sourceTree = "<group>"; };
+		41307814C2BF08E75FBBC622 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainDirections.swift; sourceTree = "<group>"; };
+		41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		AB63C0672117DC8D00540528 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ABFAA6622117A9E9006C0B47 /* Go Bart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Bart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ABFAA6702117A9EA006C0B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ABFAA6752117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABFAA67A2117A9EA006C0B47 /* Go BartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go BartTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABFAA67E2117A9EA006C0B47 /* Go_BartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_BartTests.swift; sourceTree = "<group>"; };
+		ABFAA6802117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABFAA6852117A9EA006C0B47 /* Go BartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go BartUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_BartUITests.swift; sourceTree = "<group>"; };
+		ABFAA68B2117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ABFAA65F2117A9E9006C0B47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABFAA6772117A9EA006C0B47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABFAA6822117A9EA006C0B47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ABFAA6592117A9E9006C0B47 = {
+			isa = PBXGroup;
+			children = (
+				ABFAA6642117A9E9006C0B47 /* Go Bart */,
+				ABFAA67D2117A9EA006C0B47 /* Go BartTests */,
+				ABFAA6882117A9EA006C0B47 /* Go BartUITests */,
+				ABFAA6632117A9E9006C0B47 /* Products */,
+				41307814C2BF08E75FBBC622 /* .gitignore */,
+			);
+			sourceTree = "<group>";
+		};
+		ABFAA6632117A9E9006C0B47 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ABFAA6622117A9E9006C0B47 /* Go Bart.app */,
+				ABFAA67A2117A9EA006C0B47 /* Go BartTests.xctest */,
+				ABFAA6852117A9EA006C0B47 /* Go BartUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ABFAA6642117A9E9006C0B47 /* Go Bart */ = {
+			isa = PBXGroup;
+			children = (
+				ABFAA6992117B257006C0B47 /* Favorite */,
+				ABFAA6982117B232006C0B47 /* Train */,
+				ABFAA6972117B22B006C0B47 /* TabBar */,
+				ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */,
+				ABFAA6702117A9EA006C0B47 /* Assets.xcassets */,
+				ABFAA6752117A9EA006C0B47 /* Info.plist */,
+				AB63C0672117DC8D00540528 /* LaunchScreen.storyboard */,
+			);
+			path = "Go Bart";
+			sourceTree = "<group>";
+		};
+		ABFAA67D2117A9EA006C0B47 /* Go BartTests */ = {
+			isa = PBXGroup;
+			children = (
+				ABFAA67E2117A9EA006C0B47 /* Go_BartTests.swift */,
+				ABFAA6802117A9EA006C0B47 /* Info.plist */,
+			);
+			path = "Go BartTests";
+			sourceTree = "<group>";
+		};
+		ABFAA6882117A9EA006C0B47 /* Go BartUITests */ = {
+			isa = PBXGroup;
+			children = (
+				ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */,
+				ABFAA68B2117A9EA006C0B47 /* Info.plist */,
+			);
+			path = "Go BartUITests";
+			sourceTree = "<group>";
+		};
+		ABFAA6972117B22B006C0B47 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				413076193A7889F204B1D7AF /* BartTabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		ABFAA6982117B232006C0B47 /* Train */ = {
+			isa = PBXGroup;
+			children = (
+				41307364E5D83BA352CC2173 /* TrainViewController.swift */,
+				41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */,
+				413071F944FCD352DAEFC217 /* StationPickerViewController.swift */,
+			);
+			path = Train;
+			sourceTree = "<group>";
+		};
+		ABFAA6992117B257006C0B47 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ABFAA6612117A9E9006C0B47 /* Go Bart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABFAA68E2117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go Bart" */;
+			buildPhases = (
+				ABFAA65E2117A9E9006C0B47 /* Sources */,
+				ABFAA65F2117A9E9006C0B47 /* Frameworks */,
+				ABFAA6602117A9E9006C0B47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Go Bart";
+			productName = "Go Bart";
+			productReference = ABFAA6622117A9E9006C0B47 /* Go Bart.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ABFAA6792117A9EA006C0B47 /* Go BartTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABFAA6912117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartTests" */;
+			buildPhases = (
+				ABFAA6762117A9EA006C0B47 /* Sources */,
+				ABFAA6772117A9EA006C0B47 /* Frameworks */,
+				ABFAA6782117A9EA006C0B47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABFAA67C2117A9EA006C0B47 /* PBXTargetDependency */,
+			);
+			name = "Go BartTests";
+			productName = "Go BartTests";
+			productReference = ABFAA67A2117A9EA006C0B47 /* Go BartTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ABFAA6842117A9EA006C0B47 /* Go BartUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABFAA6942117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartUITests" */;
+			buildPhases = (
+				ABFAA6812117A9EA006C0B47 /* Sources */,
+				ABFAA6822117A9EA006C0B47 /* Frameworks */,
+				ABFAA6832117A9EA006C0B47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABFAA6872117A9EA006C0B47 /* PBXTargetDependency */,
+			);
+			name = "Go BartUITests";
+			productName = "Go BartUITests";
+			productReference = ABFAA6852117A9EA006C0B47 /* Go BartUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ABFAA65A2117A9E9006C0B47 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = hongfeiwork.ios;
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Hongfei Zhou";
+				TargetAttributes = {
+					ABFAA6612117A9E9006C0B47 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					ABFAA6792117A9EA006C0B47 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = ABFAA6612117A9E9006C0B47;
+					};
+					ABFAA6842117A9EA006C0B47 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = ABFAA6612117A9E9006C0B47;
+					};
+				};
+			};
+			buildConfigurationList = ABFAA65D2117A9E9006C0B47 /* Build configuration list for PBXProject "Go Bart" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ABFAA6592117A9E9006C0B47;
+			productRefGroup = ABFAA6632117A9E9006C0B47 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ABFAA6612117A9E9006C0B47 /* Go Bart */,
+				ABFAA6792117A9EA006C0B47 /* Go BartTests */,
+				ABFAA6842117A9EA006C0B47 /* Go BartUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ABFAA6602117A9E9006C0B47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABFAA6712117A9EA006C0B47 /* Assets.xcassets in Resources */,
+				AB63C0682117DC8D00540528 /* LaunchScreen.storyboard in Resources */,
+				4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABFAA6782117A9EA006C0B47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABFAA6832117A9EA006C0B47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ABFAA65E2117A9E9006C0B47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABFAA6662117A9E9006C0B47 /* AppDelegate.swift in Sources */,
+				41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */,
+				41307E79C0413D852CD6F281 /* FavoriteViewController.swift in Sources */,
+				41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */,
+				41307B1186FB038F6D848D5A /* TrainDirections.swift in Sources */,
+				4130745539869E8F830B93B1 /* StationPickerViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABFAA6762117A9EA006C0B47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABFAA67F2117A9EA006C0B47 /* Go_BartTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABFAA6812117A9EA006C0B47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABFAA68A2117A9EA006C0B47 /* Go_BartUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ABFAA67C2117A9EA006C0B47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABFAA6612117A9E9006C0B47 /* Go Bart */;
+			targetProxy = ABFAA67B2117A9EA006C0B47 /* PBXContainerItemProxy */;
+		};
+		ABFAA6872117A9EA006C0B47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABFAA6612117A9E9006C0B47 /* Go Bart */;
+			targetProxy = ABFAA6862117A9EA006C0B47 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		ABFAA68C2117A9EA006C0B47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ABFAA68D2117A9EA006C0B47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ABFAA68F2117A9EA006C0B47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MG2A8FT82Y;
+				INFOPLIST_FILE = "Go Bart/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-Bart";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ABFAA6902117A9EA006C0B47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MG2A8FT82Y;
+				INFOPLIST_FILE = "Go Bart/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-Bart";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ABFAA6922117A9EA006C0B47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Go BartTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-BartTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Go Bart.app/Go Bart";
+			};
+			name = Debug;
+		};
+		ABFAA6932117A9EA006C0B47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Go BartTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-BartTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Go Bart.app/Go Bart";
+			};
+			name = Release;
+		};
+		ABFAA6952117A9EA006C0B47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Go BartUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-BartUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Go Bart";
+			};
+			name = Debug;
+		};
+		ABFAA6962117A9EA006C0B47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Go BartUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-BartUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Go Bart";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ABFAA65D2117A9E9006C0B47 /* Build configuration list for PBXProject "Go Bart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABFAA68C2117A9EA006C0B47 /* Debug */,
+				ABFAA68D2117A9EA006C0B47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABFAA68E2117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go Bart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABFAA68F2117A9EA006C0B47 /* Debug */,
+				ABFAA6902117A9EA006C0B47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABFAA6912117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABFAA6922117A9EA006C0B47 /* Debug */,
+				ABFAA6932117A9EA006C0B47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABFAA6942117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABFAA6952117A9EA006C0B47 /* Debug */,
+				ABFAA6962117A9EA006C0B47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ABFAA65A2117A9E9006C0B47 /* Project object */;
+}
