@@ -19,7 +19,7 @@ class TrainViewNavController: UINavigationController {
     }
 }
 
-class TrainViewController: UIViewController {
+class TrainViewController: UIViewController, StationTapDelegate {
     var safeArea: UILayoutGuide!
 
     required init?(coder: NSCoder) {
@@ -30,6 +30,7 @@ class TrainViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.title = "Trains"
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+        self.tabBarItem.title = "Trains"
     }
 
     override func viewDidLoad() {
@@ -38,6 +39,7 @@ class TrainViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
 
         let trainDirections = TrainDirections()
+        trainDirections.stationTapDelegate = self
         let constraints = [
             trainDirections.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
             trainDirections.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
@@ -47,5 +49,10 @@ class TrainViewController: UIViewController {
 
         self.view.addSubview(trainDirections)
         NSLayoutConstraint.activate(constraints)
+    }
+
+    func openStationPicker(on sender: UIView) {
+        let target = UINavigationController(rootViewController: StationPickerViewController())
+        self.present(target, animated: true)
     }
 }

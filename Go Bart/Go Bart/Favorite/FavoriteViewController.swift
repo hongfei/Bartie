@@ -5,20 +5,6 @@
 
 import UIKit
 
-class FavoriteViewNavController: UINavigationController {
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-
-    override init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
-    }
-
-    init() {
-        super.init(rootViewController: FavoriteViewController())
-        self.navigationBar.barTintColor = UIColor.brown
-    }
-}
 
 class FavoriteViewController: UIViewController {
     required init?(coder: NSCoder) {

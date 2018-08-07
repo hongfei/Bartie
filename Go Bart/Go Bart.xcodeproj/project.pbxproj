@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4130745539869E8F830B93B1 /* StationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413071F944FCD352DAEFC217 /* StationPickerViewController.swift */; };
 		41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307364E5D83BA352CC2173 /* TrainViewController.swift */; };
 		4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 41307814C2BF08E75FBBC622 /* .gitignore */; };
 		41307B1186FB038F6D848D5A /* TrainDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */; };
 		41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076193A7889F204B1D7AF /* BartTabBarController.swift */; };
 		41307E79C0413D852CD6F281 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */; };
-		AB63C0682117DC8D00540528 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB63C0672117DC8D00540528 /* LaunchScreen.storyboard */; };
 		ABFAA6662117A9E9006C0B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */; };
 		ABFAA6712117A9EA006C0B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABFAA6702117A9EA006C0B47 /* Assets.xcassets */; };
 		ABFAA67F2117A9EA006C0B47 /* Go_BartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA67E2117A9EA006C0B47 /* Go_BartTests.swift */; };
 		ABFAA68A2117A9EA006C0B47 /* Go_BartUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */; };
+		B6F697E671754A55887B2450 /* StationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,13 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		413071F944FCD352DAEFC217 /* StationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationPickerViewController.swift; sourceTree = "<group>"; };
 		41307364E5D83BA352CC2173 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
 		413076193A7889F204B1D7AF /* BartTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartTabBarController.swift; sourceTree = "<group>"; };
 		41307814C2BF08E75FBBC622 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainDirections.swift; sourceTree = "<group>"; };
 		41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		AB63C0672117DC8D00540528 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABFAA6622117A9E9006C0B47 /* Go Bart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Bart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABFAA6702117A9EA006C0B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +52,7 @@
 		ABFAA6852117A9EA006C0B47 /* Go BartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go BartUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_BartUITests.swift; sourceTree = "<group>"; };
 		ABFAA68B2117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,11 +106,12 @@
 			children = (
 				ABFAA6992117B257006C0B47 /* Favorite */,
 				ABFAA6982117B232006C0B47 /* Train */,
-				ABFAA6972117B22B006C0B47 /* TabBar */,
+				ABFAA6972117B22B006C0B47 /* Navigation */,
 				ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */,
 				ABFAA6702117A9EA006C0B47 /* Assets.xcassets */,
 				ABFAA6752117A9EA006C0B47 /* Info.plist */,
-				AB63C0672117DC8D00540528 /* LaunchScreen.storyboard */,
+				B6F69ACDDF2B66E1AAF9CDFC /* StationPicker */,
+				B6F6938CE3733AFF8FC34B5A /* Utility */,
 			);
 			path = "Go Bart";
 			sourceTree = "<group>";
@@ -135,12 +134,12 @@
 			path = "Go BartUITests";
 			sourceTree = "<group>";
 		};
-		ABFAA6972117B22B006C0B47 /* TabBar */ = {
+		ABFAA6972117B22B006C0B47 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
 				413076193A7889F204B1D7AF /* BartTabBarController.swift */,
 			);
-			path = TabBar;
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		ABFAA6982117B232006C0B47 /* Train */ = {
@@ -148,7 +147,6 @@
 			children = (
 				41307364E5D83BA352CC2173 /* TrainViewController.swift */,
 				41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */,
-				413071F944FCD352DAEFC217 /* StationPickerViewController.swift */,
 			);
 			path = Train;
 			sourceTree = "<group>";
@@ -159,6 +157,21 @@
 				41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */,
 			);
 			path = Favorite;
+			sourceTree = "<group>";
+		};
+		B6F6938CE3733AFF8FC34B5A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		B6F69ACDDF2B66E1AAF9CDFC /* StationPicker */ = {
+			isa = PBXGroup;
+			children = (
+				B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */,
+			);
+			path = StationPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +280,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABFAA6712117A9EA006C0B47 /* Assets.xcassets in Resources */,
-				AB63C0682117DC8D00540528 /* LaunchScreen.storyboard in Resources */,
 				4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,7 +310,7 @@
 				41307E79C0413D852CD6F281 /* FavoriteViewController.swift in Sources */,
 				41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */,
 				41307B1186FB038F6D848D5A /* TrainDirections.swift in Sources */,
-				4130745539869E8F830B93B1 /* StationPickerViewController.swift in Sources */,
+				B6F697E671754A55887B2450 /* StationPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
