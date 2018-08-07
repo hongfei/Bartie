@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4130726191EF536C3F5D9EF7 /* StationDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076BE64B9E3B6FD4D402A /* StationDirections.swift */; };
 		41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307364E5D83BA352CC2173 /* TrainViewController.swift */; };
 		4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 41307814C2BF08E75FBBC622 /* .gitignore */; };
-		41307B1186FB038F6D848D5A /* TrainDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */; };
 		41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076193A7889F204B1D7AF /* BartTabBarController.swift */; };
 		41307E79C0413D852CD6F281 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */; };
 		ABFAA6662117A9E9006C0B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */; };
@@ -39,8 +39,8 @@
 /* Begin PBXFileReference section */
 		41307364E5D83BA352CC2173 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
 		413076193A7889F204B1D7AF /* BartTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartTabBarController.swift; sourceTree = "<group>"; };
+		413076BE64B9E3B6FD4D402A /* StationDirections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationDirections.swift; sourceTree = "<group>"; };
 		41307814C2BF08E75FBBC622 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
-		41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainDirections.swift; sourceTree = "<group>"; };
 		41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		ABFAA6622117A9E9006C0B47 /* Go Bart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Bart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,7 +111,6 @@
 				ABFAA6702117A9EA006C0B47 /* Assets.xcassets */,
 				ABFAA6752117A9EA006C0B47 /* Info.plist */,
 				B6F69ACDDF2B66E1AAF9CDFC /* StationPicker */,
-				B6F6938CE3733AFF8FC34B5A /* Utility */,
 			);
 			path = "Go Bart";
 			sourceTree = "<group>";
@@ -146,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				41307364E5D83BA352CC2173 /* TrainViewController.swift */,
-				41307820EBC3B34A8B31E1F4 /* TrainDirections.swift */,
+				413076BE64B9E3B6FD4D402A /* StationDirections.swift */,
 			);
 			path = Train;
 			sourceTree = "<group>";
@@ -157,13 +156,6 @@
 				41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */,
 			);
 			path = Favorite;
-			sourceTree = "<group>";
-		};
-		B6F6938CE3733AFF8FC34B5A /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		B6F69ACDDF2B66E1AAF9CDFC /* StationPicker */ = {
@@ -309,8 +301,8 @@
 				41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */,
 				41307E79C0413D852CD6F281 /* FavoriteViewController.swift in Sources */,
 				41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */,
-				41307B1186FB038F6D848D5A /* TrainDirections.swift in Sources */,
 				B6F697E671754A55887B2450 /* StationPickerViewController.swift in Sources */,
+				4130726191EF536C3F5D9EF7 /* StationDirections.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MG2A8FT82Y;
 				INFOPLIST_FILE = "Go Bart/Info.plist";
@@ -473,6 +466,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-Bart";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -482,6 +476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MG2A8FT82Y;
 				INFOPLIST_FILE = "Go Bart/Info.plist";
@@ -491,6 +486,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-Bart";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

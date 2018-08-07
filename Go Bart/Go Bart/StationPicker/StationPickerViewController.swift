@@ -8,23 +8,29 @@ import UIKit
 
 class StationPickerViewController: UIViewController {
     var safeArea: UILayoutGuide!
+    var barTitle: String!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    init() {
+    init(barTitle: String) {
         super.init(nibName: nil, bundle: nil)
+        self.barTitle = barTitle
     }
 
     override var navigationItem: UINavigationItem {
-        let navigationItem = UINavigationItem(title: "Picker A Station")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+        let navigationItem = UINavigationItem(title: barTitle)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeStationPicker))
         return navigationItem
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.purple
+    }
+
+    @objc func closeStationPicker() {
+        self.dismiss(animated: true)
     }
 }
