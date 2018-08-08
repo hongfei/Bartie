@@ -36,13 +36,13 @@ class Station {
         self.init(
                 name: json["name"].string!,
                 abbr: json["abbr"].string!,
-                latitude: json["gtfs_latitude"].string,
-                longitude: json["gtfs_longitude"].string,
-                address: json["address"].string,
-                city: json["city"].string,
-                county: json["county"].string,
-                state: json["state"].string,
-                zipcode: json["zipcode"].string
+                latitude: json["gtfs_latitude"].string!,
+                longitude: json["gtfs_longitude"].string!,
+                address: json["address"].string!,
+                city: json["city"].string!,
+                county: json["county"].string!,
+                state: json["state"].string!,
+                zipcode: json["zipcode"].string!
         )
     }
 }

@@ -11,10 +11,11 @@ class BartStationService: BartService {
 
     public static func getAllStations(completionHandler: @escaping ([Station]?) -> Void) {
         getResponse(for: STATION_RESOURCE, withParams: ["cmd": "stns"]) { result in
-            result.map { r in
-                let stations = JSON(r)["root"]["stations"]["station"].array?.map { json in Station(with: json) }
+            result.map { unwrappedResult in
+                let stations = JSON(unwrappedResult)["root"]["stations"]["station"].array?.map { json in Station(with: json) }
                 completionHandler(stations)
             }
         }
     }
+
 }

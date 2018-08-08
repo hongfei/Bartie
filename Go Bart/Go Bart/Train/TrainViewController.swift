@@ -8,10 +8,15 @@ import UIKit
 class TrainViewController: UIViewController {
     var safeArea: UILayoutGuide!
 
-    var fromLabel: FromStationLabel!
-    var fromStation: FromStation!
-    var toLabel: ToStationLabel!
-    var toStation: ToStation!
+    var fromLabel: FromStationLabel = FromStationLabel()
+    var fromStation: FromStation = FromStation()
+    var toLabel: ToStationLabel = ToStationLabel()
+    var toStation: ToStation! = ToStation()
+
+    var fromStationData: Station?
+    var toStationData: Station?
+
+    var stationPicker: StationPickerViewController = StationPickerViewController()
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -36,7 +41,6 @@ class TrainViewController: UIViewController {
     }
 
     private func placeFromLabel() {
-        fromLabel = FromStationLabel()
         self.view.addSubview(fromLabel)
 
         NSLayoutConstraint.activate([
@@ -48,7 +52,7 @@ class TrainViewController: UIViewController {
     }
 
     public func placeFromStation() {
-        fromStation = FromStation()
+        fromStation.text = fromStationData?.name
         fromStation.addGestureRecognizer(UITapGestureRecognizer(
                 target: self,
                 action: #selector(pickFromStation)
@@ -64,7 +68,6 @@ class TrainViewController: UIViewController {
     }
 
     public func placeToLabel() {
-        toLabel = ToStationLabel()
         self.view.addSubview(toLabel)
 
         NSLayoutConstraint.activate([
@@ -76,7 +79,7 @@ class TrainViewController: UIViewController {
     }
 
     public func placeToStation() {
-        toStation = ToStation()
+        toStation.text = toStationData?.name
         toStation.addGestureRecognizer(UITapGestureRecognizer(
                 target: self,
                 action: #selector(pickToStation)
@@ -92,15 +95,19 @@ class TrainViewController: UIViewController {
     }
 
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
-        self.openStationPicker(withTitle: "Pick From Station")
+        self.openStationPicker(with: "Pick From Station") { station in
+            self.fromStation.text = station.name
+        }
     }
 
     @objc func pickToStation(_ sender: UIGestureRecognizer) {
-        self.openStationPicker(withTitle: "Pick To Station")
+        self.openStationPicker(with: "Pick To Station") { station in
+            self.toStation.text = station.name
+        }
     }
 
-    func openStationPicker(withTitle: String) {
-        let target = UINavigationController(rootViewController: StationPickerViewController(barTitle: withTitle))
-        self.present(target, animated: true)
+    private func openStationPicker(with title: String, afterSelected: @escaping (Station) -> Void) {
+        let target = stationPicker.withBarTitle(of: title).onStationSelected(selectedHandler: afterSelected)
+        self.present(UINavigationController(rootViewController: target), animated: true)
     }
 }

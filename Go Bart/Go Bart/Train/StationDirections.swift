@@ -37,7 +37,6 @@ class FromStation: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.text = "Not Implemented From"
         self.backgroundColor = UIColor.darkGray
         self.isUserInteractionEnabled = true
     }
@@ -51,7 +50,6 @@ class ToStation: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.text = "Not Implemented To"
         self.backgroundColor = UIColor.lightGray
         self.isUserInteractionEnabled = true
     }
