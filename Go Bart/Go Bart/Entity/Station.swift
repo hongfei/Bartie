@@ -7,15 +7,15 @@ import Foundation
 import SwiftyJSON
 
 class Station {
-    var name: String
-    var abbr: String
-    var latitude: String
-    var longitude: String
-    var address: String
-    var city: String
-    var county: String
-    var state: String
-    var zipcode: String
+    let name: String
+    let abbr: String
+    let latitude: String
+    let longitude: String
+    let address: String
+    let city: String
+    let county: String
+    let state: String
+    let zipcode: String
 
     init(name: String, abbr: String, latitude: String, longitude: String, address: String, city: String, county: String, state: String, zipcode: String) {
         self.name = name

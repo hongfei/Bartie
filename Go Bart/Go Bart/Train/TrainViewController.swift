@@ -97,6 +97,14 @@ class TrainViewController: UIViewController {
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
         self.openStationPicker(with: "Pick From Station") { station in
             self.fromStation.text = station.name
+            BartScheduleService.getDepartureTime(for: station) { estimatedDepartures in
+                estimatedDepartures.map { departure in
+                    debugPrint(departure.destination)
+                    for est in departure.estimate {
+                        debugPrint(est.minutes)
+                    }
+                }
+            }
         }
     }
 

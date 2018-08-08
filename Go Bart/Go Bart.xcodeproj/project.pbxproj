@@ -10,8 +10,10 @@
 		4130726191EF536C3F5D9EF7 /* StationDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076BE64B9E3B6FD4D402A /* StationDirections.swift */; };
 		41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307364E5D83BA352CC2173 /* TrainViewController.swift */; };
 		4130749B7121E7D18C5CF818 /* StationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413071984BF6EB8C05A0B4B9 /* StationTableCell.swift */; };
+		413075D712B8797C4BE0292F /* BartScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DB78EA2212056B58896 /* BartScheduleService.swift */; };
 		4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 41307814C2BF08E75FBBC622 /* .gitignore */; };
 		41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076193A7889F204B1D7AF /* BartTabBarController.swift */; };
+		41307DD39AB99C17C895D21D /* EstimatedDeparture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413077F823C3C8259DB2867B /* EstimatedDeparture.swift */; };
 		41307E79C0413D852CD6F281 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */; };
 		880BBBE39FDA12C05CEEEDAF /* Pods_Go_Bart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 476D011A4C4049DB0397FAEC /* Pods_Go_Bart.framework */; };
 		9881A4E37667AA97F23CE2A3 /* Pods_Go_BartTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E896756EB5EB17F2A1D03854 /* Pods_Go_BartTests.framework */; };
@@ -51,7 +53,9 @@
 		41307364E5D83BA352CC2173 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
 		413076193A7889F204B1D7AF /* BartTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartTabBarController.swift; sourceTree = "<group>"; };
 		413076BE64B9E3B6FD4D402A /* StationDirections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationDirections.swift; sourceTree = "<group>"; };
+		413077F823C3C8259DB2867B /* EstimatedDeparture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatedDeparture.swift; sourceTree = "<group>"; };
 		41307814C2BF08E75FBBC622 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		41307DB78EA2212056B58896 /* BartScheduleService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartScheduleService.swift; sourceTree = "<group>"; };
 		41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		4331D8CCFC94A074F1702A16 /* Pods-Go Bart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go Bart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Go Bart/Pods-Go Bart.debug.xcconfig"; sourceTree = "<group>"; };
 		476D011A4C4049DB0397FAEC /* Pods_Go_Bart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Go_Bart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +217,7 @@
 			children = (
 				B6F6971508E39DCC4CC5652E /* BartStationService.swift */,
 				B6F69343ECE3A8CF46BD8E33 /* BartService.swift */,
+				41307DB78EA2212056B58896 /* BartScheduleService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -230,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				B6F69F01A95831136D1740AF /* Station.swift */,
+				413077F823C3C8259DB2867B /* EstimatedDeparture.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -428,11 +434,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Go Bart/Pods-Go Bart-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/UIColor_Hex_Swift/UIColor_Hex_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIColor_Hex_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -456,6 +464,8 @@
 				B6F69EA701ADF1B4F5FD4396 /* BartStationService.swift in Sources */,
 				B6F6921613A7727376861EDA /* BartService.swift in Sources */,
 				4130749B7121E7D18C5CF818 /* StationTableCell.swift in Sources */,
+				413075D712B8797C4BE0292F /* BartScheduleService.swift in Sources */,
+				41307DD39AB99C17C895D21D /* EstimatedDeparture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
