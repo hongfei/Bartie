@@ -28,6 +28,10 @@ class StationPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.purple
+
+        BartStationService.getAllStations() { stations in
+            self.addChildViewController(StationCollectionViewController(stations: stations))
+        }
     }
 
     @objc func closeStationPicker() {
