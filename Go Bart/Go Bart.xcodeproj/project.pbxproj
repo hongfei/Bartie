@@ -27,6 +27,7 @@
 		B6F6921613A7727376861EDA /* BartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69343ECE3A8CF46BD8E33 /* BartService.swift */; };
 		B6F697CA4AA061A552E9ACFD /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69F01A95831136D1740AF /* Station.swift */; };
 		B6F697E671754A55887B2450 /* StationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */; };
+		B6F69D5494E23E1BBDE8DD79 /* ScheduleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69D54CCF049F0CD629310 /* ScheduleListView.swift */; };
 		B6F69EA701ADF1B4F5FD4396 /* BartStationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F6971508E39DCC4CC5652E /* BartStationService.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		B6F69343ECE3A8CF46BD8E33 /* BartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartService.swift; sourceTree = "<group>"; };
 		B6F6971508E39DCC4CC5652E /* BartStationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartStationService.swift; sourceTree = "<group>"; };
 		B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationPickerViewController.swift; sourceTree = "<group>"; };
+		B6F69D54CCF049F0CD629310 /* ScheduleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleListView.swift; sourceTree = "<group>"; };
 		B6F69F01A95831136D1740AF /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		E896756EB5EB17F2A1D03854 /* Pods_Go_BartTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Go_BartTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -214,6 +216,7 @@
 				41307364E5D83BA352CC2173 /* TrainViewController.swift */,
 				413076BE64B9E3B6FD4D402A /* StationDirections.swift */,
 				41307F911C7067483328E8AC /* TrainView.swift */,
+				B6F69D54CCF049F0CD629310 /* ScheduleListView.swift */,
 			);
 			path = Train;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				41307DD39AB99C17C895D21D /* EstimatedDeparture.swift in Sources */,
 				41307FC5F60FE7F7DB38411A /* TrainView.swift in Sources */,
 				41307473A61C6033254CC2F1 /* ViewControllerManager.swift in Sources */,
+				B6F69D5494E23E1BBDE8DD79 /* ScheduleListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

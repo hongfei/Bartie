@@ -25,6 +25,8 @@ class TrainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.trainView = TrainView(view: self.view)
+        self.trainView.addFromGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickFromStation)))
+        self.trainView.addToGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickToStation)))
     }
 
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
@@ -32,10 +34,7 @@ class TrainViewController: UIViewController {
             self.trainView.updateFromStation(from: station)
             BartScheduleService.getDepartureTime(for: station) { estimatedDepartures in
                 estimatedDepartures.map { departure in
-                    debugPrint(departure.destination)
-                    for est in departure.estimate {
-                        debugPrint(est.minutes)
-                    }
+                    debugPrint(departure.destination, departure.estimate)
                 }
             }
         }

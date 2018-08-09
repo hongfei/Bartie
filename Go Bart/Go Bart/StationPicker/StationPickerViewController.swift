@@ -27,10 +27,11 @@ class StationPickerViewController: UITableViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.purple
         self.tableView?.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
-
-        BartStationService.getAllStations() { stations in
-            self.stations = stations
-            self.tableView?.reloadData()
+        if self.stations == nil {
+            BartStationService.getAllStations() { stations in
+                self.stations = stations
+                self.tableView?.reloadData()
+            }
         }
     }
 

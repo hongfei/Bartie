@@ -13,6 +13,7 @@ class TrainView {
     var fromStation: FromStation = FromStation()
     var toLabel: ToStationLabel = ToStationLabel()
     var toStation: ToStation! = ToStation()
+//    var scheduleList: scheduleList! = ScheduleList()
 
     init(view: UIView) {
         self.view = view
@@ -24,6 +25,8 @@ class TrainView {
         placeFromStation()
         placeToLabel()
         placeToStation()
+
+        placeScheduleList()
     }
 
     private func placeFromLabel() {
@@ -38,10 +41,6 @@ class TrainView {
     }
 
     public func placeFromStation() {
-        fromStation.addGestureRecognizer(UITapGestureRecognizer(
-                target: ViewControllerManager.getViewController(of: TrainViewController.self),
-                action: #selector(TrainViewController.pickFromStation)
-        ))
         self.view.addSubview(fromStation)
 
         NSLayoutConstraint.activate([
@@ -64,10 +63,6 @@ class TrainView {
     }
 
     public func placeToStation() {
-        toStation.addGestureRecognizer(UITapGestureRecognizer(
-                target: ViewControllerManager.getViewController(of: TrainViewController.self),
-                action: #selector(TrainViewController.pickToStation)
-        ))
         self.view.addSubview(toStation)
 
         NSLayoutConstraint.activate([
@@ -76,6 +71,10 @@ class TrainView {
             toStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             toStation.heightAnchor.constraint(equalTo: toLabel.heightAnchor)
         ])
+    }
+    
+    public func placeScheduleList() {
+//        self.view.addSubview(<#T##view: UIView##UIKit.UIView#>)
     }
 
     func updateFromStation(from station: Station) {

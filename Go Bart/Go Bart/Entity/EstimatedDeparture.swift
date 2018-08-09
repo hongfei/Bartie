@@ -32,7 +32,7 @@ class EstimatedDeparture {
 }
 
 class Departure {
-    let minutes: Int
+    let minutes: String
     let platform: String
     let direction: String
     let length: Int
@@ -40,7 +40,7 @@ class Departure {
     let bikeAllowed: Bool
     let delay: Int
 
-    init(minutes: Int, platform: String, direction: String, length: Int, color: UIColor, bikeAllowed: Bool, delay: Int) {
+    init(minutes: String, platform: String, direction: String, length: Int, color: UIColor, bikeAllowed: Bool, delay: Int) {
         self.minutes = minutes
         self.platform = platform
         self.direction = direction
@@ -51,12 +51,13 @@ class Departure {
     }
 
     convenience init() {
-        self.init(minutes: 0, platform: "", direction: "", length: 0, color: UIColor.white, bikeAllowed: true, delay: 0)
+        self.init(minutes: "0", platform: "", direction: "", length: 0, color: UIColor.white, bikeAllowed: true, delay: 0)
     }
 
     convenience init(with json: JSON) {
+        debugPrint(json)
         self.init(
-                minutes: Int(json["minutes"].string!)!,
+                minutes: json["minutes"].string!,
                 platform: json["platform"].string!,
                 direction: json["direction"].string!,
                 length: Int(json["length"].string!)!,
