@@ -35,7 +35,7 @@ class TrainViewController: UIViewController {
             self.trainView.updateFromStation(from: station)
             BartScheduleService.getDepartureTime(for: station) { departures in
                 self.trainView.displayDepartureList(departures: departures) { departure in
-                    debugPrint("selected departure:", departure.destination, departure.minutes)
+                    self.present(RouteDetailViewController(), animated: true)
                 }
             }
         }
