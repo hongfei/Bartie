@@ -12,7 +12,7 @@
 		41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307364E5D83BA352CC2173 /* TrainViewController.swift */; };
 		4130749B7121E7D18C5CF818 /* StationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413071984BF6EB8C05A0B4B9 /* StationTableCell.swift */; };
 		413075D712B8797C4BE0292F /* BartScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DB78EA2212056B58896 /* BartScheduleService.swift */; };
-		413078787EE2B8AE573A173E /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130719292C09DE7B9E02C76 /* RouteDetailViewController.swift */; };
+		413078787EE2B8AE573A173E /* RouteDetailNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130719292C09DE7B9E02C76 /* RouteDetailNavViewController.swift */; };
 		4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 41307814C2BF08E75FBBC622 /* .gitignore */; };
 		41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076193A7889F204B1D7AF /* BartTabBarController.swift */; };
 		41307C39E3DCD59A7767537B /* DepartureListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307EEC1B69B23AB5A3D547 /* DepartureListDelegate.swift */; };
@@ -55,7 +55,7 @@
 		0778C7E6B0A9FBCB71764D03 /* Pods-Go BartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go BartTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Go BartTests/Pods-Go BartTests.debug.xcconfig"; sourceTree = "<group>"; };
 		14B10E3A7BC962EA8D378EAB /* Pods-Go Bart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go Bart.release.xcconfig"; path = "Pods/Target Support Files/Pods-Go Bart/Pods-Go Bart.release.xcconfig"; sourceTree = "<group>"; };
 		17EFFA8F10A0314365971789 /* Pods-Go BartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go BartTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Go BartTests/Pods-Go BartTests.release.xcconfig"; sourceTree = "<group>"; };
-		4130719292C09DE7B9E02C76 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
+		4130719292C09DE7B9E02C76 /* RouteDetailNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailNavViewController.swift; sourceTree = "<group>"; };
 		413071984BF6EB8C05A0B4B9 /* StationTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationTableCell.swift; sourceTree = "<group>"; };
 		41307364E5D83BA352CC2173 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
 		413076193A7889F204B1D7AF /* BartTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartTabBarController.swift; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		413079A17D11B0E23AFBB70D /* RouteDetail */ = {
 			isa = PBXGroup;
 			children = (
-				4130719292C09DE7B9E02C76 /* RouteDetailViewController.swift */,
+				4130719292C09DE7B9E02C76 /* RouteDetailNavViewController.swift */,
 			);
 			path = RouteDetail;
 			sourceTree = "<group>";
@@ -505,7 +505,7 @@
 				41307C39E3DCD59A7767537B /* DepartureListDelegate.swift in Sources */,
 				AB703A63211BD416005CF2FF /* DepartureListCell.swift in Sources */,
 				413070336146DCF7A2CF9859 /* DepartureListDataSource.swift in Sources */,
-				413078787EE2B8AE573A173E /* RouteDetailViewController.swift in Sources */,
+				413078787EE2B8AE573A173E /* RouteDetailNavViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
