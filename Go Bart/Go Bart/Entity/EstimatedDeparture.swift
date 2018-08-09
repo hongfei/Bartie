@@ -23,15 +23,19 @@ class EstimatedDeparture {
     }
 
     convenience init(with json: JSON) {
+        let dst = json["destination"].string!
+        let abbr = json["abbreviation"].string!
         self.init(
-                destination: json["destination"].string!,
-                abbreviation: json["abbreviation"].string!,
-                estimate: json["estimate"].array!.map { json in Departure(with: json) }
+                destination: dst,
+                abbreviation: abbr,
+                estimate: json["estimate"].array!.map { json in Departure(destination: dst, abbreviation: abbr, with: json) }
         )
     }
 }
 
 class Departure {
+    let destination: String
+    let abbreviation: String
     let minutes: String
     let platform: String
     let direction: String
@@ -40,7 +44,10 @@ class Departure {
     let bikeAllowed: Bool
     let delay: Int
 
-    init(minutes: String, platform: String, direction: String, length: Int, color: UIColor, bikeAllowed: Bool, delay: Int) {
+    init(destination: String, abbreviation: String, minutes: String, platform: String, direction: String, length: Int,
+         color: UIColor, bikeAllowed: Bool, delay: Int) {
+        self.destination = destination
+        self.abbreviation = abbreviation
         self.minutes = minutes
         self.platform = platform
         self.direction = direction
@@ -51,12 +58,13 @@ class Departure {
     }
 
     convenience init() {
-        self.init(minutes: "0", platform: "", direction: "", length: 0, color: UIColor.white, bikeAllowed: true, delay: 0)
+        self.init(destination: "", abbreviation: "", minutes: "0", platform: "", direction: "", length: 0, color: UIColor.white, bikeAllowed: true, delay: 0)
     }
 
-    convenience init(with json: JSON) {
-        debugPrint(json)
+    convenience init(destination: String, abbreviation: String, with json: JSON) {
         self.init(
+                destination: destination,
+                abbreviation: abbreviation,
                 minutes: json["minutes"].string!,
                 platform: json["platform"].string!,
                 direction: json["direction"].string!,

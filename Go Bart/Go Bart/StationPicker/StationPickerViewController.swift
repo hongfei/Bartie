@@ -17,16 +17,16 @@ class StationPickerViewController: UITableViewController {
     // inner controls
     var selectedHandler: ((Station) -> Void)?
 
-    override var navigationItem: UINavigationItem {
-        let navigationItem = UINavigationItem(title: barTitle!)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeStationPicker))
-        return navigationItem
+    override func targetViewController(forAction action: Selector, sender: Any?) -> UIViewController? {
+        return super.targetViewController(forAction: action, sender: sender)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = barTitle
         self.view.backgroundColor = UIColor.purple
         self.tableView?.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
+
         if self.stations == nil {
             BartStationService.getAllStations() { stations in
                 self.stations = stations
@@ -36,10 +36,14 @@ class StationPickerViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let stationCell = tableView.dequeueReusableCell(withIdentifier: "StationCollectionCell", for: indexPath) as? StationTableCell
-        stationCell?.setStation(station: (self.stations?[indexPath.row])!)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StationCollectionCell", for: indexPath)
 
-        return stationCell!
+        if let stationCell = cell as? StationTableCell {
+            stationCell.setStation(station: (self.stations?[indexPath.row])!)
+            return stationCell
+        } else {
+            return cell
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,13 +60,7 @@ class StationPickerViewController: UITableViewController {
         if let handler = self.selectedHandler {
             handler(selectedStation)
         }
-        self.selectedHandler = nil
-        self.dismiss(animated: true)
-    }
-
-    @objc func closeStationPicker() {
-        self.selectedHandler = nil
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 
     func withBarTitle(of title: String?) -> StationPickerViewController {

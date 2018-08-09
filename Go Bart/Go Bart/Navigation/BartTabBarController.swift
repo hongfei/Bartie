@@ -13,8 +13,8 @@ class BartTabBarController: UITabBarController {
     init() {
         super.init(nibName: nil, bundle: nil)
         self.viewControllers = [
-            ViewControllerManager.getViewController(of: TrainViewController.self),
-            ViewControllerManager.getViewController(of: FavoriteViewController.self)
+            TrainViewController(),
+            FavoriteViewController()
         ].map { vc in
             UINavigationController(rootViewController: vc)
         }

@@ -27,14 +27,15 @@ class TrainViewController: UIViewController {
         self.trainView = TrainView(view: self.view)
         self.trainView.addFromGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickFromStation)))
         self.trainView.addToGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickToStation)))
+//        self.trainView.onTrainSelected()
     }
 
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
         self.openStationPicker(with: "Pick From Station") { station in
             self.trainView.updateFromStation(from: station)
-            BartScheduleService.getDepartureTime(for: station) { estimatedDepartures in
-                estimatedDepartures.map { departure in
-                    debugPrint(departure.destination, departure.estimate)
+            BartScheduleService.getDepartureTime(for: station) { departures in
+                self.trainView.displayDepartureList(departures: departures) { departure in
+                    debugPrint("selected departure:", departure.destination, departure.minutes)
                 }
             }
         }
@@ -45,10 +46,11 @@ class TrainViewController: UIViewController {
             self.trainView.upToStation(to: station)
         }
     }
-
+    
     private func openStationPicker(with title: String, afterSelected: @escaping (Station) -> Void) {
-        let target = ViewControllerManager.getViewController(of: StationPickerViewController.self)
-                .withBarTitle(of: title).onStationSelected(selectedHandler: afterSelected)
-        self.present(UINavigationController(rootViewController: target), animated: true)
+        self.hidesBottomBarWhenPushed = true
+        let target = StationPickerViewController().withBarTitle(of: title).onStationSelected(selectedHandler: afterSelected)
+        self.show(target, sender: self)
+        self.hidesBottomBarWhenPushed = false
     }
 }
