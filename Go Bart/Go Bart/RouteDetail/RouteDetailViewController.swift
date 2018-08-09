@@ -5,8 +5,7 @@
 
 import UIKit
 
-class RouteDetailNavViewController: UINavigationController {
-
+class RouteDetailNavigationViewController: UINavigationController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -15,19 +14,19 @@ class RouteDetailNavViewController: UINavigationController {
         super.init(nibName: nibName, bundle: bundle)
     }
 
-    init() {
-        super.init(rootViewController: RouteDetailViewController())
+    override init(rootViewController: UIViewController) {
+        super.init(navigationBarClass: RouteDetailNavigationBar.self, toolbarClass: nil)
+        self.pushViewController(rootViewController, animated: false)
+        self.modalPresentationStyle = .overFullScreen
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationBar.backgroundColor = UIColor.clear
-    }
 }
 
 class RouteDetailViewController: UIViewController {
+    var departure: Departure!
+
     override var navigationItem: UINavigationItem {
-        let navItem = UINavigationItem()
+        let navItem = UINavigationItem(title: self.departure.destination)
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeRouteDetail))
         return navItem
     }
@@ -42,10 +41,15 @@ class RouteDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.clear
+        self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
     }
 
     @objc func closeRouteDetail() {
         self.dismiss(animated: true)
+    }
+    
+    func with(departure: Departure) -> RouteDetailViewController {
+        self.departure = departure
+        return self
     }
 }

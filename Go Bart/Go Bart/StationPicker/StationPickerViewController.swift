@@ -63,8 +63,8 @@ class StationPickerViewController: UITableViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
-    func withBarTitle(of title: String?) -> StationPickerViewController {
-        self.barTitle = title
+    func with(barTitle: String?) -> StationPickerViewController {
+        self.barTitle = barTitle
         return self
     }
 

@@ -33,9 +33,9 @@ class TrainViewController: UIViewController {
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
         self.openStationPicker(with: "Pick From Station") { station in
             self.trainView.updateFromStation(from: station)
-            BartScheduleService.getDepartureTime(for: station) { departures in
+            BartScheduleService.getDepartures(for: station) { departures in
                 self.trainView.displayDepartureList(departures: departures) { departure in
-                    self.present(RouteDetailNavViewController(), animated: true)
+                    self.openRouteDetail(with: departure)
                 }
             }
         }
@@ -46,11 +46,17 @@ class TrainViewController: UIViewController {
             self.trainView.upToStation(to: station)
         }
     }
-    
+
     private func openStationPicker(with title: String, afterSelected: @escaping (Station) -> Void) {
         self.hidesBottomBarWhenPushed = true
-        let target = StationPickerViewController().withBarTitle(of: title).onStationSelected(selectedHandler: afterSelected)
+        let target = StationPickerViewController().with(barTitle: title).onStationSelected(selectedHandler: afterSelected)
         self.show(target, sender: self)
         self.hidesBottomBarWhenPushed = false
+    }
+
+    private func openRouteDetail(with departure: Departure) {
+        self.present(RouteDetailNavigationViewController(
+                rootViewController: RouteDetailViewController().with(departure: departure)
+        ), animated: true)
     }
 }
