@@ -29,6 +29,15 @@ class TrainViewController: UIViewController {
         self.trainView = TrainView(view: self.view)
         self.trainView.addFromGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickFromStation)))
         self.trainView.addToGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickToStation)))
+
+        let allStations = DataCache.getStations()
+
+        BartRealTimeService.getSelectedDepartures(for: allStations![0]) { departures in
+            self.trainView.displayDepartureList(departures: departures) { departure in
+//                self.openRouteDetail(from: station, with: departure)
+            }
+        }
+
     }
 
     func setNavigationBar() {
@@ -41,7 +50,7 @@ class TrainViewController: UIViewController {
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
         self.openStationPicker(with: "Pick From Station") { station in
             self.trainView.updateFromStation(from: station)
-            BartRealTimeService.getDepartures(for: station) { departures in
+            BartRealTimeService.getSelectedDepartures(for: station) { departures in
                 self.trainView.displayDepartureList(departures: departures) { departure in
                     self.openRouteDetail(from: station, with: departure)
                 }

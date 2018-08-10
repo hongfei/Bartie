@@ -10,8 +10,16 @@ class BartRealTimeService: BartService {
     static let REALTIME_RESOURCE = "/etd.aspx"
     static let decoder = JSONDecoder()
 
-    public static func getDepartures(for station: Station, completionHandler: @escaping ([Departure]) -> Void) {
-        getResponse(for: REALTIME_RESOURCE, withParams: ["cmd": "etd", "orig": station.abbr]) { result in
+    public static func getSelectedDepartures(for station: Station, completionHandler: @escaping ([Departure]) -> Void) {
+        getDepartures(for: station.abbr, completionHandler: completionHandler)
+    }
+    
+    public static func getAllDepartures(completionHandler: @escaping ([Departure]) -> Void) {
+        getDepartures(for: "ALL", completionHandler: completionHandler)
+    }
+
+    private static func getDepartures(for stationAbbr: String, completionHandler: @escaping ([Departure]) -> Void) {
+        getResponse(for: REALTIME_RESOURCE, withParams: ["cmd": "etd", "orig": stationAbbr]) { result in
             if let jsonResult = result {
                 let optionalDepartures = JSON(jsonResult)["root"]["station"][0]["etd"].array?.map { json in
                     return try! decoder.decode(EstimatedDeparture.self, from: json.rawData())

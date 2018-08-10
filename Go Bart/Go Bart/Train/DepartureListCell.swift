@@ -7,10 +7,18 @@
 //
 
 import UIKit
+import UIColor_Hex_Swift
 
 class DepartureListCell: UITableViewCell {
     var departure: Departure!
-    var name: UILabel!
+
+    var destination: UILabel!
+    var minute: UILabel!
+    var platform: UILabel!
+    var length: UILabel!
+    var bikeflag: UILabel!
+    var delay: UILabel!
+
     var safeArea: UILayoutGuide!
     
     required init?(coder: NSCoder) {
@@ -21,20 +29,35 @@ class DepartureListCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initializeCell()
     }
-    
+
+    override var safeAreaInsets: UIEdgeInsets {
+        return UIEdgeInsetsMake(10, 10, 10, 15)
+    }
+
     func initializeCell() {
-        self.backgroundColor = UIColor.yellow
         self.safeArea = self.safeAreaLayoutGuide
-        
-        name = UILabel()
-        name.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(name)
-        
+
+
+        self.minute = UILabel()
+        self.minute.translatesAutoresizingMaskIntoConstraints = false
+        self.minute.layer.cornerRadius = 20
+        self.addSubview(self.minute)
+
+        self.destination = UILabel()
+        self.destination.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.destination)
+
         NSLayoutConstraint.activate([
-            self.name.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.name.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            self.name.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.name.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor)
+            self.minute.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
+            self.minute.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            self.minute.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            self.minute.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
+            self.minute.widthAnchor.constraint(equalToConstant: 40),
+            self.minute.heightAnchor.constraint(equalToConstant: 40),
+            self.destination.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
+            self.destination.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            self.destination.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            self.destination.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor)
         ])
     }
     
@@ -44,6 +67,8 @@ class DepartureListCell: UITableViewCell {
     }
     
     private func reloadDepartureData() {
-        self.name.text = self.departure.destination! + "    " + self.departure.minutes
+        self.minute.text = self.departure.minutes
+        self.minute.backgroundColor = UIColor(self.departure.hexcolor)
+        self.destination.text = self.departure.destination!
     }
 }

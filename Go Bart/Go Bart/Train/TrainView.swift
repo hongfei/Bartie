@@ -21,7 +21,7 @@ class TrainView {
         self.view.backgroundColor = UIColor.white
 
         placeFromStation()
-        placeToStation()
+        self.view.sizeToFit()
     }
 
     public func placeFromStation() {
@@ -36,9 +36,11 @@ class TrainView {
     }
 
     public func placeToStation() {
-        self.view.addSubview(toStation)
-        toStation.isHidden = true
+        if self.toStation.isDescendant(of: self.view) {
+            return
+        }
 
+        self.view.addSubview(toStation)
         NSLayoutConstraint.activate([
             toStation.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
             toStation.topAnchor.constraint(equalTo: fromStation.bottomAnchor),
@@ -48,10 +50,12 @@ class TrainView {
     }
 
     func updateFromStation(from station: Station) {
+        self.departureListView.removeFromSuperview()
+        placeToStation()
+
         self.fromStation.searchBox.layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         self.toStation.searchBox.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         self.fromStation.reloadStation(station: station)
-        self.toStation.isHidden = false
     }
 
     func upToStation(to station: Station) {
@@ -71,9 +75,16 @@ class TrainView {
         departureListView.setDelegate(delegate: DepartureListDelegate(onSelected: onItemSelected))
         self.view.addSubview(departureListView)
 
+        if self.toStation.isDescendant(of: self.view) {
+            self.departureListView.topAnchor.constraint(equalTo: self.fromStation.bottomAnchor).isActive = false
+            self.departureListView.topAnchor.constraint(equalTo: self.toStation.bottomAnchor).isActive = true
+        } else {
+            self.departureListView.topAnchor.constraint(equalTo: self.toStation.bottomAnchor).isActive = false
+            self.departureListView.topAnchor.constraint(equalTo: self.fromStation.bottomAnchor).isActive = true
+        }
+
         NSLayoutConstraint.activate([
             departureListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            departureListView.topAnchor.constraint(equalTo: toStation.bottomAnchor),
             departureListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             departureListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor)
         ])

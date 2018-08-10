@@ -20,7 +20,6 @@ class FromStationSearchBar: UIView {
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor("#F0F0F0")
-
         placeInputBox()
     }
 
@@ -55,7 +54,6 @@ class ToStationSearchBar: UIView {
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor("#F0F0F0")
-
         placeInputBox()
     }
 
