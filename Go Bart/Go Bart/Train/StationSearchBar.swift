@@ -32,7 +32,7 @@ class FromStationSearchBar: UIView {
             self.searchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             self.searchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             self.searchBox.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            self.searchBox.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
+            self.searchBox.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2)
         ])
     }
 

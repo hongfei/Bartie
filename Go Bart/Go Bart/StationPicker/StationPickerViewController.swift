@@ -14,6 +14,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
 
     // data
     var stations: [Station]?
+    var filteredStations: [Station]?
 
     // inner controls
     var selectedHandler: ((Station) -> Void)?
@@ -25,15 +26,21 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = barTitle
-        self.view.backgroundColor = UIColor.purple
-        self.tableView?.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
-
+        self.view.backgroundColor = UIColor.white
+        self.tableView.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         setSearchController()
 
         BartStationService.getAllStations() { stations in
             self.stations = stations
-            self.tableView?.reloadData()
+            self.filteredStations = stations
+            self.tableView.reloadData()
         }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchController.dismiss(animated: false)
     }
 
     func setSearchController() {
@@ -47,7 +54,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
         let cell = tableView.dequeueReusableCell(withIdentifier: "StationCollectionCell", for: indexPath)
 
         if let stationCell = cell as? StationTableCell {
-            stationCell.setStation(station: (self.stations?[indexPath.row])!)
+            stationCell.setStation(station: (self.filteredStations?[indexPath.row])!)
             return stationCell
         } else {
             return cell
@@ -55,7 +62,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch self.stations {
+        switch self.filteredStations {
         case .some(let stns):
             return stns.count
         case .none:
@@ -64,7 +71,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedStation = (self.stations?[indexPath.row])!
+        let selectedStation = (self.filteredStations?[indexPath.row])!
         if let handler = self.selectedHandler {
             handler(selectedStation)
         }
@@ -81,11 +88,14 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
         return self
     }
     
-    @objc func closeStationPicker() {
-        self.navigationController?.popViewController(animated: true)
-    }
-
     func updateSearchResults(for searchController: UISearchController) {
-
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            filteredStations = self.stations?.filter { station in
+                return station.name.contains(searchText)
+            }
+        } else {
+            filteredStations = self.stations
+        }
+        tableView.reloadData()
     }
 }

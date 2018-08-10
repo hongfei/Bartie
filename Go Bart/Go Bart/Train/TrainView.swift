@@ -31,7 +31,7 @@ class TrainView {
             fromStation.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
             fromStation.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
             fromStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            fromStation.heightAnchor.constraint(equalToConstant: 45)
+            fromStation.heightAnchor.constraint(equalToConstant: 42)
         ])
     }
 
@@ -48,6 +48,8 @@ class TrainView {
     }
 
     func updateFromStation(from station: Station) {
+        self.fromStation.searchBox.layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        self.toStation.searchBox.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         self.fromStation.reloadStation(station: station)
         self.toStation.isHidden = false
     }
