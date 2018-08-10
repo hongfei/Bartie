@@ -35,7 +35,7 @@ class TrainViewController: UIViewController {
             self.trainView.updateFromStation(from: station)
             BartRealTimeService.getDepartures(for: station) { departures in
                 self.trainView.displayDepartureList(departures: departures) { departure in
-                    self.openRouteDetail(with: departure)
+                    self.openRouteDetail(from: station, with: departure)
                 }
             }
         }
@@ -54,9 +54,9 @@ class TrainViewController: UIViewController {
         self.hidesBottomBarWhenPushed = false
     }
 
-    private func openRouteDetail(with departure: Departure) {
+    private func openRouteDetail(from station: Station, with departure: Departure) {
         self.present(RouteDetailNavigationViewController(
-                rootViewController: RouteDetailViewController().with(departure: departure)
+                rootViewController: RouteDetailViewController().with(from: station, departure: departure)
         ), animated: true)
     }
 }

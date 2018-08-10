@@ -10,6 +10,7 @@ target 'Go Bart' do
   pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'UIColor_Hex_Swift', '~> 4.0.2'
+  pod 'Cache'
 
   target 'Go BartTests' do
     inherit! :search_paths

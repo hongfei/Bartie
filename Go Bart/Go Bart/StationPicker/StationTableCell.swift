@@ -41,6 +41,6 @@ class StationTableCell: UITableViewCell {
     }
     
     private func reloadStationData() {
-        self.name.text = self.station.abbr
+        self.name.text = self.station.name
     }
 }

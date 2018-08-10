@@ -11,18 +11,22 @@ class BartStationService: BartService {
     static let decoder = JSONDecoder()
 
     public static func getAllStations(completionHandler: @escaping ([Station]) -> Void) {
-        //TODO loading from cache first
-        getResponse(for: STATION_RESOURCE, withParams: ["cmd": "stns"]) { result in
-            if let jsonResult = result {
-                let optionalStations = JSON(jsonResult)["root"]["stations"]["station"].array?.map { json in
-                    return try! decoder.decode(Station.self, from: json.rawData())
+        if let stations = DataCache.getStations() {
+            completionHandler(stations)
+        } else {
+            getResponse(for: STATION_RESOURCE, withParams: ["cmd": "stns"]) { result in
+                if let jsonResult = result {
+                    let optionalStations = JSON(jsonResult)["root"]["stations"]["station"].array?.map { json in
+                        return try! decoder.decode(Station.self, from: json.rawData())
+                    }
+                    if let stations = optionalStations {
+                        DataCache.storeStations(stations: stations)
+                        return completionHandler(stations)
+                    }
                 }
-                if let stations = optionalStations {
-                    return completionHandler(stations)
-                }
-            }
 
-            return completionHandler([])
+                return completionHandler([])
+            }
         }
     }
 }

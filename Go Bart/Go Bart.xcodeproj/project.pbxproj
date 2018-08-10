@@ -16,7 +16,7 @@
 		413076ABAAF5C14E6ED12C12 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413070C79BE5647A30B97FD0 /* Route.swift */; };
 		413078787EE2B8AE573A173E /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130719292C09DE7B9E02C76 /* RouteDetailViewController.swift */; };
 		4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 41307814C2BF08E75FBBC622 /* .gitignore */; };
-		41307992B6D7FDD86116FEE4 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307173079DB74D48953F63 /* DataStore.swift */; };
+		41307992B6D7FDD86116FEE4 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307173079DB74D48953F63 /* DataCache.swift */; };
 		413079AC61F58CE0CD1FE493 /* BartRouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DD9B46A122DFF3DCD7C /* BartRouteService.swift */; };
 		41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076193A7889F204B1D7AF /* BartTabBarController.swift */; };
 		41307C39E3DCD59A7767537B /* DepartureListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307EEC1B69B23AB5A3D547 /* DepartureListDelegate.swift */; };
@@ -61,7 +61,7 @@
 		14B10E3A7BC962EA8D378EAB /* Pods-Go Bart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go Bart.release.xcconfig"; path = "Pods/Target Support Files/Pods-Go Bart/Pods-Go Bart.release.xcconfig"; sourceTree = "<group>"; };
 		17EFFA8F10A0314365971789 /* Pods-Go BartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go BartTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Go BartTests/Pods-Go BartTests.release.xcconfig"; sourceTree = "<group>"; };
 		413070C79BE5647A30B97FD0 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
-		41307173079DB74D48953F63 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		41307173079DB74D48953F63 /* DataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
 		4130719292C09DE7B9E02C76 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		413071984BF6EB8C05A0B4B9 /* StationTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationTableCell.swift; sourceTree = "<group>"; };
 		41307265F3BBE45AF644BE96 /* RouteDetailNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailNavigationBar.swift; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 		4130704AB2690CD3DB918C1C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				41307173079DB74D48953F63 /* DataStore.swift */,
+				41307173079DB74D48953F63 /* DataCache.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -482,12 +482,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Go Bart/Pods-Go Bart-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/UIColor_Hex_Swift/UIColor_Hex_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIColor_Hex_Swift.framework",
 			);
@@ -525,7 +527,7 @@
 				41307D62B68984D10FC68B5D /* BartRealTimeService.swift in Sources */,
 				413079AC61F58CE0CD1FE493 /* BartRouteService.swift in Sources */,
 				413076ABAAF5C14E6ED12C12 /* Route.swift in Sources */,
-				41307992B6D7FDD86116FEE4 /* DataStore.swift in Sources */,
+				41307992B6D7FDD86116FEE4 /* DataCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

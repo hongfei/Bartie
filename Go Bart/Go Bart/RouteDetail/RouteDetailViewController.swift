@@ -19,14 +19,16 @@ class RouteDetailNavigationViewController: UINavigationController {
         self.pushViewController(rootViewController, animated: false)
         self.modalPresentationStyle = .overFullScreen
     }
-
 }
 
 class RouteDetailViewController: UIViewController {
     var departure: Departure!
+    var station: Station!
+
+    var stationList: UITextView!
 
     override var navigationItem: UINavigationItem {
-        let navItem = UINavigationItem(title: self.departure.abbreviation!)
+        let navItem = UINavigationItem(title: self.departure.destination!)
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeRouteDetail))
         return navItem
     }
@@ -41,15 +43,37 @@ class RouteDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
+        self.view.backgroundColor = UIColor.gray
+
+        self.stationList = UITextView()
+        self.stationList.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.stationList)
+        NSLayoutConstraint.activate([
+            self.stationList.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.stationList.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.stationList.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.stationList.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+
+        BartRouteService.getAllRoutes() { routes in
+            let foundRoute = routes.filter { route in
+                return route.hexcolor == self.departure.hexcolor && route.abbr.hasSuffix(self.departure.abbreviation!)
+            }.first
+            if let route = foundRoute {
+                BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
+                    self.stationList.text = routeDetail.config.station.joined(separator: "\n")
+                }
+            }
+        }
     }
 
     @objc func closeRouteDetail() {
         self.dismiss(animated: true)
     }
-    
-    func with(departure: Departure) -> RouteDetailViewController {
+
+    func with(from station: Station, departure: Departure) -> RouteDetailViewController {
         self.departure = departure
+        self.station = station
         return self
     }
 }

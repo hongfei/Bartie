@@ -29,7 +29,7 @@ class DetailRoute: Codable {
     let abbr: String
     let routeID: String
     let number: String
-    let hexColor: String
+    let hexcolor: String
     let color: String
     let origin: String
     let destination: String
@@ -38,13 +38,13 @@ class DetailRoute: Codable {
     let num_stns: String
     let config: RouteConfig
 
-    init(name: String, abbr: String, routeID: String, number: String, hexColor: String, color: String, origin: String,
+    init(name: String, abbr: String, routeID: String, number: String, hexcolor: String, color: String, origin: String,
          destination: String, direction: String, holidays: String, num_stns: String, config: RouteConfig) {
         self.name = name
         self.abbr = abbr
         self.routeID = routeID
         self.number = number
-        self.hexColor = hexColor
+        self.hexcolor = hexcolor
         self.color = color
         self.origin = origin
         self.destination = destination
