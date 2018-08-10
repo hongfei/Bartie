@@ -56,12 +56,18 @@ class RouteDetailViewController: UIViewController {
         ])
 
         BartRouteService.getAllRoutes() { routes in
-            let foundRoute = routes.filter { route in
-                return route.hexcolor == self.departure.hexcolor && route.abbr.hasSuffix(self.departure.abbreviation!)
-            }.first
-            if let route = foundRoute {
+            if let route = routes.first(where: { route in route.hexcolor == self.departure.hexcolor }) {
                 BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
-                    self.stationList.text = routeDetail.config.station.joined(separator: "\n")
+                    let stations = routeDetail.config.station
+                    let start = stations.index(of: self.station.abbr)!
+                    let end = stations.index(of: self.departure.abbreviation!)!
+                    var choppedStations: [String] = []
+                    if start < end {
+                        choppedStations = Array(stations[start...end])
+                    } else {
+                        choppedStations = Array(stations[end...start]).reversed()
+                    }
+                    self.stationList.text = choppedStations.joined(separator: "\n")
                 }
             }
         }
