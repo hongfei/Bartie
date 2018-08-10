@@ -8,12 +8,15 @@ import SwiftyJSON
 
 class BartStationService: BartService {
     static let STATION_RESOURCE = "/stn.aspx"
+    static let decoder = JSONDecoder()
 
     public static func getAllStations(completionHandler: @escaping ([Station]) -> Void) {
         //TODO loading from cache first
         getResponse(for: STATION_RESOURCE, withParams: ["cmd": "stns"]) { result in
             if let jsonResult = result {
-                let optionalStations = JSON(jsonResult)["root"]["stations"]["station"].array?.map { json in Station(with: json) }
+                let optionalStations = JSON(jsonResult)["root"]["stations"]["station"].array?.map { json in
+                    return try! decoder.decode(Station.self, from: json.rawData())
+                }
                 if let stations = optionalStations {
                     return completionHandler(stations)
                 }

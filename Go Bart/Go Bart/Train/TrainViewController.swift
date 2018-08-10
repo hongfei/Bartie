@@ -33,7 +33,7 @@ class TrainViewController: UIViewController {
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
         self.openStationPicker(with: "Pick From Station") { station in
             self.trainView.updateFromStation(from: station)
-            BartScheduleService.getDepartures(for: station) { departures in
+            BartRealTimeService.getDepartures(for: station) { departures in
                 self.trainView.displayDepartureList(departures: departures) { departure in
                     self.openRouteDetail(with: departure)
                 }

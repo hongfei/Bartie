@@ -26,7 +26,7 @@ class RouteDetailViewController: UIViewController {
     var departure: Departure!
 
     override var navigationItem: UINavigationItem {
-        let navItem = UINavigationItem(title: self.departure.destination)
+        let navItem = UINavigationItem(title: self.departure.abbreviation!)
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeRouteDetail))
         return navItem
     }

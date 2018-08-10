@@ -7,20 +7,13 @@ import Foundation
 import SwiftyJSON
 
 class BartScheduleService: BartService {
-    static let STATION_RESOURCE = "/etd.aspx"
-
-    public static func getDepartures(for station: Station, completionHandler: @escaping ([Departure]) -> Void) {
-        getResponse(for: STATION_RESOURCE, withParams: ["cmd": "etd", "orig": station.abbr]) { result in
-            if let jsonResult = result {
-                let optionalDepartures = JSON(jsonResult)["root"]["station"][0]["etd"].array?.map { json in EstimatedDeparture(with: json) }
-                if let departures = optionalDepartures {
-                    let deps = departures.reduce([], { (result: [Departure], departure: EstimatedDeparture) in
-                        result + departure.estimate
-                    })
-                    return completionHandler(deps)
-                }
-            }
-            completionHandler([])
-        }
-    }
+    static let SCHEDULE_RESOURCE = "/sched.aspx"
+//    static func getSingleTripPlan(from: Station, to: Station, index: Int ,completionHandler: @escaping (Trip) -> Void) {
+//        getResponse(
+//                for: SCHEDULE_RESOURCE,
+//                withParams: ["cmd": "arrive", "orig": from.abbr, "dest": to.abbr, "a": "3", "b": "0"]
+//        ) { response in
+//            debugPrint(response)
+//        }
+//    }
 }
