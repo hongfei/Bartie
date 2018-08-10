@@ -6,10 +6,11 @@
 import UIKit
 
 
-class StationPickerViewController: UITableViewController {
+class StationPickerViewController: UITableViewController, UISearchResultsUpdating {
     // elements
     var safeArea: UILayoutGuide!
-    var barTitle: String?
+    var barTitle: String!
+    let searchController = UISearchController(searchResultsController: nil)
 
     // data
     var stations: [Station]?
@@ -27,12 +28,19 @@ class StationPickerViewController: UITableViewController {
         self.view.backgroundColor = UIColor.purple
         self.tableView?.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
 
-        if self.stations == nil {
-            BartStationService.getAllStations() { stations in
-                self.stations = stations
-                self.tableView?.reloadData()
-            }
+        setSearchController()
+
+        BartStationService.getAllStations() { stations in
+            self.stations = stations
+            self.tableView?.reloadData()
         }
+    }
+
+    func setSearchController() {
+        self.searchController.searchResultsUpdater = self
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = false
+        self.tableView.tableHeaderView = self.searchController.searchBar
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,5 +79,13 @@ class StationPickerViewController: UITableViewController {
     func onStationSelected(selectedHandler: @escaping (Station) -> Void) -> StationPickerViewController {
         self.selectedHandler = selectedHandler
         return self
+    }
+    
+    @objc func closeStationPicker() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    func updateSearchResults(for searchController: UISearchController) {
+
     }
 }

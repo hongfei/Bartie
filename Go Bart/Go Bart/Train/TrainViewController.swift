@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import UIColor_Hex_Swift
 
 class TrainViewController: UIViewController {
     var trainView: TrainView!
@@ -24,10 +25,17 @@ class TrainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar()
         self.trainView = TrainView(view: self.view)
         self.trainView.addFromGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickFromStation)))
         self.trainView.addToGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickToStation)))
-//        self.trainView.onTrainSelected()
+    }
+
+    func setNavigationBar() {
+        self.navigationController?.navigationBar.barTintColor = UIColor("#3359D1")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }
 
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {

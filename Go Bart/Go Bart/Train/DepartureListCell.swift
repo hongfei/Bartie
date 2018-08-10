@@ -44,6 +44,6 @@ class DepartureListCell: UITableViewCell {
     }
     
     private func reloadDepartureData() {
-        self.name.text = self.departure.destination
+        self.name.text = self.departure.destination! + "    " + self.departure.minutes
     }
 }
