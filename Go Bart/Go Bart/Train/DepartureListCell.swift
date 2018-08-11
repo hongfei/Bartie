@@ -54,13 +54,16 @@ class DepartureListCell: UITableViewCell {
         self.length.font = UIFont(name: self.length.font.fontName, size: 13)
         self.addSubview(self.length)
 
-        self.bikeflag = UIImageView(image: UIImage(icon: .fontAwesomeSolid(.bicycle), size: CGSize(width: 13, height: 13)))
-        self.bikeflag.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(self.bikeflag)
-
         self.platform = UILabel()
         self.platform.translatesAutoresizingMaskIntoConstraints = false
+        self.platform.font = UIFont(name: self.platform.font.fontName, size: 13)
         self.addSubview(self.platform)
+
+        self.delay = UILabel()
+        self.delay.translatesAutoresizingMaskIntoConstraints = false
+        self.delay.font = UIFont(name: self.delay.font.fontName, size: 13)
+        self.delay.isHidden = true
+        self.addSubview(self.delay)
 
         NSLayoutConstraint.activate([
             self.minute.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
@@ -69,17 +72,25 @@ class DepartureListCell: UITableViewCell {
             self.minute.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
             self.minute.widthAnchor.constraint(equalToConstant: 50),
             self.minute.heightAnchor.constraint(equalToConstant: 50),
+
             self.destination.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
             self.destination.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
             self.destination.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
-            self.length.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+
+            self.platform.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            self.platform.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            self.platform.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
+            self.platform.heightAnchor.constraint(equalToConstant: 15),
+
+            self.length.topAnchor.constraint(equalTo: self.platform.bottomAnchor, constant: 2),
             self.length.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             self.length.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
             self.length.heightAnchor.constraint(equalToConstant: 15),
-            self.bikeflag.topAnchor.constraint(equalTo: self.length.bottomAnchor),
-            self.bikeflag.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.bikeflag.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
-            self.bikeflag.heightAnchor.constraint(equalToConstant: 15),
+
+            self.delay.topAnchor.constraint(equalTo: self.length.bottomAnchor, constant: 2),
+            self.delay.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            self.delay.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
+            self.delay.heightAnchor.constraint(equalToConstant: 15),
         ])
     }
     
@@ -93,5 +104,8 @@ class DepartureListCell: UITableViewCell {
         self.minute.layer.backgroundColor = UIColor(self.departure.hexcolor).cgColor
         self.destination.text = self.departure.destination!
         self.length.text = self.departure.length + " cars"
+        self.platform.text = "Platform " + self.departure.platform
+        self.delay.text = "Delay: " + String(Int(self.departure.delay)! / 60) + " min"
+        self.delay.isHidden = self.departure.delay == "0"
     }
 }

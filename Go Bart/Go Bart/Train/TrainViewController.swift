@@ -33,7 +33,7 @@ class TrainViewController: UIViewController {
         let allStations = DataCache.getStations()
 
         BartRealTimeService.getSelectedDepartures(for: allStations![0]) { departures in
-            self.trainView.displayDepartureList(departures: departures) { departure in
+            self.trainView.updateDepartureList(departures: departures) { departure in
 //                self.openRouteDetail(from: station, with: departure)
             }
         }
@@ -51,7 +51,7 @@ class TrainViewController: UIViewController {
         self.openStationPicker(with: "Pick From Station") { station in
             self.trainView.updateFromStation(from: station)
             BartRealTimeService.getSelectedDepartures(for: station) { departures in
-                self.trainView.displayDepartureList(departures: departures) { departure in
+                self.trainView.updateDepartureList(departures: departures) { departure in
                     self.openRouteDetail(from: station, with: departure)
                 }
             }

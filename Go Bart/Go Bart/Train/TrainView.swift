@@ -21,6 +21,7 @@ class TrainView {
         self.view.backgroundColor = UIColor.white
 
         placeFromStation()
+        placeDepartureList()
         self.view.sizeToFit()
     }
 
@@ -39,6 +40,9 @@ class TrainView {
         if self.toStation.isDescendant(of: self.view) {
             return
         }
+        if self.departureListView.isDescendant(of: self.view) {
+            self.departureListView.removeFromSuperview()
+        }
 
         self.view.addSubview(toStation)
         NSLayoutConstraint.activate([
@@ -47,10 +51,29 @@ class TrainView {
             toStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             toStation.heightAnchor.constraint(equalToConstant: 40)
         ])
+
+        placeDepartureList()
+    }
+
+    public func placeDepartureList() {
+        self.view.addSubview(self.departureListView)
+
+        if self.toStation.isDescendant(of: self.view) {
+            self.departureListView.topAnchor.constraint(equalTo: self.fromStation.bottomAnchor).isActive = false
+            self.departureListView.topAnchor.constraint(equalTo: self.toStation.bottomAnchor).isActive = true
+        } else {
+            self.departureListView.topAnchor.constraint(equalTo: self.toStation.bottomAnchor).isActive = false
+            self.departureListView.topAnchor.constraint(equalTo: self.fromStation.bottomAnchor).isActive = true
+        }
+
+        NSLayoutConstraint.activate([
+            departureListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
+            departureListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            departureListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor)
+        ])
     }
 
     func updateFromStation(from station: Station) {
-        self.departureListView.removeFromSuperview()
         placeToStation()
 
         self.fromStation.searchBox.layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -70,24 +93,14 @@ class TrainView {
         self.toStation.addGestureRecognizer(gestureRecognizer)
     }
 
-    func displayDepartureList(departures: [Departure], onItemSelected: @escaping (Departure) -> Void) -> Void {
+    func updateDepartureList(departures: [Departure], onItemSelected: @escaping (Departure) -> Void) -> Void {
         departureListView.setDataSource(dataSource: DepartureListDataSource(departures: departures))
         departureListView.setDelegate(delegate: DepartureListDelegate(onSelected: onItemSelected))
-        self.view.addSubview(departureListView)
+        departureListView.reloadData()
 
-        if self.toStation.isDescendant(of: self.view) {
-            self.departureListView.topAnchor.constraint(equalTo: self.fromStation.bottomAnchor).isActive = false
-            self.departureListView.topAnchor.constraint(equalTo: self.toStation.bottomAnchor).isActive = true
-        } else {
-            self.departureListView.topAnchor.constraint(equalTo: self.toStation.bottomAnchor).isActive = false
-            self.departureListView.topAnchor.constraint(equalTo: self.fromStation.bottomAnchor).isActive = true
+        if (departures.count > 0) {
+            departureListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         }
-
-        NSLayoutConstraint.activate([
-            departureListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            departureListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            departureListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor)
-        ])
     }
 
 }
