@@ -8,6 +8,7 @@
 
 import UIKit
 import UIColor_Hex_Swift
+import SwiftIcons
 
 class DepartureListCell: UITableViewCell {
     var departure: Departure!
@@ -16,7 +17,7 @@ class DepartureListCell: UITableViewCell {
     var minute: UILabel!
     var platform: UILabel!
     var length: UILabel!
-    var bikeflag: UILabel!
+    var bikeflag: UIImageView!
     var delay: UILabel!
 
     var safeArea: UILayoutGuide!
@@ -40,24 +41,45 @@ class DepartureListCell: UITableViewCell {
 
         self.minute = UILabel()
         self.minute.translatesAutoresizingMaskIntoConstraints = false
-        self.minute.layer.cornerRadius = 20
+        self.minute.layer.cornerRadius = 25
+        self.minute.textAlignment = .center
         self.addSubview(self.minute)
 
         self.destination = UILabel()
         self.destination.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.destination)
 
+        self.length = UILabel()
+        self.length.translatesAutoresizingMaskIntoConstraints = false
+        self.length.font = UIFont(name: self.length.font.fontName, size: 13)
+        self.addSubview(self.length)
+
+        self.bikeflag = UIImageView(image: UIImage(icon: .fontAwesomeSolid(.bicycle), size: CGSize(width: 13, height: 13)))
+        self.bikeflag.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.bikeflag)
+
+        self.platform = UILabel()
+        self.platform.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.platform)
+
         NSLayoutConstraint.activate([
             self.minute.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
             self.minute.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
             self.minute.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
             self.minute.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
-            self.minute.widthAnchor.constraint(equalToConstant: 40),
-            self.minute.heightAnchor.constraint(equalToConstant: 40),
+            self.minute.widthAnchor.constraint(equalToConstant: 50),
+            self.minute.heightAnchor.constraint(equalToConstant: 50),
             self.destination.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
-            self.destination.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             self.destination.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.destination.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor)
+            self.destination.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
+            self.length.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            self.length.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            self.length.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
+            self.length.heightAnchor.constraint(equalToConstant: 15),
+            self.bikeflag.topAnchor.constraint(equalTo: self.length.bottomAnchor),
+            self.bikeflag.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            self.bikeflag.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
+            self.bikeflag.heightAnchor.constraint(equalToConstant: 15),
         ])
     }
     
@@ -68,7 +90,8 @@ class DepartureListCell: UITableViewCell {
     
     private func reloadDepartureData() {
         self.minute.text = self.departure.minutes
-        self.minute.backgroundColor = UIColor(self.departure.hexcolor)
+        self.minute.layer.backgroundColor = UIColor(self.departure.hexcolor).cgColor
         self.destination.text = self.departure.destination!
+        self.length.text = self.departure.length + " cars"
     }
 }

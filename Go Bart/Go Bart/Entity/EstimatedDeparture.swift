@@ -21,7 +21,7 @@ class EstimatedDeparture: Codable {
 class Departure: Codable {
     var destination: String?
     var abbreviation: String?
-    let minutes: String
+    var minutes: String
     let platform: String
     let direction: String
     let length: String
