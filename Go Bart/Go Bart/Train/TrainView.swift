@@ -14,11 +14,15 @@ class TrainView {
     var toStation: ToStationSearchBar = ToStationSearchBar()
 
     var departureListView: DepartureListView = DepartureListView()
+    var tripListView: TripListView = TripListView()
 
     init(view: UIView) {
         self.view = view
         self.safeArea = self.view.safeAreaLayoutGuide
         self.view.backgroundColor = UIColor.white
+
+        self.departureListView.refreshControl = UIRefreshControl()
+        self.tripListView.refreshControl = UIRefreshControl()
 
         placeFromStation()
         placeDepartureList()
@@ -37,22 +41,16 @@ class TrainView {
     }
 
     public func placeToStation() {
-        if self.toStation.isDescendant(of: self.view) {
-            return
-        }
-        if self.departureListView.isDescendant(of: self.view) {
-            self.departureListView.removeFromSuperview()
-        }
-
         self.view.addSubview(toStation)
+        self.fromStation.searchBox.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        self.toStation.searchBox.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+
         NSLayoutConstraint.activate([
             toStation.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
             toStation.topAnchor.constraint(equalTo: fromStation.bottomAnchor),
             toStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             toStation.heightAnchor.constraint(equalToConstant: 40)
         ])
-
-        placeDepartureList()
     }
 
     public func placeDepartureList() {
@@ -73,16 +71,33 @@ class TrainView {
         ])
     }
 
-    func updateFromStation(from station: Station) {
-        placeToStation()
+    public func placeTripList() {
+        self.view.addSubview(self.tripListView)
 
-        self.fromStation.searchBox.layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        self.toStation.searchBox.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        self.fromStation.reloadStation(station: station)
+        NSLayoutConstraint.activate([
+            tripListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
+            tripListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            tripListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
+            tripListView.topAnchor.constraint(equalTo: self.toStation.bottomAnchor)
+        ])
     }
 
-    func upToStation(to station: Station) {
+    func updateFromStation(from station: Station) {
+        self.departureListView.removeFromSuperview()
+        self.tripListView.removeFromSuperview()
+        if !self.toStation.isDescendant(of: self.view) {
+            placeToStation()
+        }
+        self.fromStation.reloadStation(station: station)
+        self.toStation.reloadStation(station: nil)
+        placeDepartureList()
+    }
+
+    func updateToStation(to station: Station) {
+        self.departureListView.removeFromSuperview()
+        self.tripListView.removeFromSuperview()
         self.toStation.reloadStation(station: station)
+        placeTripList()
     }
 
     func addFromGesture(gestureRecognizer: UIGestureRecognizer) {
@@ -101,6 +116,17 @@ class TrainView {
         if (departures.count > 0) {
             departureListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         }
+        departureListView.refreshControl?.endRefreshing()
     }
 
+    func updateTripList(trips: [Trip], onItemSelected: @escaping (Trip) -> Void) -> Void {
+        tripListView.setDataSource(dataSource: TripListDataSource(trips: trips))
+        tripListView.setDelegate(delegate: TripListDelegate(onSelected: onItemSelected))
+        tripListView.reloadData()
+
+        if (trips.count > 0) {
+            tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
+        tripListView.refreshControl?.endRefreshing()
+    }
 }

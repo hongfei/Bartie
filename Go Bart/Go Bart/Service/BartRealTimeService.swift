@@ -26,7 +26,7 @@ class BartRealTimeService: BartService {
                 }
                 if let departures = optionalDepartures {
                     let deps: [Departure] = departures.reduce([], { (result: [Departure], departure: EstimatedDeparture) in
-                        result + departure.estimate.map { dep in
+                        result + departure.estimate.enumerated().map { (index, dep) in
                             dep.destination = departure.destination
                             dep.abbreviation = departure.abbreviation
                             if dep.minutes == "Leaving" {

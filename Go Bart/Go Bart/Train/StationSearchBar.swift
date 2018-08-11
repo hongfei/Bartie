@@ -19,7 +19,7 @@ class FromStationSearchBar: UIView {
         super.init(frame: frame)
 
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor("#F0F0F0")
+        self.backgroundColor = UIColor("#E0E0E0")
         placeInputBox()
     }
 
@@ -53,7 +53,7 @@ class ToStationSearchBar: UIView {
         super.init(frame: frame)
 
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor("#F0F0F0")
+        self.backgroundColor = UIColor("#E0E0E0")
         placeInputBox()
     }
 
@@ -70,9 +70,14 @@ class ToStationSearchBar: UIView {
         ])
     }
 
-    func reloadStation(station: Station) {
-        self.searchBox.text = station.name
-        self.searchBox.leftViewMode = .never
+    func reloadStation(station: Station?) {
+        if let stat = station {
+            self.searchBox.text = stat.name
+            self.searchBox.leftViewMode = .never
+        } else {
+            self.searchBox.text = nil
+            self.searchBox.leftViewMode = .always
+        }
     }
 }
 
@@ -101,8 +106,8 @@ class SearchBoxField: UITextField {
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .white
-        self.layer.borderColor = UIColor("#E0E0E0").cgColor
-        self.layer.cornerRadius = 8
+        self.layer.borderColor = UIColor("#D0D0D0").cgColor
+        self.layer.cornerRadius = 10
 
         self.textAlignment = .center
         self.leftViewMode = .always

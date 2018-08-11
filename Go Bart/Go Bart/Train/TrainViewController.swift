@@ -10,8 +10,8 @@ import SwiftIcons
 class TrainViewController: UIViewController {
     var trainView: TrainView!
 
-    var fromStationData: Station?
-    var toStationData: Station?
+    var fromStationData: Station!
+    var toStationData: Station!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -29,14 +29,8 @@ class TrainViewController: UIViewController {
         self.trainView = TrainView(view: self.view)
         self.trainView.addFromGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickFromStation)))
         self.trainView.addToGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickToStation)))
-
-        let allStations = DataCache.getStations()
-
-        BartRealTimeService.getSelectedDepartures(for: allStations![0]) { departures in
-            self.trainView.updateDepartureList(departures: departures) { departure in
-//                self.openRouteDetail(from: station, with: departure)
-            }
-        }
+        self.trainView.departureListView.refreshControl?.addTarget(self, action: #selector(updateDepartureList), for: .valueChanged)
+        self.trainView.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
 
     }
 
@@ -50,17 +44,32 @@ class TrainViewController: UIViewController {
     @objc func pickFromStation(_ sender: UIGestureRecognizer) {
         self.openStationPicker(with: "Pick From Station") { station in
             self.trainView.updateFromStation(from: station)
-            BartRealTimeService.getSelectedDepartures(for: station) { departures in
-                self.trainView.updateDepartureList(departures: departures) { departure in
-                    self.openRouteDetail(from: station, with: departure)
-                }
-            }
+            self.fromStationData = station
+            self.updateDepartureList()
         }
     }
 
     @objc func pickToStation(_ sender: UIGestureRecognizer) {
-        self.openStationPicker(with: "Pick To Station") { station in
-            self.trainView.upToStation(to: station)
+        self.openStationPicker(with: "Pick Destination") { station in
+            self.trainView.updateToStation(to: station)
+            self.toStationData = station
+            self.updateTripList()
+        }
+    }
+
+    @objc func updateDepartureList() {
+        BartRealTimeService.getSelectedDepartures(for: self.fromStationData) { departures in
+            self.trainView.updateDepartureList(departures: departures) { departure in
+                self.openRouteDetail(from: self.fromStationData, departure: departure)
+            }
+        }
+    }
+
+    @objc func updateTripList() {
+        BartScheduleService.getTripPlan(from: self.fromStationData, to: self.toStationData) { trips in
+            self.trainView.updateTripList(trips: trips) { trip in
+                self.openRouteDetail(from: self.fromStationData, to: self.toStationData, trip: trip)
+            }
         }
     }
 
@@ -71,9 +80,9 @@ class TrainViewController: UIViewController {
         self.hidesBottomBarWhenPushed = false
     }
 
-    private func openRouteDetail(from station: Station, with departure: Departure) {
+    private func openRouteDetail(from station: Station, to destination: Station? = nil, departure: Departure? = nil, trip: Trip? = nil) {
         self.present(RouteDetailNavigationViewController(
-                rootViewController: RouteDetailViewController().with(from: station, departure: departure)
+                rootViewController:RouteDetailViewController().with(from: station, to: destination, departure: departure, trip: trip)
         ), animated: true)
     }
 }
