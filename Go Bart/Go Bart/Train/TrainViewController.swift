@@ -27,8 +27,6 @@ class TrainViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBar()
         self.trainView = TrainView(view: self.view)
-        self.trainView.addFromGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickFromStation)))
-        self.trainView.addToGesture(gestureRecognizer: UITapGestureRecognizer(target: self, action: #selector(pickToStation)))
         self.trainView.departureListView.refreshControl?.addTarget(self, action: #selector(updateDepartureList), for: .valueChanged)
         self.trainView.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
 

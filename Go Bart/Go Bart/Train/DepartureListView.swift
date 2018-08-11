@@ -5,9 +5,9 @@
 
 import UIKit
 
-class DepartureListView: UITableView {
-    var departureDelegate: DepartureListDelegate!
-    var departureDataSource: DepartureListDataSource!
+class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource {
+    var departures: [Departure] = []
+    var departureListViewDelegate: DepartureListViewDelegate?
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -16,18 +16,29 @@ class DepartureListView: UITableView {
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.delegate = self
+        self.dataSource = self
         self.register(DepartureListCell.self, forCellReuseIdentifier: "DepartureListCell")
     }
 
-    func setDelegate(delegate: DepartureListDelegate) {
-        self.departureDelegate = delegate
-        self.delegate = delegate
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? DepartureListCell {
+            self.departureListViewDelegate?.onItemSelected(departure: cell.departure)
+        }
     }
 
-    func setDataSource(dataSource: DepartureListDataSource) {
-        self.departureDataSource = dataSource
-        self.dataSource = dataSource
-        self.reloadData()
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.departures.count
     }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DepartureListCell", for: indexPath) as! DepartureListCell
+        cell.setDeparture(departure: departures[indexPath.row])
+
+        return cell
+    }
+}
+
+protocol DepartureListViewDelegate {
+    func onItemSelected(departure: Departure)
 }
