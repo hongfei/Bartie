@@ -5,6 +5,7 @@
 
 import UIKit
 import UIColor_Hex_Swift
+import SwiftIcons
 
 class TrainViewController: UIViewController {
     var trainView: TrainView!
@@ -19,8 +20,7 @@ class TrainViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         self.title = "Trains"
-        self.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        self.tabBarItem.title = "Trains"
+        self.tabBarItem = UITabBarItem(title: "Train", image: UIImage(icon: .fontAwesomeSolid(.subway), size: CGSize(width: 32, height: 32)), tag: 0)
     }
 
     override func viewDidLoad() {

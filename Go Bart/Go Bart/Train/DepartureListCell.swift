@@ -21,11 +21,11 @@ class DepartureListCell: UITableViewCell {
     var delay: UILabel!
 
     var safeArea: UILayoutGuide!
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initializeCell()
@@ -37,7 +37,6 @@ class DepartureListCell: UITableViewCell {
 
     func initializeCell() {
         self.safeArea = self.safeAreaLayoutGuide
-
 
         self.minute = UILabel()
         self.minute.translatesAutoresizingMaskIntoConstraints = false
@@ -93,12 +92,12 @@ class DepartureListCell: UITableViewCell {
             self.delay.heightAnchor.constraint(equalToConstant: 15),
         ])
     }
-    
+
     func setDeparture(departure: Departure) {
         self.departure = departure
         reloadDepartureData()
     }
-    
+
     private func reloadDepartureData() {
         self.minute.text = self.departure.minutes
         self.minute.layer.backgroundColor = UIColor(self.departure.hexcolor).cgColor
