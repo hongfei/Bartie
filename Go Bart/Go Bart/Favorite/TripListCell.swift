@@ -43,6 +43,7 @@ class TripListCell: UITableViewCell {
 
         self.destLabel = UILabel()
         self.destLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.destLabel.font = UIFont(name: self.destLabel.font.fontName, size: 20)
         self.destLabel.adjustsFontSizeToFitWidth = true
         self.destLabel.minimumScaleFactor = 0.5
         self.addSubview(self.destLabel)
@@ -60,14 +61,14 @@ class TripListCell: UITableViewCell {
             self.minute.bottomAnchor.constraint(lessThanOrEqualTo: self.safeArea.bottomAnchor, constant: -10),
             self.minute.widthAnchor.constraint(equalToConstant: 50),
             self.minute.heightAnchor.constraint(equalToConstant: 50),
-            self.destLabel.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
+            self.destLabel.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
             self.destLabel.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             self.destLabel.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
             self.destLabel.heightAnchor.constraint(equalToConstant: 25),
-            self.departStation.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
+            self.departStation.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
             self.departStation.topAnchor.constraint(equalTo: self.destLabel.bottomAnchor),
             self.departStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.departStation.bottomAnchor.constraint(equalTo: self.destLabel.bottomAnchor, constant: 15)
+            self.departStation.bottomAnchor.constraint(equalTo: self.destLabel.bottomAnchor, constant: 20)
         ])
     }
     
@@ -89,7 +90,7 @@ class TripListCell: UITableViewCell {
             self.departStation.loadData(
                     time: first.1,
                     station: self.station.name,
-                    symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: UIColor.red, backgroundColor: UIColor.clear)
+                    symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.red, backgroundColor: UIColor.clear)
             )
             self.middleStations.forEach({ station in station.removeFromSuperview() })
             self.middleStations = []
@@ -101,14 +102,14 @@ class TripListCell: UITableViewCell {
                 st.loadData(
                         time: middle.1,
                         station: stationsMap[middle.0]?.name,
-                        symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 5, height: 5), textColor: UIColor.gray, backgroundColor: UIColor.clear)
+                        symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: UIColor.gray, backgroundColor: UIColor.clear)
                 )
                 self.addSubview(st)
                 NSLayoutConstraint.activate([
-                    st.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
+                    st.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
                     st.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
                     st.topAnchor.constraint(equalTo: previous.bottomAnchor),
-                    st.bottomAnchor.constraint(equalTo: previous.bottomAnchor, constant: 15)
+                    st.bottomAnchor.constraint(equalTo: previous.bottomAnchor, constant: 20)
                 ])
                 previous = st
             }
@@ -117,11 +118,11 @@ class TripListCell: UITableViewCell {
             self.destinationStation.loadData(
                     time: last.1,
                     station: self.destination.name,
-                    symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: UIColor.green, backgroundColor: UIColor.clear)
+                    symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.green, backgroundColor: UIColor.clear)
             )
             self.addSubview(self.destinationStation)
             NSLayoutConstraint.activate([
-                self.destinationStation.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
+                self.destinationStation.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
                 self.destinationStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
                 self.destinationStation.topAnchor.constraint(equalTo: previous.bottomAnchor),
                 self.safeArea.bottomAnchor.constraint(greaterThanOrEqualTo: self.destinationStation.bottomAnchor)
@@ -143,7 +144,7 @@ class StationTime: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.time.translatesAutoresizingMaskIntoConstraints = false
-        self.time.font = UIFont(name: self.time.font.fontName, size: 10)
+        self.time.font = UIFont(name: self.time.font.fontName, size: 13)
         self.addSubview(self.time)
 
         self.symbol.translatesAutoresizingMaskIntoConstraints = false
@@ -152,14 +153,16 @@ class StationTime: UIView {
         self.addSubview(self.symbol)
 
         self.station.translatesAutoresizingMaskIntoConstraints = false
-        self.station.font = UIFont(name: self.station.font.fontName, size: 10)
+        self.station.font = UIFont(name: self.station.font.fontName, size: 13)
+        self.station.adjustsFontSizeToFitWidth = true
+        self.station.minimumScaleFactor = 0.5
         self.symbol.addSubview(self.station)
 
         NSLayoutConstraint.activate([
             self.time.topAnchor.constraint(equalTo: self.topAnchor),
             self.time.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.time.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.time.widthAnchor.constraint(equalToConstant: 45),
+            self.time.widthAnchor.constraint(equalToConstant: 55),
             self.symbol.topAnchor.constraint(equalTo: self.topAnchor),
             self.symbol.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.symbol.leadingAnchor.constraint(equalTo: self.time.trailingAnchor),

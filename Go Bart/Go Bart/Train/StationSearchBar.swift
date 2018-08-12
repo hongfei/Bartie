@@ -31,8 +31,8 @@ class StationSearchBar: UIView, UITextFieldDelegate {
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor("#E0E0E0")
-        self.fromBoxHeight = self.heightAnchor.constraint(equalToConstant: 40)
-        self.fromToBoxHeight = self.heightAnchor.constraint(equalToConstant: 72)
+        self.fromBoxHeight = self.heightAnchor.constraint(equalToConstant: 45)
+        self.fromToBoxHeight = self.heightAnchor.constraint(equalToConstant: 82)
 
         placeFromSearchBox()
     }
@@ -48,10 +48,10 @@ class StationSearchBar: UIView, UITextFieldDelegate {
         self.fromToBoxHeight?.isActive = false
         self.fromBoxHeight?.isActive = true
         NSLayoutConstraint.activate([
-            self.fromSearchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5), //5
-            self.fromSearchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5), // -5
-            self.fromSearchBox.topAnchor.constraint(equalTo: self.topAnchor, constant: 5), // 5, 0
-            self.fromSearchBox.heightAnchor.constraint(equalToConstant: 30)
+            self.fromSearchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
+            self.fromSearchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            self.fromSearchBox.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            self.fromSearchBox.heightAnchor.constraint(equalToConstant: 35)
         ])
         self.sizeToFit()
     }
@@ -68,7 +68,7 @@ class StationSearchBar: UIView, UITextFieldDelegate {
             self.toSearchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             self.toSearchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             self.toSearchBox.topAnchor.constraint(equalTo: self.fromSearchBox.bottomAnchor, constant: 2), // 5, 0
-            self.toSearchBox.heightAnchor.constraint(equalToConstant: 30)
+            self.toSearchBox.heightAnchor.constraint(equalToConstant: 35)
         ])
         self.sizeToFit()
     }
