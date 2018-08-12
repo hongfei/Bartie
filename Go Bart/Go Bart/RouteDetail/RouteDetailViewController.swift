@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import MapKit
 import Foundation
 
 class RouteDetailNavigationViewController: UINavigationController {
@@ -28,6 +29,7 @@ class RouteDetailViewController: UIViewController {
     var departure: Departure?
     var trip: Trip?
 
+    var stationMap: MKMapView!
     var stationList: UITextView!
 
     override var navigationItem: UINavigationItem {
@@ -54,14 +56,15 @@ class RouteDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.gray
 
-        self.stationList = UITextView()
-        self.stationList.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.stationList)
+        self.stationMap = MKMapView()
+        self.stationMap.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.stationMap)
+
         NSLayoutConstraint.activate([
-            self.stationList.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.stationList.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.stationList.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            self.stationList.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            self.stationMap.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.stationMap.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.stationMap.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.stationMap.heightAnchor.constraint(equalToConstant: self.view.frame.size.width / 3 * 2)
         ])
 
         retrieveMissingData() { (station, destination, departure, trip) in
@@ -82,20 +85,25 @@ class RouteDetailViewController: UIViewController {
         return self
     }
 
-    private func initializeView(from station: Station, to destination: Station, with departure: Departure, of trip: Trip) {
+    private func initializeView(from station: Station, to destination: Station, with departure: Departure?, of trip: Trip) {
         BartRouteService.getAllRoutes() { routes in
-            if let route = routes.first(where: { route in route.hexcolor == departure.hexcolor }) {
+            if let route = routes.first(where: { route in route.routeID == trip.leg.first?.line }) {
                 BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
                     DataUtil.extractStations(for: routeDetail, from: station, to: destination) { stations in
-
-
+                        self.stationMap.showAnnotations(stations.map({ station in
+                            let point = MKPointAnnotation()
+                            let coord =  CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
+                            point.coordinate = coord
+                            point.title = station.name
+                            return point
+                        }), animated: true)
                     }
                 }
             }
         }
     }
 
-    private func retrieveMissingData(completionHandler: @escaping (Station,  Station, Departure, Trip) -> Void) {
+    private func retrieveMissingData(completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {
         if let actualTrip = self.trip {
             self.retrieveDeparture(by: actualTrip, completionHandler: completionHandler)
         }
@@ -105,7 +113,7 @@ class RouteDetailViewController: UIViewController {
         }
     }
 
-    private func retrieveTrip(by departure: Departure, completionHandler: @escaping (Station,  Station, Departure, Trip) -> Void) {
+    private func retrieveTrip(by departure: Departure, completionHandler: @escaping (Station, Station, Departure, Trip) -> Void) {
         BartStationService.getAllStations() { stations in
             let destination = stations.first(where: { station in station.abbr == departure.abbreviation })!
             BartScheduleService.getTripPlan(from: self.fromStation, to: destination, count: 12) { trips in
@@ -115,13 +123,12 @@ class RouteDetailViewController: UIViewController {
         }
     }
 
-    private func retrieveDeparture(by trip: Trip, completionHandler: @escaping (Station,  Station, Departure, Trip) -> Void) {
+    private func retrieveDeparture(by trip: Trip, completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {
         BartRealTimeService.getSelectedDepartures(for: self.fromStation) { departures in
-//            BartRouteService.getAllRoutes() { routes in
-//                let dep = DataUtil.findClosestDeparture(in: departures, for: trip, with: )
-//                completionHandler(self.fromStation, self.toStation!, dep!, trip)
-//            }
-
+            BartRouteService.getAllRoutes() { routes in
+                let dep = DataUtil.findClosestDeparture(in: departures, for: trip)
+                completionHandler(self.fromStation, self.toStation!, dep, trip)
+            }
         }
     }
 }
