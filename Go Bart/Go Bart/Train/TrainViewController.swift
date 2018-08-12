@@ -71,6 +71,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     func placeTripList() {
         self.tripListView.tripListDelegate = self
         self.tripListView.refreshControl = UIRefreshControl()
+        self.tripListView.rowHeight = UITableViewAutomaticDimension
         self.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
         self.view.addSubview(self.tripListView)
 
@@ -96,13 +97,17 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
     @objc func updateTripList() {
         BartScheduleService.getTripPlan(from: self.fromStationData, to: self.toStationData) { trips in
-            self.tripListView.trips = trips
-            self.tripListView.reloadData()
-
-            if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
-                self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            BartRealTimeService.getSelectedDepartures(for: self.fromStationData) { departures in
+                self.tripListView.trips = trips
+                self.tripListView.departures = departures
+                self.tripListView.station = self.fromStationData
+                self.tripListView.destination = self.toStationData
+                self.tripListView.reloadData()
+                if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
+                    self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                }
+                self.tripListView.refreshControl?.endRefreshing()
             }
-            self.tripListView.refreshControl?.endRefreshing()
         }
     }
 
@@ -145,11 +150,11 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     func onDepartureSelected(departure: Departure) {
-
+        self.openRouteDetail(from: self.fromStationData, departure: departure)
     }
 
     func onTripSelected(trip: Trip) {
-
+        self.openRouteDetail(from: self.fromStationData, to: self.toStationData, trip: trip)
     }
 
 }

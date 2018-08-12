@@ -19,14 +19,15 @@ class DataCache {
             totalCostLimit: 0
     )
     private static let stationStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: [Station].self))
+    private static let stationMapStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: [String: Station].self))
     private static let routeStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: [Route].self))
     private static let detailRouteStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: DetailRoute.self))
 
-    static func storeStations(stations: [Station]) {
+    class func storeStations(stations: [Station]) {
         try? stationStorage?.setObject(stations, forKey: "stations")
     }
 
-    static func getStations() -> [Station]? {
+    class func getStations() -> [Station]? {
         if let stations = try? stationStorage?.entry(forKey: "stations").object {
             return stations
         } else {
@@ -34,11 +35,11 @@ class DataCache {
         }
     }
     
-    static func storeAllRoutes(routes: [Route]) {
+    class func storeAllRoutes(routes: [Route]) {
         try? routeStorage?.setObject(routes, forKey: "routes")
     }
 
-    static func getAllRoutes() -> [Route]? {
+    class func getAllRoutes() -> [Route]? {
         if let routes = try? routeStorage?.entry(forKey: "routes").object {
             return routes
         } else {
@@ -46,11 +47,23 @@ class DataCache {
         }
     }
 
-    static func storeDetailRoutes(route: DetailRoute) {
+    class func storeStationsMap(result: [String: Station]) {
+        try? stationMapStorage?.setObject(result, forKey: "stationsMap")
+    }
+
+    class func getStationsMap() -> [String: Station]? {
+        if let stationsMap = try? stationMapStorage?.entry(forKey: "stationsMap").object {
+            return stationsMap
+        } else {
+            return nil
+        }
+    }
+
+    class func storeDetailRoutes(route: DetailRoute) {
         try? detailRouteStorage?.setObject(route, forKey: "detail_route_" + route.routeID)
     }
 
-    static func getDetailRoute(routeID: String) -> DetailRoute? {
+    class func getDetailRoute(routeID: String) -> DetailRoute? {
         if let detailRoute = try? detailRouteStorage?.entry(forKey: "detail_route_" + routeID).object {
             return detailRoute
         } else {

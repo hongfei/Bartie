@@ -8,6 +8,11 @@ import UIKit
 class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     var tripListDelegate: TripListViewDelegate?
     var trips: [Trip] = []
+    var station: Station!
+    var destination: Station!
+    var routeMap: [String: Route]!
+
+    var departures: [Departure]!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -18,6 +23,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.delegate = self
         self.dataSource = self
+        self.tableFooterView = UIView(frame: CGRect.zero)
         self.register(TripListCell.self, forCellReuseIdentifier: "TripListCell")
     }
 
@@ -33,7 +39,12 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell", for: indexPath) as! TripListCell
-        cell.setTrip(trip: trips[indexPath.row])
+        cell.trip = trips[indexPath.row]
+        cell.station = self.station
+        cell.destination = self.destination
+        cell.departure = DataUtil.findClosestDeparture(in: departures, for: cell.trip)
+
+        cell.reloadTripData()
 
         return cell
     }

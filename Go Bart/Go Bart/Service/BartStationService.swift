@@ -29,4 +29,19 @@ class BartStationService: BartService {
             }
         }
     }
+
+    public static func getAllStationMap(completionHandler: @escaping ([String: Station])-> Void) {
+        if let stationsMap = DataCache.getStationsMap() {
+            completionHandler(stationsMap)
+        } else {
+            getAllStations() { stations in
+                var result: [String: Station] = [:]
+                for station in stations {
+                    result[station.abbr] = station
+                }
+                DataCache.storeStationsMap(result: result)
+                completionHandler(result)
+            }
+        }
+    }
 }

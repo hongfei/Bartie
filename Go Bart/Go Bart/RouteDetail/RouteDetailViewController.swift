@@ -64,27 +64,9 @@ class RouteDetailViewController: UIViewController {
             self.stationList.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
 
-        retrieveMissingData() { (from, to, departure, trip) in
-            self.stationList.text = departure.minutes + " == " + trip.origTimeMin
-            BartRouteService.getAllRoutes() { routes in
-                if let route = routes.first(where: { route in route.hexcolor == departure.hexcolor }) {
-                    BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
-                        let stations = routeDetail.config.station
-                        let start = stations.index(of: from.abbr)!
-                        let end = stations.index(of: to.abbr)!
-                        var choppedStations: [String] = []
-                        if start < end {
-                            choppedStations = Array(stations[start...end])
-                        } else {
-                            choppedStations = Array(stations[end...start]).reversed()
-                        }
-                        self.stationList.text = self.stationList.text + "\n" + choppedStations.joined(separator: "\n")
-                    }
-                }
-            }
+        retrieveMissingData() { (station, destination, departure, trip) in
+            self.initializeView(from: station, to: destination, with: departure, of: trip)
         }
-
-
     }
 
     @objc func closeRouteDetail() {
@@ -98,6 +80,19 @@ class RouteDetailViewController: UIViewController {
         self.trip = trip
 
         return self
+    }
+
+    private func initializeView(from station: Station, to destination: Station, with departure: Departure, of trip: Trip) {
+        BartRouteService.getAllRoutes() { routes in
+            if let route = routes.first(where: { route in route.hexcolor == departure.hexcolor }) {
+                BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
+                    DataUtil.extractStations(for: routeDetail, from: station, to: destination) { stations in
+
+
+                    }
+                }
+            }
+        }
     }
 
     private func retrieveMissingData(completionHandler: @escaping (Station,  Station, Departure, Trip) -> Void) {
@@ -114,13 +109,7 @@ class RouteDetailViewController: UIViewController {
         BartStationService.getAllStations() { stations in
             let destination = stations.first(where: { station in station.abbr == departure.abbreviation })!
             BartScheduleService.getTripPlan(from: self.fromStation, to: destination, count: 12) { trips in
-                let trip = trips.filter({ trip in
-                    trip.leg.first!.trainHeadStation == departure.abbreviation
-                }).min(by: { (trip1, trip2) in
-                    let tripDiff1 = DateUtil.getTimeDifferenceToNow(dateString: trip1.origTimeDate + trip1.origTimeMin)
-                    let tripDiff2 = DateUtil.getTimeDifferenceToNow(dateString: trip2.origTimeDate + trip2.origTimeMin)
-                    return abs(tripDiff1 - Int(departure.minutes)!) < abs(tripDiff2 - Int(departure.minutes)!)
-                })
+                let trip = DataUtil.findClosestTrip(in: trips, for: departure)
                 completionHandler(self.fromStation, destination, departure, trip!)
             }
         }
@@ -128,13 +117,11 @@ class RouteDetailViewController: UIViewController {
 
     private func retrieveDeparture(by trip: Trip, completionHandler: @escaping (Station,  Station, Departure, Trip) -> Void) {
         BartRealTimeService.getSelectedDepartures(for: self.fromStation) { departures in
-            let dep = departures.filter({ departure in
-                return departure.abbreviation == trip.leg.first?.trainHeadStation
-            }).min(by: { (dep1, dep2) in
-                let tripDiff = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
-                return abs(Int(dep1.minutes)! - tripDiff) < abs(Int(dep2.minutes)! - tripDiff)
-            })
-            completionHandler(self.fromStation, self.toStation!, dep!, trip)
+//            BartRouteService.getAllRoutes() { routes in
+//                let dep = DataUtil.findClosestDeparture(in: departures, for: trip, with: )
+//                completionHandler(self.fromStation, self.toStation!, dep!, trip)
+//            }
+
         }
     }
 }

@@ -18,6 +18,7 @@ class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource
         self.translatesAutoresizingMaskIntoConstraints = false
         self.delegate = self
         self.dataSource = self
+        self.tableFooterView = UIView(frame: CGRect.zero)
         self.register(DepartureListCell.self, forCellReuseIdentifier: "DepartureListCell")
     }
 
