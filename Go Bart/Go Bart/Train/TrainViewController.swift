@@ -7,11 +7,15 @@ import UIKit
 import UIColor_Hex_Swift
 import SwiftIcons
 
-class TrainViewController: UIViewController {
-    var trainView: TrainView!
-
+class TrainViewController: UIViewController, StationSearchBarDelegate, DepartureListViewDelegate, TripListViewDelegate {
     var fromStationData: Station!
     var toStationData: Station!
+
+    var stationSearchBar = StationSearchBar()
+    var departureListView = DepartureListView()
+    var tripListView = TripListView()
+
+    var safeArea: UILayoutGuide!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -25,11 +29,10 @@ class TrainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBar()
-        self.trainView = TrainView(view: self.view)
-        self.trainView.departureListView.refreshControl?.addTarget(self, action: #selector(updateDepartureList), for: .valueChanged)
-        self.trainView.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
+        self.safeArea = self.view.safeAreaLayoutGuide
 
+        setNavigationBar()
+        placeStationSearchBar()
     }
 
     func setNavigationBar() {
@@ -39,35 +42,67 @@ class TrainViewController: UIViewController {
         self.navigationItem.backBarButtonItem?.tintColor = UIColor.white
     }
 
-    @objc func pickFromStation(_ sender: UIGestureRecognizer) {
-        self.openStationPicker(with: "Pick From Station") { station in
-            self.trainView.updateFromStation(from: station)
-            self.fromStationData = station
-            self.updateDepartureList()
-        }
+    func placeStationSearchBar() {
+        self.stationSearchBar.delegate = self
+        self.view.addSubview(self.stationSearchBar)
+
+        NSLayoutConstraint.activate([
+            stationSearchBar.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
+            stationSearchBar.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            stationSearchBar.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor)
+        ])
     }
 
-    @objc func pickToStation(_ sender: UIGestureRecognizer) {
-        self.openStationPicker(with: "Pick Destination") { station in
-            self.trainView.updateToStation(to: station)
-            self.toStationData = station
-            self.updateTripList()
-        }
+    func placeDepartureList() {
+        self.departureListView.departureListDelegate = self
+        self.departureListView.refreshControl = UIRefreshControl()
+        self.departureListView.refreshControl?.addTarget(self, action: #selector(updateDepartureList), for: .valueChanged)
+        self.view.addSubview(self.departureListView)
+
+        NSLayoutConstraint.activate([
+            departureListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
+            departureListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            departureListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
+            departureListView.topAnchor.constraint(equalTo: self.stationSearchBar.bottomAnchor)
+
+        ])
+    }
+
+    func placeTripList() {
+        self.tripListView.tripListDelegate = self
+        self.tripListView.refreshControl = UIRefreshControl()
+        self.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
+        self.view.addSubview(self.tripListView)
+
+        NSLayoutConstraint.activate([
+            tripListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
+            tripListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            tripListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
+            tripListView.topAnchor.constraint(equalTo: self.stationSearchBar.bottomAnchor)
+        ])
     }
 
     @objc func updateDepartureList() {
         BartRealTimeService.getSelectedDepartures(for: self.fromStationData) { departures in
-            self.trainView.updateDepartureList(departures: departures) { departure in
-                self.openRouteDetail(from: self.fromStationData, departure: departure)
+            self.departureListView.departures = departures
+            self.departureListView.reloadData()
+
+            if (departures.count > 0 && self.departureListView.numberOfRows(inSection: 0) > 0) {
+                self.departureListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             }
+            self.departureListView.refreshControl?.endRefreshing()
         }
     }
 
     @objc func updateTripList() {
         BartScheduleService.getTripPlan(from: self.fromStationData, to: self.toStationData) { trips in
-            self.trainView.updateTripList(trips: trips) { trip in
-                self.openRouteDetail(from: self.fromStationData, to: self.toStationData, trip: trip)
+            self.tripListView.trips = trips
+            self.tripListView.reloadData()
+
+            if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
+                self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             }
+            self.tripListView.refreshControl?.endRefreshing()
         }
     }
 
@@ -83,4 +118,38 @@ class TrainViewController: UIViewController {
                 rootViewController:RouteDetailViewController().with(from: station, to: destination, departure: departure, trip: trip)
         ), animated: true)
     }
+
+    func onTapFromBox(textField: UITextField) {
+        self.openStationPicker(with: "Pick Station") { station in
+            self.fromStationData = station
+            self.removeCurrentList()
+            self.stationSearchBar.reloadStation(from: station, to: nil)
+            self.placeDepartureList()
+            self.updateDepartureList()
+        }
+    }
+
+    func onTapToBox(textField: UITextField) {
+        self.openStationPicker(with: "Pick Destination") { station in
+            self.toStationData = station
+            self.removeCurrentList()
+            self.stationSearchBar.reloadStation(from: self.fromStationData, to: self.toStationData)
+            self.placeTripList()
+            self.updateTripList()
+        }
+    }
+
+    func removeCurrentList() {
+        self.departureListView.removeFromSuperview()
+        self.tripListView.removeFromSuperview()
+    }
+
+    func onDepartureSelected(departure: Departure) {
+
+    }
+
+    func onTripSelected(trip: Trip) {
+
+    }
+
 }

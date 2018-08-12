@@ -7,13 +7,20 @@ import UIKit
 import UIColor_Hex_Swift
 import SwiftIcons
 
-class StationSearchBar: UIView {
+class StationSearchBar: UIView, UITextFieldDelegate {
     let searchIcon = UIImage(icon: .icofont(.search), size: CGSize(width: 20, height: 20), textColor: UIColor("#C7C7CD"), backgroundColor: .white)
     let locatingIcon = UIImage(icon: .icofont(.locationArrow), size: CGSize(width: 20, height: 20), textColor: UIColor("#C7C7CD"), backgroundColor: .white)
 
     var fromSearchBox = SearchBoxField().withPlaceholder(placeholder: "Station")
     var toSearchBox = SearchBoxField().withPlaceholder(placeholder: "Destination")
-    var delegate: StationSearchBarDelegate?
+    var delegate: StationSearchBarDelegate? {
+        didSet {
+            self.fromSearchBox.addTarget(delegate, action: #selector(StationSearchBarDelegate.onTapFromBox), for: .touchDown)
+            self.toSearchBox.addTarget(delegate, action: #selector(StationSearchBarDelegate.onTapToBox), for: .touchDown)
+        }
+    }
+    var fromBoxHeight: NSLayoutConstraint?
+    var fromToBoxHeight: NSLayoutConstraint?
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -24,6 +31,9 @@ class StationSearchBar: UIView {
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor("#E0E0E0")
+        self.fromBoxHeight = self.heightAnchor.constraint(equalToConstant: 40)
+        self.fromToBoxHeight = self.heightAnchor.constraint(equalToConstant: 72)
+
         placeFromSearchBox()
     }
 
@@ -32,32 +42,35 @@ class StationSearchBar: UIView {
         self.fromSearchBox.leftView = UIImageView(image: searchIcon)
         self.fromSearchBox.rightView = UIImageView(image: locatingIcon)
         self.fromSearchBox.rightViewMode = .always
+        self.fromSearchBox.isUserInteractionEnabled = true
 
-        self.fromSearchBox.addGestureRecognizer(UITapGestureRecognizer(target: self.delegate, action: #selector(StationSearchBarDelegate.onTapFromBox)))
         self.addSubview(self.fromSearchBox)
-
+        self.fromToBoxHeight?.isActive = false
+        self.fromBoxHeight?.isActive = true
         NSLayoutConstraint.activate([
             self.fromSearchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5), //5
             self.fromSearchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5), // -5
             self.fromSearchBox.topAnchor.constraint(equalTo: self.topAnchor, constant: 5), // 5, 0
-            self.fromSearchBox.heightAnchor.constraint(equalToConstant: 30),
-            self.heightAnchor.constraint(equalToConstant: 40)
+            self.fromSearchBox.heightAnchor.constraint(equalToConstant: 30)
         ])
+        self.sizeToFit()
     }
 
     private func placeToSearchBox() {
         self.toSearchBox.rightViewMode = .always
         self.toSearchBox.leftView = UIImageView(image: searchIcon)
-        self.toSearchBox.addGestureRecognizer(UITapGestureRecognizer(target: self.delegate, action: #selector(StationSearchBarDelegate.onTapToBox)))
+        self.toSearchBox.addGestureRecognizer(UITapGestureRecognizer(target: self.delegate, action: #selector(self.delegate?.onTapToBox)))
         self.addSubview(self.toSearchBox)
 
+        self.fromBoxHeight?.isActive = false
+        self.fromToBoxHeight?.isActive = true
         NSLayoutConstraint.activate([
             self.toSearchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             self.toSearchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            self.toSearchBox.topAnchor.constraint(equalTo: self.fromSearchBox.bottomAnchor, constant: 3), // 5, 0
-            self.toSearchBox.heightAnchor.constraint(equalToConstant: 30),
-            self.heightAnchor.constraint(equalToConstant: 73)
+            self.toSearchBox.topAnchor.constraint(equalTo: self.fromSearchBox.bottomAnchor, constant: 2), // 5, 0
+            self.toSearchBox.heightAnchor.constraint(equalToConstant: 30)
         ])
+        self.sizeToFit()
     }
 
     func reloadStation(from station: Station, to destination: Station?) {
@@ -67,7 +80,7 @@ class StationSearchBar: UIView {
         if !self.toSearchBox.isDescendant(of: self) {
             placeToSearchBox()
             self.fromSearchBox.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            self.fromSearchBox.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+            self.toSearchBox.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         }
 
         if let dst = destination {
@@ -76,10 +89,10 @@ class StationSearchBar: UIView {
         } else {
             self.toSearchBox.text = nil
             self.toSearchBox.leftViewMode = .always
+            self.toSearchBox.leftViewMode = .always
         }
-
-        self.sizeToFit()
     }
+
 }
 
 class SearchBoxField: UITextField {
@@ -107,10 +120,7 @@ class SearchBoxField: UITextField {
         self.backgroundColor = .white
         self.layer.borderColor = UIColor("#D0D0D0").cgColor
         self.layer.cornerRadius = 10
-
         self.textAlignment = .center
-
-        self.isEnabled = false
     }
 
     func withPlaceholder(placeholder: String) -> SearchBoxField {
@@ -120,7 +130,7 @@ class SearchBoxField: UITextField {
 }
 
 @objc protocol StationSearchBarDelegate {
-    @objc func onTapFromBox()
+    @objc func onTapFromBox(textField: UITextField)
 
-    @objc func onTapToBox()
+    @objc func onTapToBox(textField: UITextField)
 }

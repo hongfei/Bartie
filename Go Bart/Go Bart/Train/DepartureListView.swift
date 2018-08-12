@@ -7,7 +7,7 @@ import UIKit
 
 class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource {
     var departures: [Departure] = []
-    var departureListViewDelegate: DepartureListViewDelegate?
+    var departureListDelegate: DepartureListViewDelegate?
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -23,7 +23,7 @@ class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? DepartureListCell {
-            self.departureListViewDelegate?.onItemSelected(departure: cell.departure)
+            self.departureListDelegate?.onDepartureSelected(departure: cell.departure)
         }
     }
 
@@ -40,5 +40,5 @@ class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource
 }
 
 protocol DepartureListViewDelegate {
-    func onItemSelected(departure: Departure)
+    func onDepartureSelected(departure: Departure)
 }
