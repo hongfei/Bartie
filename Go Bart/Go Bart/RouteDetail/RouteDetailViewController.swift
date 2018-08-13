@@ -29,7 +29,7 @@ class RouteDetailViewController: UIViewController {
     var departure: Departure?
     var trip: Trip?
 
-    var stationMap: MKMapView!
+    var stationMap: RouteDetailMapView!
     var stationList: UITextView!
 
     override var navigationItem: UINavigationItem {
@@ -56,7 +56,7 @@ class RouteDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.gray
 
-        self.stationMap = MKMapView()
+        self.stationMap = RouteDetailMapView()
         self.stationMap.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.stationMap)
 
@@ -86,21 +86,24 @@ class RouteDetailViewController: UIViewController {
     }
 
     private func initializeView(from station: Station, to destination: Station, with departure: Departure?, of trip: Trip) {
-        BartRouteService.getAllRoutes() { routes in
-            if let route = routes.first(where: { route in route.routeID == trip.leg.first?.line }) {
-                BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
-                    DataUtil.extractStations(for: routeDetail, from: station, to: destination) { stations in
-                        self.stationMap.showAnnotations(stations.map({ station in
-                            let point = MKPointAnnotation()
-                            let coord =  CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
-                            point.coordinate = coord
-                            point.title = station.name
-                            return point
-                        }), animated: true)
+        trip.leg.forEach({ leg in
+            BartRouteService.getAllRoutes() { routes in
+                if let route = routes.first(where: { route in route.routeID == leg.line }) {
+                    BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
+                        DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
+                            self.stationMap.showAnnotations(stations.map({ station in
+                                let point = MKPointAnnotation()
+                                let coord =  CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
+                                point.coordinate = coord
+                                point.title = station.name
+                                return point
+                            }), animated: true)
+                        }
                     }
                 }
             }
-        }
+        })
+
     }
 
     private func retrieveMissingData(completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {

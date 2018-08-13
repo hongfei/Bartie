@@ -16,4 +16,11 @@ class RouteDetailMapView: MKMapView, MKMapViewDelegate {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.delegate = self
     }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        view.canShowCallout = true
+        return view
+    }
+
 }

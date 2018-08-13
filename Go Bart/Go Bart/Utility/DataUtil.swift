@@ -6,10 +6,10 @@
 import Foundation
 
 class DataUtil {
-    class func extractStations(for routeDetail: DetailRoute, from station: Station, to destination: Station, completionHandler: @escaping ([Station]) -> Void) {
+    class func extractStations(for routeDetail: DetailRoute, from stationAbbr: String, to destinationAbbr: String, completionHandler: @escaping ([Station]) -> Void) {
         let stations = routeDetail.config.station
-        let start = stations.index(of: station.abbr)!
-        let end = stations.index(of: destination.abbr)!
+        let start = stations.index(of: stationAbbr)!
+        let end = stations.index(of: destinationAbbr)!
         var choppedStations: [String] = []
         if start < end {
             choppedStations = Array(stations[start...end])
