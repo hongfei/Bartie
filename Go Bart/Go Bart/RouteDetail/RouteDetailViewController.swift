@@ -28,9 +28,9 @@ class RouteDetailNavigationViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gestureRecognizer = UIPanGestureRecognizer(target: self,
-                action: #selector(panGestureRecognizerHandler(_:)))
-        self.view.addGestureRecognizer(gestureRecognizer)
+//        let gestureRecognizer = UIPanGestureRecognizer(target: self,
+//                action: #selector(panGestureRecognizerHandler(_:)))
+//        self.view.addGestureRecognizer(gestureRecognizer)
     }
 
 
@@ -70,7 +70,8 @@ class RouteDetailViewController: UIViewController {
 
     var stationMap: RouteDetailMapView!
     var tripDetailView: TripDetailView!
-
+    var scrollView: UIScrollView!
+    var contentView: UIView!
 
     override var navigationItem: UINavigationItem {
         var navItem: UINavigationItem
@@ -95,26 +96,49 @@ class RouteDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
 
+        self.scrollView = UIScrollView()
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+        self.scrollView.isUserInteractionEnabled = true
+        self.scrollView.isScrollEnabled = true
+        self.contentView = UIView()
+        self.contentView.translatesAutoresizingMaskIntoConstraints = false
+
+        self.scrollView.addSubview(self.contentView)
+        self.view.addSubview(self.scrollView)
+
         self.stationMap = RouteDetailMapView()
-        self.stationMap.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.stationMap)
+        self.contentView.addSubview(self.stationMap)
 
         self.tripDetailView = TripDetailView()
-        self.view.addSubview(self.tripDetailView)
+        self.contentView.addSubview(self.tripDetailView)
 
         NSLayoutConstraint.activate([
-            self.stationMap.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.stationMap.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.stationMap.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.contentView.topAnchor.constraint(equalTo: self.scrollView.safeAreaLayoutGuide.topAnchor),
+            self.contentView.trailingAnchor.constraint(equalTo: self.scrollView.safeAreaLayoutGuide.trailingAnchor),
+            self.contentView.leadingAnchor.constraint(equalTo: self.scrollView.safeAreaLayoutGuide.leadingAnchor),
+            self.stationMap.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.stationMap.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.stationMap.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             self.stationMap.heightAnchor.constraint(equalToConstant: self.view.frame.size.width / 3 * 2),
-            self.tripDetailView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.tripDetailView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            self.tripDetailView.topAnchor.constraint(equalTo: self.stationMap.bottomAnchor)
+            self.tripDetailView.leadingAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.leadingAnchor),
+            self.tripDetailView.trailingAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.trailingAnchor),
+            self.tripDetailView.topAnchor.constraint(equalTo: self.stationMap.bottomAnchor),
+            self.tripDetailView.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.safeAreaLayoutGuide.bottomAnchor)
         ])
 
         retrieveMissingData() { (station, destination, departure, trip) in
             self.initializeView(from: station, to: destination, with: departure, of: trip)
         }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.scrollView.layoutIfNeeded()
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.contentView.frame.size.height)
     }
 
     @objc func closeRouteDetail() {
@@ -149,9 +173,7 @@ class RouteDetailViewController: UIViewController {
     private func retrieveMissingData(completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {
         if let actualTrip = self.trip {
             self.retrieveDeparture(by: actualTrip, completionHandler: completionHandler)
-        }
-
-        if let actualDeparture = self.departure {
+        } else if let actualDeparture = self.departure {
             self.retrieveTrip(by: actualDeparture, completionHandler: completionHandler)
         }
     }

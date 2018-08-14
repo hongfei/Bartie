@@ -7,7 +7,7 @@ import UIKit
 import SwiftIcons
 import UIColor_Hex_Swift
 
-class TripDetailView: UIScrollView {
+class TripDetailView: UIView {
     var tripLabel = UILabel()
     var legends: [SingleTripView] = []
 
@@ -52,8 +52,6 @@ class SingleTripView: UIView {
     var destinationStation: StationTime = StationTime()
     var middleStations: [StationTime] = []
 
-    var stations: [Station]!
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -82,8 +80,7 @@ class SingleTripView: UIView {
             self.trainDestinationLabel.leadingAnchor.constraint(equalTo: self.trainIcon.trailingAnchor),
             self.trainDestinationLabel.topAnchor.constraint(equalTo: self.topAnchor),
             self.trainDestinationLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.trainDestinationLabel.heightAnchor.constraint(equalToConstant: 30),
-            self.bottomAnchor.constraint(equalTo: self.trainDestinationLabel.bottomAnchor)
+            self.trainDestinationLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 
@@ -96,7 +93,7 @@ class SingleTripView: UIView {
 
         let stationSymbol = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor(route.hexcolor), backgroundColor: UIColor.clear)
 
-        var previous = self.orderLabel.bottomAnchor
+        var previous = self.trainDestinationLabel.bottomAnchor
         for station in stations {
             let st = StationTime()
             st.loadData(time: "", station: station.name, symbol: stationSymbol)
@@ -110,6 +107,6 @@ class SingleTripView: UIView {
             previous = st.bottomAnchor
         }
 
-        self.bottomAnchor.constraint(equalTo: previous)
+        self.bottomAnchor.constraint(equalTo: previous).isActive = true
     }
 }
