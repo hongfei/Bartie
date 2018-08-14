@@ -22,5 +22,15 @@ class RouteDetailMapView: MKMapView, MKMapViewDelegate {
         view.canShowCallout = true
         return view
     }
+    
+    func showStations(stations: [Station]) {
+        self.showAnnotations(stations.map({ station in
+            let point = MKPointAnnotation()
+            let coord = CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
+            point.coordinate = coord
+            point.title = station.name
+            return point
+        }), animated: true)
+    }
 
 }

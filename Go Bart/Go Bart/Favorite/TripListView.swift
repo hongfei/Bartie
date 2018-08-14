@@ -29,7 +29,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? TripListCell {
-            self.tripListDelegate?.onTripSelected(trip: cell.trip)
+            self.tripListDelegate?.onTripSelected(trip: cell.trip, from: cell.station, to: cell.destination, with: cell.departure)
         }
     }
 
@@ -51,5 +51,5 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
 }
 
 protocol TripListViewDelegate {
-    func onTripSelected(trip: Trip)
+    func onTripSelected(trip: Trip, from station: Station, to destination: Station, with departure: Departure?)
 }

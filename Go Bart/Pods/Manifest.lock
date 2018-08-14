@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.7.3)
   - Cache (5.0.0)
+  - PullToDismiss (2.1)
   - SwiftIcons (2.2.0)
   - SwiftyJSON (4.1.0)
   - UIColor_Hex_Swift (4.0.2)
@@ -8,6 +9,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Cache
+  - PullToDismiss (~> 2.1)
   - SwiftIcons (~> 2.2.0)
   - SwiftyJSON (~> 4.0)
   - UIColor_Hex_Swift (~> 4.0.2)
@@ -16,6 +18,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Cache
+    - PullToDismiss
     - SwiftIcons
     - SwiftyJSON
     - UIColor_Hex_Swift
@@ -23,10 +26,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Cache: fae4826ba52d7a5d9a3a0ad6fe73e3501a82964f
+  PullToDismiss: 5513d561c382d201d0e3fbbdab9a47196cf5d2e2
   SwiftIcons: e7eb9bf2b475d6bdd8b37c5bdedc6d120aab0829
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   UIColor_Hex_Swift: 2fb123c7d864994a5137ef57c4dc55e17a657d29
 
-PODFILE CHECKSUM: 454f4489f95bc74fd88c97002b82004d2e1d4e0c
+PODFILE CHECKSUM: e2aae91d890a4ac898fa101d8c2b1980a81f97c8
 
 COCOAPODS: 1.5.3

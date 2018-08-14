@@ -6,6 +6,7 @@
 import UIKit
 import MapKit
 import Foundation
+import SwiftIcons
 
 class RouteDetailNavigationViewController: UINavigationController {
     var initialTouchPoint = CGPoint.zero
@@ -29,7 +30,7 @@ class RouteDetailNavigationViewController: UINavigationController {
         super.viewDidLoad()
         let gestureRecognizer = UIPanGestureRecognizer(target: self,
                 action: #selector(panGestureRecognizerHandler(_:)))
-        self.navigationBar.addGestureRecognizer(gestureRecognizer)
+        self.view.addGestureRecognizer(gestureRecognizer)
     }
 
 
@@ -68,7 +69,8 @@ class RouteDetailViewController: UIViewController {
     var trip: Trip?
 
     var stationMap: RouteDetailMapView!
-    var stationList: UITextView!
+    var tripDetailView: TripDetailView!
+
 
     override var navigationItem: UINavigationItem {
         var navItem: UINavigationItem
@@ -77,7 +79,6 @@ class RouteDetailViewController: UIViewController {
         } else {
             navItem = UINavigationItem(title: self.toStation!.name)
         }
-
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeRouteDetail))
         return navItem
     }
@@ -98,11 +99,17 @@ class RouteDetailViewController: UIViewController {
         self.stationMap.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.stationMap)
 
+        self.tripDetailView = TripDetailView()
+        self.view.addSubview(self.tripDetailView)
+
         NSLayoutConstraint.activate([
             self.stationMap.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.stationMap.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             self.stationMap.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            self.stationMap.heightAnchor.constraint(equalToConstant: self.view.frame.size.width / 3 * 2)
+            self.stationMap.heightAnchor.constraint(equalToConstant: self.view.frame.size.width / 3 * 2),
+            self.tripDetailView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.tripDetailView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.tripDetailView.topAnchor.constraint(equalTo: self.stationMap.bottomAnchor)
         ])
 
         retrieveMissingData() { (station, destination, departure, trip) in
@@ -124,24 +131,19 @@ class RouteDetailViewController: UIViewController {
     }
 
     private func initializeView(from station: Station, to destination: Station, with departure: Departure?, of trip: Trip) {
+        self.tripDetailView.initializeLegendCount(of: trip.leg.count)
         trip.leg.forEach({ leg in
             BartRouteService.getAllRoutes() { routes in
                 if let route = routes.first(where: { route in route.routeID == leg.line }) {
                     BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
                         DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
-                            self.stationMap.showAnnotations(stations.map({ station in
-                                let point = MKPointAnnotation()
-                                let coord =  CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
-                                point.coordinate = coord
-                                point.title = station.name
-                                return point
-                            }), animated: true)
+                            self.tripDetailView.addTrip(legend: leg, stations: stations, route: routeDetail)
+                            self.stationMap.showStations(stations: stations)
                         }
                     }
                 }
             }
         })
-
     }
 
     private func retrieveMissingData(completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {

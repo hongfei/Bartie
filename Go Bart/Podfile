@@ -12,6 +12,7 @@ target 'Go Bart' do
   pod 'UIColor_Hex_Swift', '~> 4.0.2'
   pod 'Cache'
   pod 'SwiftIcons', '~> 2.2.0'
+  pod 'PullToDismiss', '~> 2.1'
 
   target 'Go BartTests' do
     inherit! :search_paths

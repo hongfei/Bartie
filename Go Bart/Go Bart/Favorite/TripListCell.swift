@@ -16,9 +16,7 @@ class TripListCell: UITableViewCell {
     var safeArea: UILayoutGuide!
     var minute: UILabel!
     var destLabel: UILabel!
-    var departStation: StationTime!
-    var destinationStation: StationTime!
-    var middleStations: [StationTime] = []
+    var stations: [StationTime] = []
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -48,13 +46,6 @@ class TripListCell: UITableViewCell {
         self.destLabel.minimumScaleFactor = 0.5
         self.addSubview(self.destLabel)
 
-        self.departStation = StationTime()
-        self.departStation.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(self.departStation)
-
-        self.destinationStation = StationTime()
-        self.destinationStation.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
             self.minute.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
             self.minute.topAnchor.constraint(greaterThanOrEqualTo: self.safeArea.topAnchor, constant: 10),
@@ -65,10 +56,6 @@ class TripListCell: UITableViewCell {
             self.destLabel.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             self.destLabel.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
             self.destLabel.heightAnchor.constraint(equalToConstant: 25),
-            self.departStation.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
-            self.departStation.topAnchor.constraint(equalTo: self.destLabel.bottomAnchor),
-            self.departStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.departStation.bottomAnchor.constraint(equalTo: self.destLabel.bottomAnchor, constant: 20)
         ])
     }
     
@@ -86,56 +73,38 @@ class TripListCell: UITableViewCell {
         }
 
         BartStationService.getAllStationMap() { stationsMap in
-            let (first, middles, last) = DataUtil.clipStations(for: self.trip)
-            self.departStation.loadData(
-                    time: first.1,
-                    station: self.station.name,
-                    symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.red, backgroundColor: UIColor.clear)
-            )
-            self.middleStations.forEach({ station in station.removeFromSuperview() })
-            self.middleStations = []
-            var previous: StationTime = self.departStation
-            for middle in middles {
+            self.stations.forEach({ station in station.removeFromSuperview() })
+            self.stations = []
+            var previous = self.destLabel.bottomAnchor
+            let stations = DataUtil.clipStations(for: self.trip)
+            for stnt in stations {
                 let st = StationTime()
-                st.translatesAutoresizingMaskIntoConstraints = false
-                self.middleStations.append(st)
                 st.loadData(
-                        time: middle.1,
-                        station: stationsMap[middle.0]?.name,
-                        symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: UIColor.gray, backgroundColor: UIColor.clear)
-                )
+                        time: stnt.1,
+                        station: stationsMap[stnt.0]?.name,
+                        symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: UIColor.gray, backgroundColor: UIColor.clear))
                 self.addSubview(st)
+                self.stations.append(st)
                 NSLayoutConstraint.activate([
                     st.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
                     st.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-                    st.topAnchor.constraint(equalTo: previous.bottomAnchor),
-                    st.bottomAnchor.constraint(equalTo: previous.bottomAnchor, constant: 20)
+                    st.topAnchor.constraint(equalTo: previous),
+                    st.heightAnchor.constraint(equalToConstant: 20)
                 ])
-                previous = st
+                previous = st.bottomAnchor
             }
-
-            self.destinationStation.removeFromSuperview()
-            self.destinationStation.loadData(
-                    time: last.1,
-                    station: self.destination.name,
-                    symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.green, backgroundColor: UIColor.clear)
-            )
-            self.addSubview(self.destinationStation)
-            NSLayoutConstraint.activate([
-                self.destinationStation.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
-                self.destinationStation.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-                self.destinationStation.topAnchor.constraint(equalTo: previous.bottomAnchor),
-                self.safeArea.bottomAnchor.constraint(greaterThanOrEqualTo: self.destinationStation.bottomAnchor)
-            ])
+            self.safeArea.bottomAnchor.constraint(greaterThanOrEqualTo: previous).isActive = true
+            self.stations.first?.symbol.image = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.red, backgroundColor: UIColor.clear)
+            self.stations.last?.symbol.image = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.green, backgroundColor: UIColor.clear)
         }
     }
 }
 
 
 class StationTime: UIView {
-    let time = UILabel()
-    let station = UILabel()
-    let symbol = UIImageView()
+    var time = UILabel()
+    var station = UILabel()
+    var symbol = UIImageView()
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -143,13 +112,13 @@ class StationTime: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.time.translatesAutoresizingMaskIntoConstraints = false
         self.time.font = UIFont(name: self.time.font.fontName, size: 13)
         self.addSubview(self.time)
 
         self.symbol.translatesAutoresizingMaskIntoConstraints = false
         self.symbol.contentMode = .center
-        self.symbol.safeAreaInsets
         self.addSubview(self.symbol)
 
         self.station.translatesAutoresizingMaskIntoConstraints = false
@@ -162,7 +131,7 @@ class StationTime: UIView {
             self.time.topAnchor.constraint(equalTo: self.topAnchor),
             self.time.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.time.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.time.widthAnchor.constraint(equalToConstant: 55),
+            self.time.widthAnchor.constraint(equalToConstant: 60),
             self.symbol.topAnchor.constraint(equalTo: self.topAnchor),
             self.symbol.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.symbol.leadingAnchor.constraint(equalTo: self.time.trailingAnchor),

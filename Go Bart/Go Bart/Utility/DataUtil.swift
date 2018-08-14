@@ -42,14 +42,11 @@ class DataUtil {
         })
     }
 
-    class func clipStations(for trip: Trip) -> ((String, String), [(String, String)], (String, String)) {
-        let allOrigins = trip.leg.map({ l in (l.origin, l.origTimeMin)})
-
-        guard let first = allOrigins.first else {
-            return (("NON", "0"), [], ("NON", "0"))
-        }
-
+    class func clipStations(for trip: Trip) -> [(String, String)]{
+        var allOrigins = trip.leg.map({ l in (l.origin, l.origTimeMin)})
         let last = trip.leg.last.map({ l in (l.destination, l.destTimeMin)})!
-        return (first, Array(allOrigins.dropFirst()), last)
+
+        allOrigins.append(last)
+        return allOrigins
     }
 }

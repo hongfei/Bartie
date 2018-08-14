@@ -153,8 +153,8 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.openRouteDetail(from: self.fromStationData, departure: departure)
     }
 
-    func onTripSelected(trip: Trip) {
-        self.openRouteDetail(from: self.fromStationData, to: self.toStationData, trip: trip)
+    func onTripSelected(trip: Trip, from station: Station, to destination: Station, with departure: Departure?) {
+        self.openRouteDetail(from: self.fromStationData, to: self.toStationData, departure: departure, trip: trip)
     }
 
 }
