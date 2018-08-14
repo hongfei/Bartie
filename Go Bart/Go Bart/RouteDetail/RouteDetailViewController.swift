@@ -8,6 +8,9 @@ import MapKit
 import Foundation
 
 class RouteDetailNavigationViewController: UINavigationController {
+    var initialTouchPoint = CGPoint.zero
+    var initialFramePoint = CGPoint.zero
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -20,6 +23,41 @@ class RouteDetailNavigationViewController: UINavigationController {
         super.init(navigationBarClass: RouteDetailNavigationBar.self, toolbarClass: nil)
         self.pushViewController(rootViewController, animated: false)
         self.modalPresentationStyle = .overFullScreen
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let gestureRecognizer = UIPanGestureRecognizer(target: self,
+                action: #selector(panGestureRecognizerHandler(_:)))
+        self.navigationBar.addGestureRecognizer(gestureRecognizer)
+    }
+
+
+    @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: view?.window)
+
+        switch sender.state {
+        case .began:
+            initialTouchPoint = touchPoint
+            initialFramePoint = self.navigationBar.frame.origin
+        case .changed:
+            if touchPoint.y > initialTouchPoint.y {
+                view.frame.origin.y = initialFramePoint.y + (touchPoint.y - initialTouchPoint.y)
+            }
+        case .ended, .cancelled:
+            if touchPoint.y - initialTouchPoint.y > 200 {
+                dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.frame = CGRect(x: 0,
+                            y: 0,
+                            width: self.view.frame.size.width,
+                            height: self.view.frame.size.height)
+                })
+            }
+        case .failed, .possible:
+            break
+        }
     }
 }
 
@@ -54,7 +92,7 @@ class RouteDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.gray
+        self.view.backgroundColor = UIColor.clear
 
         self.stationMap = RouteDetailMapView()
         self.stationMap.translatesAutoresizingMaskIntoConstraints = false

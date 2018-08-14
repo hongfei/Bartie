@@ -34,7 +34,7 @@ class DataUtil {
     class func findClosestTrip(in trips: [Trip], for departure: Departure) -> Trip? {
         return trips.filter({ trip in
             trip.leg.first!.trainHeadStation == departure.abbreviation! &&
-                    abs(DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin) - Int(departure.minutes)!) < 10
+                    abs(DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin) - Int(departure.minutes)!) < 20
         }).min(by: { (trip1, trip2) in
             let tripDiff1 = DateUtil.getTimeDifferenceToNow(dateString: trip1.origTimeDate + trip1.origTimeMin)
             let tripDiff2 = DateUtil.getTimeDifferenceToNow(dateString: trip2.origTimeDate + trip2.origTimeMin)
