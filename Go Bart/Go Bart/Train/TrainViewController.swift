@@ -16,6 +16,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     var tripListView = TripListView()
 
     var safeArea: UILayoutGuide!
+    var currentDetailViewController: RouteDetailViewController!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -119,8 +120,9 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     private func openRouteDetail(from station: Station, to destination: Station? = nil, departure: Departure? = nil, trip: Trip? = nil) {
+        self.currentDetailViewController = RouteDetailViewController(from: station, to: destination, at: departure, on: trip)
         self.present(RouteDetailNavigationViewController(
-                rootViewController:RouteDetailViewController().with(from: station, to: destination, departure: departure, trip: trip)
+                rootViewController: self.currentDetailViewController
         ), animated: true)
     }
 

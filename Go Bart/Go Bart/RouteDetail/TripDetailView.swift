@@ -7,44 +7,8 @@ import UIKit
 import SwiftIcons
 import UIColor_Hex_Swift
 
-class TripDetailView: UIView {
-    var tripLabel = UILabel()
-    var legends: [SingleTripView] = []
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor.white
-    }
-
-    func addTrip(legend: Legend, stations: [Station], route: DetailRoute) {
-        self.legends[Int(legend.order)! - 1].reloadData(with: stations, legend: legend, route: route)
-    }
-
-    func initializeLegendCount(of number: Int) {
-        self.legends.forEach({ l in l.removeFromSuperview() })
-        self.legends = []
-        var previous = self.topAnchor
-        for _ in 0..<number {
-            let st = SingleTripView()
-            self.legends.append(st)
-            self.addSubview(st)
-            NSLayoutConstraint.activate([
-                st.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                st.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                st.topAnchor.constraint(equalTo: previous)
-            ])
-            previous = st.bottomAnchor
-        }
-        self.bottomAnchor.constraint(equalTo: previous).isActive = true
-    }
-}
-
-class SingleTripView: UIView {
+class SingleTripView: UITableViewCell {
     var orderLabel = UILabel()
     var trainIcon = UIImageView()
     var trainDestinationLabel = UILabel()
@@ -56,8 +20,8 @@ class SingleTripView: UIView {
         super.init(coder: coder)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.orderLabel.translatesAutoresizingMaskIntoConstraints = false
