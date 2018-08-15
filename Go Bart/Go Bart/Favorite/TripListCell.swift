@@ -17,6 +17,7 @@ class TripListCell: UITableViewCell {
     var minute: UILabel!
     var destLabel: UILabel!
     var stations: [StationTime] = []
+    var trainLabel: UILabel!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -57,12 +58,11 @@ class TripListCell: UITableViewCell {
             self.destLabel.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 15),
             self.destLabel.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
             self.destLabel.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.destLabel.heightAnchor.constraint(equalToConstant: 25),
+            self.destLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
     
     func reloadTripData() {
-        self.destLabel.text = self.destination.name
         if let dep = self.departure {
             self.minute.text = dep.minutes
             self.minute.layer.backgroundColor = UIColor(dep.hexcolor).cgColor
@@ -75,6 +75,7 @@ class TripListCell: UITableViewCell {
         }
 
         BartStationService.getAllStationMap() { stationsMap in
+            self.destLabel.text = stationsMap[self.trip.leg.first!.trainHeadStation]!.name
             self.stations.forEach({ station in station.removeFromSuperview() })
             self.stations = []
             var previous = self.destLabel.bottomAnchor
@@ -101,7 +102,6 @@ class TripListCell: UITableViewCell {
         }
     }
 }
-
 
 class StationTime: UIView {
     var time = UILabel()
