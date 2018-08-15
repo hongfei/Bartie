@@ -33,6 +33,8 @@ class TripListCell: UITableViewCell {
 
     func initializeCell() {
         self.safeArea = self.safeAreaLayoutGuide
+        self.selectionStyle = .none
+        
         self.minute = UILabel()
         self.minute.translatesAutoresizingMaskIntoConstraints = false
         self.minute.layer.cornerRadius = 25
