@@ -24,54 +24,24 @@ class RouteDetailNavigationViewController: UINavigationController {
         super.init(navigationBarClass: RouteDetailNavigationBar.self, toolbarClass: nil)
         self.pushViewController(rootViewController, animated: false)
         self.modalPresentationStyle = .overFullScreen
+        self.navigationBar.isTranslucent = false
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gestureRecognizer = UIPanGestureRecognizer(target: self,
-                action: #selector(panGestureRecognizerHandler(_:)))
-        self.view.addGestureRecognizer(gestureRecognizer)
     }
 
-
-    @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: view?.window)
-
-        switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
-            initialFramePoint = self.navigationBar.frame.origin
-        case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = initialFramePoint.y + (touchPoint.y - initialTouchPoint.y)
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 200 {
-                dismiss(animated: true, completion: nil)
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                            y: 0,
-                            width: self.view.frame.size.width,
-                            height: self.view.frame.size.height)
-                })
-            }
-        case .failed, .possible:
-            break
-        }
-    }
 }
 
-class RouteDetailViewController: UITableViewController {
+class RouteDetailViewController: UIViewController, UITableViewDataSource {
     var fromStation: Station!
     var toStation: Station?
     var departure: Departure?
     var trip: Trip?
 
     var legends: [Legend] = []
-    var allStations: [Station] = []
-    var legendStations: [[Station]] = []
-    var legendRoutes: [DetailRoute] = []
+    var tableView: RouteDetailContentList!
+    var mapView: RouteDetailMapView!
 
     override var navigationItem: UINavigationItem {
         var navItem: UINavigationItem
@@ -94,27 +64,32 @@ class RouteDetailViewController: UITableViewController {
         self.toStation = destination
         self.departure = departure
         self.trip = trip
-        self.extendedLayoutIncludesOpaqueBars = false
-        self.tableView.delegate = self
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.register(RouteDetailMapView.self, forCellReuseIdentifier: "RouteDetailMapView")
-        self.tableView.register(SingleTripView.self, forCellReuseIdentifier: "SingleTripView")
-
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let safeArea = self.view.safeAreaLayoutGuide
 
         retrieveMissingData() { (station, destination, departure, trip) in
-            self.initializeView(from: station, to: destination, with: departure, of: trip)
+            self.legends = trip.leg
+            self.tableView = RouteDetailContentList()
+            self.tableView.rowHeight = UITableViewAutomaticDimension
+            self.view.addSubview(self.tableView)
+            NSLayoutConstraint.activate([
+                self.tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+                self.tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+                self.tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+                self.tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+            ])
+            self.tableView.dataSource = self
         }
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
         case 1: return self.legends.count
@@ -122,53 +97,34 @@ class RouteDetailViewController: UITableViewController {
         }
     }
 
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "RouteDetailMapView") as! RouteDetailMapView
-            cell.showStations(stations: self.allStations)
+            self.mapView = cell
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SingleTripView") as! SingleTripView
-            cell.reloadData(with: self.legendStations[indexPath.row], legend: self.legends[indexPath.row], route: self.legendRoutes[indexPath.row])
-
-            return cell
-        default:
-            return super.tableView(tableView, cellForRowAt: indexPath)
-        }
-    }
-
-
-    @IBAction func closeRouteDetail() {
-        self.dismiss(animated: true)
-    }
-
-    func with(from station: Station, to destination: Station! = nil, departure: Departure! = nil, trip: Trip! = nil) -> RouteDetailViewController {
-        self.fromStation = station
-        self.toStation = destination
-        self.departure = departure
-        self.trip = trip
-
-        return self
-    }
-
-    private func initializeView(from station: Station, to destination: Station, with departure: Departure?, of trip: Trip) {
-        self.legends = trip.leg
-        trip.leg.forEach({ leg in
+            let leg = self.legends[indexPath.row]
             BartRouteService.getAllRoutes() { routes in
                 if let route = routes.first(where: { route in route.routeID == leg.line }) {
                     BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
-                        self.legendRoutes.append(routeDetail)
                         DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
-                            self.legendStations.append(stations)
-                            self.allStations.append(contentsOf: stations.dropFirst())
-                            self.tableView.reloadData()
+                            self.mapView.showStations(stations: stations)
+                            cell.reloadData(with: stations, legend: leg, route: routeDetail)
                         }
                     }
                 }
             }
-        })
+
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
+
+    @IBAction func closeRouteDetail() {
+        self.dismiss(animated: true)
     }
 
     private func retrieveMissingData(completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {

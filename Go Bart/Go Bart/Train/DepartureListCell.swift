@@ -47,6 +47,8 @@ class DepartureListCell: UITableViewCell {
         self.destination = UILabel()
         self.destination.translatesAutoresizingMaskIntoConstraints = false
         self.destination.font = UIFont(name: self.destination.font.fontName, size: 20)
+        self.destination.adjustsFontSizeToFitWidth = true
+        self.destination.minimumScaleFactor = 0.5
         self.addSubview(self.destination)
 
         self.length = UILabel()

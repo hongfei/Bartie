@@ -15,6 +15,7 @@
 		413075D712B8797C4BE0292F /* BartScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DB78EA2212056B58896 /* BartScheduleService.swift */; };
 		413076ABAAF5C14E6ED12C12 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413070C79BE5647A30B97FD0 /* Route.swift */; };
 		41307730FA8A5116E284C483 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413074802997276ED007F83F /* DataUtil.swift */; };
+		4130784EC0F251D657BEBD0F /* RouteDetailContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130792A4DCD280A43686EF2 /* RouteDetailContentList.swift */; };
 		413078787EE2B8AE573A173E /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130719292C09DE7B9E02C76 /* RouteDetailViewController.swift */; };
 		4130794DAFA49EDCDCB07FD2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 41307814C2BF08E75FBBC622 /* .gitignore */; };
 		41307992B6D7FDD86116FEE4 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307173079DB74D48953F63 /* DataCache.swift */; };
@@ -79,6 +80,7 @@
 		413077A316DDFD7A7ABFAFFC /* BartRealTimeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartRealTimeService.swift; sourceTree = "<group>"; };
 		413077F823C3C8259DB2867B /* EstimatedDeparture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatedDeparture.swift; sourceTree = "<group>"; };
 		41307814C2BF08E75FBBC622 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		4130792A4DCD280A43686EF2 /* RouteDetailContentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailContentList.swift; sourceTree = "<group>"; };
 		41307B4AC844FE52CF5EBB1D /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		41307C821D7D5C7DCF8253E9 /* RouteDetailMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailMapView.swift; sourceTree = "<group>"; };
 		41307DB78EA2212056B58896 /* BartScheduleService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartScheduleService.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				41307265F3BBE45AF644BE96 /* RouteDetailNavigationBar.swift */,
 				41307C821D7D5C7DCF8253E9 /* RouteDetailMapView.swift */,
 				413074C9FA4228E892111447 /* TripDetailView.swift */,
+				4130792A4DCD280A43686EF2 /* RouteDetailContentList.swift */,
 			);
 			path = RouteDetail;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				41307730FA8A5116E284C483 /* DataUtil.swift in Sources */,
 				41307D7EC383E74F039DEC62 /* RouteDetailMapView.swift in Sources */,
 				413079B062E31DB40F1A755E /* TripDetailView.swift in Sources */,
+				4130784EC0F251D657BEBD0F /* RouteDetailContentList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

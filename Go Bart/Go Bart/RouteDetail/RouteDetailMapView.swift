@@ -8,6 +8,8 @@ import MapKit
 
 class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     var map: MKMapView!
+    var stations: [String] = []
+    var safeArea: UILayoutGuide!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -16,17 +18,25 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.safeArea = self.contentView.safeAreaLayoutGuide
+        self.insetsLayoutMarginsFromSafeArea = false
+        initializeCell()
+    }
+
+    private func initializeCell() {
         self.map = MKMapView()
+        self.map.showsUserLocation = false
         self.map.translatesAutoresizingMaskIntoConstraints = false
         self.map.delegate = self
-        self.addSubview(self.map)
+        self.contentView.addSubview(self.map)
 
         NSLayoutConstraint.activate([
-            self.map.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            self.map.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            self.map.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.map.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
+            self.map.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
+            self.map.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            self.map.widthAnchor.constraint(equalToConstant: self.frame.width),
             self.map.heightAnchor.constraint(equalToConstant: self.frame.width / 3 * 2),
-            self.contentView.bottomAnchor.constraint(equalTo: self.map.bottomAnchor)
+            self.map.bottomAnchor.constraint(lessThanOrEqualTo: self.safeArea.bottomAnchor)
         ])
     }
 
@@ -37,11 +47,12 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     }
     
     func showStations(stations: [Station]) {
-        self.map.showAnnotations(stations.map({ station in
+        self.map.showAnnotations(stations.filter({ station in !self.stations.contains(station.abbr) }).map({ station in
             let point = MKPointAnnotation()
             let coord = CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
             point.coordinate = coord
             point.title = station.name
+            self.stations.append(station.abbr)
             return point
         }), animated: true)
     }
