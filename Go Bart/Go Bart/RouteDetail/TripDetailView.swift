@@ -64,8 +64,8 @@ class SingleTripView: UITableViewCell {
             self.trainDestinationLabel.text = stationsMap[legend.trainHeadStation]?.name
         }
 
-        self.trainIcon.image = UIImage(icon: .fontAwesomeSolid(.train), size: CGSize(width: 20, height: 20), textColor: UIColor(route.hexcolor), backgroundColor: UIColor.white)
-        let stationSymbol = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor(route.hexcolor), backgroundColor: UIColor.clear)
+        self.trainIcon.image = UIImage(icon: .fontAwesomeSolid(.train), size: CGSize(width: 20, height: 20), textColor: UIColor(route.hexcolor), backgroundColor: .white)
+        let stationSymbol = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor(route.hexcolor), backgroundColor: .clear)
 
         var previous = self.trainDestinationLabel.bottomAnchor
         for station in stations {

@@ -27,7 +27,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = barTitle
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = .white
         self.tableView.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         setSearchController()

@@ -30,6 +30,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         self.safeArea = self.view.safeAreaLayoutGuide
 
         setNavigationBar()
@@ -40,7 +41,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.navigationController?.navigationBar.barTintColor = UIColor("#3359D1")
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem?.tintColor = UIColor.white
+        self.navigationItem.backBarButtonItem?.tintColor = .white
     }
 
     func placeStationSearchBar() {
@@ -59,6 +60,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.departureListView.refreshControl = UIRefreshControl()
         self.departureListView.refreshControl?.addTarget(self, action: #selector(updateDepartureList), for: .valueChanged)
         self.view.addSubview(self.departureListView)
+        self.view.bringSubview(toFront: self.stationSearchBar)
 
         NSLayoutConstraint.activate([
             departureListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
@@ -75,6 +77,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.tripListView.rowHeight = UITableViewAutomaticDimension
         self.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
         self.view.addSubview(self.tripListView)
+        self.view.bringSubview(toFront: self.stationSearchBar)
 
         NSLayoutConstraint.activate([
             tripListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),

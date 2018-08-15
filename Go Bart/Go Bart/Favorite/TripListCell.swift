@@ -84,7 +84,7 @@ class TripListCell: UITableViewCell {
                 st.loadData(
                         time: stnt.1,
                         station: stationsMap[stnt.0]?.name,
-                        symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: UIColor.gray, backgroundColor: UIColor.clear))
+                        symbol: UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: .gray, backgroundColor: .clear))
                 self.addSubview(st)
                 self.stations.append(st)
                 NSLayoutConstraint.activate([
@@ -96,8 +96,8 @@ class TripListCell: UITableViewCell {
                 previous = st.bottomAnchor
             }
             self.safeArea.bottomAnchor.constraint(greaterThanOrEqualTo: previous).isActive = true
-            self.stations.first?.symbol.image = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.red, backgroundColor: UIColor.clear)
-            self.stations.last?.symbol.image = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor.green, backgroundColor: UIColor.clear)
+            self.stations.first?.symbol.image = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: .red, backgroundColor: .clear)
+            self.stations.last?.symbol.image = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: .green, backgroundColor: .clear)
         }
     }
 }

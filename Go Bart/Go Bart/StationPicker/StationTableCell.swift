@@ -26,7 +26,7 @@ class StationTableCell: UITableViewCell {
     }
 
     func initializeCell() {
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = .white
         self.safeArea = self.safeAreaLayoutGuide
 
         name = UILabel()

@@ -71,6 +71,8 @@ class StationSearchBar: UIView, UITextFieldDelegate {
             self.toSearchBox.heightAnchor.constraint(equalToConstant: 35)
         ])
         self.sizeToFit()
+        self.toSearchBox.layer.shadowColor = UIColor.gray.cgColor
+        self.toSearchBox.layer.shadowOpacity = 0.8
     }
 
     func reloadStation(from station: Station, to destination: Station?) {
@@ -119,6 +121,7 @@ class SearchBoxField: UITextField {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .white
         self.layer.borderColor = UIColor("#D0D0D0").cgColor
+        self.layer.borderWidth = 1
         self.layer.cornerRadius = 10
         self.textAlignment = .center
     }

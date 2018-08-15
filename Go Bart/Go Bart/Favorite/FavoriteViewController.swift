@@ -15,7 +15,7 @@ class FavoriteViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         self.title = "Favorite"
-        self.view.backgroundColor = UIColor.orange
+        self.view.backgroundColor = .orange
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
     }
 
