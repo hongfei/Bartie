@@ -2,13 +2,14 @@
 //  DepartureListCell.swift
 //  Go Bart
 //
-//  Created by Hongfei on 2018/8/8.
-//  Copyright © 2018年 Hongfei Zhou. All rights reserved.
+//  Created by Ho?ngfei on 2018/8/8.
+//  Copyrig?ht © ?2018?年 Hong?fei Zhou. All rights reserved.
 //
 
 import UIKit
 import UIColor_Hex_Swift
 import SwiftIcons
+import PinLayout
 
 class DepartureListCell: UITableViewCell {
     var departure: Departure!
@@ -20,25 +21,18 @@ class DepartureListCell: UITableViewCell {
     var bikeflag: UIImageView!
     var delay: UILabel!
 
-    var safeArea: UILayoutGuide!
+    override var safeAreaInsets: UIEdgeInsets {
+        return UIEdgeInsetsMake(10, 10, 10, 5)
+    }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        initializeCell()
-    }
 
-    override var safeAreaInsets: UIEdgeInsets {
-        return UIEdgeInsetsMake(10, 10, 10, 15)
-    }
-
-    func initializeCell() {
-        self.safeArea = self.safeAreaLayoutGuide
-        self.selectionStyle = .none
-        
         self.minute = UILabel()
         self.minute.translatesAutoresizingMaskIntoConstraints = false
         self.minute.layer.cornerRadius = 25
@@ -67,33 +61,16 @@ class DepartureListCell: UITableViewCell {
         self.delay.font = UIFont(name: self.delay.font.fontName, size: 15)
         self.delay.isHidden = true
         self.addSubview(self.delay)
+    }
 
-        NSLayoutConstraint.activate([
-            self.minute.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            self.minute.topAnchor.constraint(equalTo: self.safeArea.topAnchor, constant: 5),
-            self.minute.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor, constant: -5),
-            self.minute.widthAnchor.constraint(equalToConstant: 50),
-            self.minute.heightAnchor.constraint(equalToConstant: 50),
+    override func layoutSubviews() {
+        super.layoutSubviews()
 
-            self.destination.leadingAnchor.constraint(equalTo: self.minute.trailingAnchor, constant: 10),
-            self.destination.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.destination.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
-
-            self.platform.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.platform.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.platform.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
-            self.platform.heightAnchor.constraint(equalToConstant: 15),
-
-            self.length.topAnchor.constraint(equalTo: self.platform.bottomAnchor, constant: 2),
-            self.length.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.length.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
-            self.length.heightAnchor.constraint(equalToConstant: 15),
-
-            self.delay.topAnchor.constraint(equalTo: self.length.bottomAnchor, constant: 2),
-            self.delay.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.delay.leftAnchor.constraint(greaterThanOrEqualTo: self.destination.rightAnchor, constant: 10),
-            self.delay.heightAnchor.constraint(equalToConstant: 15),
-        ])
+        self.minute.pin.vertically(pin.safeArea).left(pin.safeArea).height(50).width(50)
+        self.platform.pin.top(pin.safeArea).right(pin.safeArea).width(95).height(15)
+        self.length.pin.below(of: self.platform, aligned: .right).width(of: self.platform).height(15)
+        self.delay.pin.below(of: self.length, aligned: .right).width(of: self.platform).height(15)
+        self.destination.pin.after(of: self.minute, aligned: .center).marginLeft(10).before(of: self.length).marginRight(5).height(30)
     }
 
     func setDeparture(departure: Departure) {

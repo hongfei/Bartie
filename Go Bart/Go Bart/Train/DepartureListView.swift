@@ -15,7 +15,6 @@ class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource
 
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.delegate = self
         self.dataSource = self
         self.tableFooterView = UIView(frame: CGRect.zero)
@@ -37,6 +36,10 @@ class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource
         cell.setDeparture(departure: departures[indexPath.row])
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
 
