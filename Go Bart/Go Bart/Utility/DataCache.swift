@@ -18,10 +18,17 @@ class DataCache {
             countLimit: 50,
             totalCostLimit: 0
     )
+    private static let persistentConfig = DiskConfig(
+            name: "PersistentData",
+            expiry: .never,
+            maxSize: 100000,
+            protectionType: .complete
+    )
     private static let stationStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: [Station].self))
     private static let stationMapStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: [String: Station].self))
     private static let routeStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: [Route].self))
     private static let detailRouteStorage = try? DiskStorage(config: diskConfig, transformer: TransformerFactory.forCodable(ofType: DetailRoute.self))
+    private static let favoriteStorage = try? DiskStorage(config: persistentConfig, transformer: TransformerFactory.forCodable(ofType: [Favorite].self))
 
     class func storeStations(stations: [Station]) {
         try? stationStorage?.setObject(stations, forKey: "stations")
@@ -69,5 +76,29 @@ class DataCache {
         } else {
             return nil
         }
+    }
+
+    class func getFavorite(from station: Station, to destination: Station) -> Favorite? {
+        return getAllFavorites().first(where: {fav in fav.station.abbr == station.abbr && fav.destination.abbr == destination.abbr })
+    }
+
+    class func saveFavorite(from station: Station, to destination: Station) {
+        var favorites = getAllFavorites()
+
+        if !favorites.contains(where: {fav in fav.station.abbr == station.abbr && fav.destination.abbr == destination.abbr }) {
+            favorites.append(Favorite(from: station, to: destination))
+        }
+
+        try? favoriteStorage?.setObject(favorites, forKey: "favorites")
+    }
+
+    class func getAllFavorites() -> [Favorite] {
+        var favorites: [Favorite] = []
+        if let storedData = try? favoriteStorage?.entry(forKey: "favorites").object {
+            if let storedFavorite = storedData {
+                favorites = storedFavorite
+            }
+        }
+        return favorites
     }
 }

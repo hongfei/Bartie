@@ -58,6 +58,10 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddToFavoriteCell") as! AddToFavoriteCell
+            cell.station = self.station
+            cell.destination = self.destination
+            cell.trips = self.trips
+            cell.refreshButton()
             return cell
         default:
             return UITableViewCell()
