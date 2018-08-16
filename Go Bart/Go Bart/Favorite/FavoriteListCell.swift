@@ -1,6 +1,6 @@
 //
 // Created by Hongfei on 2018/8/15.
-// C?opyright (c) 2018 Hongfei Zhou. A?ll rights reserved.
+// C?opyright (c) 2018 Hongfei Zh?ou.? A?ll rights reserved.
 //
 
 import UIKit
@@ -25,13 +25,14 @@ class FavoriteListCell: UITableViewCell {
 
         self.minuteLabel = UILabel()
         self.minuteLabel.layer.cornerRadius = 25
+        self.minuteLabel.textAlignment = .center
         self.addSubview(self.minuteLabel)
 
         self.trainLabel = UILabel()
         self.addSubview(self.trainLabel)
 
         self.minuteLabel.pin.left(pin.safeArea).height(50).width(50).vCenter()
-        self.trainLabel.pin.after(of: self.minuteLabel).vCenter().right(pin.safeArea)
+        self.trainLabel.pin.after(of: self.minuteLabel, aligned: .center).marginLeft(10).height(30).right(pin.safeArea)
     }
 
     func reloadData(with departure: Departure, of trip: Trip, for favorite: Favorite) {
