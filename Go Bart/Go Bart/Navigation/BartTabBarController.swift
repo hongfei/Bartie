@@ -16,7 +16,10 @@ class BartTabBarController: UITabBarController {
             TrainViewController(),
             FavoriteViewController()
         ].map { vc in
-            UINavigationController(rootViewController: vc)
+            let nav = UINavigationController(rootViewController: vc)
+            nav.navigationBar.barTintColor = UIColor("#3359D1")
+            nav.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            return nav
         }
     }
 }

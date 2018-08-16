@@ -38,6 +38,7 @@
 		ABFAA68A2117A9EA006C0B47 /* Go_BartUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */; };
 		B6F690FAAC36370F4C664044 /* StationSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69781ABC4738C6B3AA88C /* StationSearchBar.swift */; };
 		B6F6921613A7727376861EDA /* BartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69343ECE3A8CF46BD8E33 /* BartService.swift */; };
+		B6F69240ACFB0F21EFF9BE0D /* AddToFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F6987B0E518ABA25B5F5FB /* AddToFavoriteCell.swift */; };
 		B6F697CA4AA061A552E9ACFD /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69F01A95831136D1740AF /* Station.swift */; };
 		B6F697E671754A55887B2450 /* StationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */; };
 		B6F69D5494E23E1BBDE8DD79 /* DepartureListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69D54CCF049F0CD629310 /* DepartureListView.swift */; };
@@ -106,6 +107,7 @@
 		B6F6971508E39DCC4CC5652E /* BartStationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartStationService.swift; sourceTree = "<group>"; };
 		B6F69781ABC4738C6B3AA88C /* StationSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationSearchBar.swift; sourceTree = "<group>"; };
 		B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationPickerViewController.swift; sourceTree = "<group>"; };
+		B6F6987B0E518ABA25B5F5FB /* AddToFavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoriteCell.swift; sourceTree = "<group>"; };
 		B6F69D54CCF049F0CD629310 /* DepartureListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureListView.swift; sourceTree = "<group>"; };
 		B6F69F01A95831136D1740AF /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		E896756EB5EB17F2A1D03854 /* Pods_Go_BartTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Go_BartTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,6 +270,7 @@
 				41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */,
 				4130741DE3902AC4DF0A6E91 /* TripListView.swift */,
 				4130733455CAFF4E49CDC281 /* TripListCell.swift */,
+				B6F6987B0E518ABA25B5F5FB /* AddToFavoriteCell.swift */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				41307D7EC383E74F039DEC62 /* RouteDetailMapView.swift in Sources */,
 				413079B062E31DB40F1A755E /* TripDetailView.swift in Sources */,
 				4130784EC0F251D657BEBD0F /* RouteDetailContentList.swift in Sources */,
+				B6F69240ACFB0F21EFF9BE0D /* AddToFavoriteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,8 +38,6 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     func setNavigationBar() {
-        self.navigationController?.navigationBar.barTintColor = UIColor("#3359D1")
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationItem.backBarButtonItem?.tintColor = .white
     }

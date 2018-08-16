@@ -5,7 +5,7 @@
 
 import UIKit
 import SwiftIcons
-
+import UIColor_Hex_Swift
 
 class FavoriteViewController: UIViewController {
     required init?(coder: NSCoder) {

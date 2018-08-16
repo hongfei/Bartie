@@ -25,6 +25,11 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
         self.dataSource = self
         self.tableFooterView = UIView(frame: CGRect.zero)
         self.register(TripListCell.self, forCellReuseIdentifier: "TripListCell")
+        self.register(AddToFavoriteCell.self, forCellReuseIdentifier: "AddToFavoriteCell")
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -34,19 +39,30 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.trips.count
+        switch section {
+        case 0: return self.trips.count
+        case 1: return 1
+        default: return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell", for: indexPath) as! TripListCell
-        cell.trip = trips[indexPath.row]
-        cell.station = self.station
-        cell.destination = self.destination
-        cell.departure = DataUtil.findClosestDeparture(in: departures, for: cell.trip)
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell", for: indexPath) as! TripListCell
+            cell.trip = trips[indexPath.row]
+            cell.station = self.station
+            cell.destination = self.destination
+            cell.departure = DataUtil.findClosestDeparture(in: departures, for: cell.trip)
+            cell.reloadTripData()
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddToFavoriteCell") as! AddToFavoriteCell
+            return cell
+        default:
+            return UITableViewCell()
+        }
 
-        cell.reloadTripData()
-
-        return cell
     }
 }
 

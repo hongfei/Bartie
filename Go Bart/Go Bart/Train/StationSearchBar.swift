@@ -91,7 +91,6 @@ class StationSearchBar: UIView, UITextFieldDelegate {
         } else {
             self.toSearchBox.text = nil
             self.toSearchBox.leftViewMode = .always
-            self.toSearchBox.leftViewMode = .always
         }
     }
 
