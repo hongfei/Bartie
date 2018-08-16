@@ -37,6 +37,7 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
 
         self.view.addSubview(self.favoriteList)
         self.favoriteList.pin.all()
+        self.onRefreshList()
         self.favoriteList.reloadData()
     }
 
@@ -58,7 +59,5 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
                 }
             }
         }
-
-
     }
 }
