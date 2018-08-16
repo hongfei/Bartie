@@ -6,14 +6,15 @@
 import UIKit
 import UIColor_Hex_Swift
 import SwiftIcons
+import PinLayout
 
 class TrainViewController: UIViewController, StationSearchBarDelegate, DepartureListViewDelegate, TripListViewDelegate {
     var fromStationData: Station!
     var toStationData: Station!
 
-    var stationSearchBar = StationSearchBar()
-    var departureListView = DepartureListView()
-    var tripListView = TripListView()
+    var stationSearchBar: StationSearchBar!
+    var departureListView : DepartureListView!
+    var tripListView: TripListView!
 
     var safeArea: UILayoutGuide!
     var currentDetailViewController: RouteDetailViewController!
@@ -26,6 +27,8 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         super.init(nibName: nil, bundle: nil)
         self.title = "Trains"
         self.tabBarItem = UITabBarItem(title: "Train", image: UIImage(icon: .fontAwesomeSolid(.subway), size: CGSize(width: 32, height: 32)), tag: 0)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem?.tintColor = .white
     }
 
     override func viewDidLoad() {
@@ -33,56 +36,40 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.view.backgroundColor = .white
         self.safeArea = self.view.safeAreaLayoutGuide
 
-        setNavigationBar()
-        placeStationSearchBar()
-    }
-
-    func setNavigationBar() {
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem?.tintColor = .white
-    }
-
-    func placeStationSearchBar() {
+        self.stationSearchBar = StationSearchBar()
         self.stationSearchBar.delegate = self
-        self.view.addSubview(self.stationSearchBar)
 
-        NSLayoutConstraint.activate([
-            stationSearchBar.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            stationSearchBar.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            stationSearchBar.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor)
-        ])
-    }
-
-    func placeDepartureList() {
+        self.departureListView = DepartureListView()
         self.departureListView.departureListDelegate = self
         self.departureListView.refreshControl = UIRefreshControl()
         self.departureListView.refreshControl?.addTarget(self, action: #selector(updateDepartureList), for: .valueChanged)
-        self.view.addSubview(self.departureListView)
-        self.view.bringSubview(toFront: self.stationSearchBar)
 
-        NSLayoutConstraint.activate([
-            departureListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            departureListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            departureListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
-            departureListView.topAnchor.constraint(equalTo: self.stationSearchBar.bottomAnchor)
-
-        ])
-    }
-
-    func placeTripList() {
+        self.tripListView = TripListView()
         self.tripListView.tripListDelegate = self
         self.tripListView.refreshControl = UIRefreshControl()
         self.tripListView.rowHeight = UITableViewAutomaticDimension
         self.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
+
+        self.view.addSubview(self.stationSearchBar)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.stationSearchBar.pin.horizontally(view.pin.safeArea).top(view.pin.safeArea)
+    }
+
+    func placeDepartureList() {
+        self.view.addSubview(self.departureListView)
+        self.view.bringSubview(toFront: self.stationSearchBar)
+
+        self.departureListView.pin.horizontally(view.pin.safeArea).bottom(view.pin.safeArea).below(of: self.stationSearchBar)
+    }
+
+    func placeTripList() {
         self.view.addSubview(self.tripListView)
         self.view.bringSubview(toFront: self.stationSearchBar)
 
-        NSLayoutConstraint.activate([
-            tripListView.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            tripListView.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            tripListView.bottomAnchor.constraint(equalTo: self.safeArea.bottomAnchor),
-            tripListView.topAnchor.constraint(equalTo: self.stationSearchBar.bottomAnchor)
-        ])
+        self.tripListView.pin.horizontally(view.pin.safeArea).bottom(view.pin.safeArea).below(of: self.stationSearchBar)
     }
 
     @objc func updateDepartureList() {

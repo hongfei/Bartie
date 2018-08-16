@@ -42,6 +42,7 @@
 		ABFAA68A2117A9EA006C0B47 /* Go_BartUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */; };
 		B6F690FAAC36370F4C664044 /* StationSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69781ABC4738C6B3AA88C /* StationSearchBar.swift */; };
 		B6F6921613A7727376861EDA /* BartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69343ECE3A8CF46BD8E33 /* BartService.swift */; };
+		B6F695E7A9FAB13314F90503 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69B9688087EAC29DFB3E2 /* Icons.swift */; };
 		B6F697CA4AA061A552E9ACFD /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69F01A95831136D1740AF /* Station.swift */; };
 		B6F697E671754A55887B2450 /* StationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */; };
 		B6F69D5494E23E1BBDE8DD79 /* DepartureListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69D54CCF049F0CD629310 /* DepartureListView.swift */; };
@@ -114,6 +115,7 @@
 		B6F6971508E39DCC4CC5652E /* BartStationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartStationService.swift; sourceTree = "<group>"; };
 		B6F69781ABC4738C6B3AA88C /* StationSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationSearchBar.swift; sourceTree = "<group>"; };
 		B6F69841A1884C3571EC4BF4 /* StationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationPickerViewController.swift; sourceTree = "<group>"; };
+		B6F69B9688087EAC29DFB3E2 /* Icons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		B6F69D54CCF049F0CD629310 /* DepartureListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureListView.swift; sourceTree = "<group>"; };
 		B6F69F01A95831136D1740AF /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		E896756EB5EB17F2A1D03854 /* Pods_Go_BartTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Go_BartTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,7 @@
 				41307173079DB74D48953F63 /* DataCache.swift */,
 				41307B4AC844FE52CF5EBB1D /* DateUtil.swift */,
 				413074802997276ED007F83F /* DataUtil.swift */,
+				B6F69B9688087EAC29DFB3E2 /* Icons.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				413077C33F06D84A38299E65 /* TripListCell.swift in Sources */,
 				41307DC0983B8E2231D71B7B /* FavoriteListView.swift in Sources */,
 				413076AE7F3E94BE061D44FB /* FavoriteListCell.swift in Sources */,
+				B6F695E7A9FAB13314F90503 /* Icons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

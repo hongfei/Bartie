@@ -6,11 +6,9 @@
 import UIKit
 import UIColor_Hex_Swift
 import SwiftIcons
+import PinLayout
 
 class StationSearchBar: UIView, UITextFieldDelegate {
-    let searchIcon = UIImage(icon: .icofont(.search), size: CGSize(width: 20, height: 20), textColor: UIColor("#C7C7CD"), backgroundColor: .white)
-    let locatingIcon = UIImage(icon: .icofont(.locationArrow), size: CGSize(width: 20, height: 20), textColor: UIColor("#C7C7CD"), backgroundColor: .white)
-
     var fromSearchBox = SearchBoxField().withPlaceholder(placeholder: "Station")
     var toSearchBox = SearchBoxField().withPlaceholder(placeholder: "Destination")
     var delegate: StationSearchBarDelegate? {
@@ -19,8 +17,10 @@ class StationSearchBar: UIView, UITextFieldDelegate {
             self.toSearchBox.addTarget(delegate, action: #selector(StationSearchBarDelegate.onTapToBox), for: .touchDown)
         }
     }
-    var fromBoxHeight: NSLayoutConstraint?
-    var fromToBoxHeight: NSLayoutConstraint?
+
+    override var safeAreaInsets: UIEdgeInsets {
+        return UIEdgeInsetsMake(5, 5, 5, 5)
+    }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -29,50 +29,33 @@ class StationSearchBar: UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor("#E0E0E0")
-        self.fromBoxHeight = self.heightAnchor.constraint(equalToConstant: 45)
-        self.fromToBoxHeight = self.heightAnchor.constraint(equalToConstant: 82)
 
-        placeFromSearchBox()
-    }
-
-    private func placeFromSearchBox() {
         self.fromSearchBox.leftViewMode = .always
-        self.fromSearchBox.leftView = UIImageView(image: searchIcon)
-        self.fromSearchBox.rightView = UIImageView(image: locatingIcon)
+        self.fromSearchBox.leftView = UIImageView(image: Icons.searchIcon)
+        self.fromSearchBox.rightView = UIImageView(image: Icons.locatingIcon)
         self.fromSearchBox.rightViewMode = .always
         self.fromSearchBox.isUserInteractionEnabled = true
 
+        self.toSearchBox.rightViewMode = .always
+        self.toSearchBox.leftView = UIImageView(image: Icons.searchIcon)
+
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = 0.8
+
         self.addSubview(self.fromSearchBox)
-        self.fromToBoxHeight?.isActive = false
-        self.fromBoxHeight?.isActive = true
-        NSLayoutConstraint.activate([
-            self.fromSearchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-            self.fromSearchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            self.fromSearchBox.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            self.fromSearchBox.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        self.sizeToFit()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.fromSearchBox.pin.horizontally(pin.safeArea).top(pin.safeArea).height(35)
+        pin.wrapContent(padding: pin.safeArea)
     }
 
     private func placeToSearchBox() {
-        self.toSearchBox.rightViewMode = .always
-        self.toSearchBox.leftView = UIImageView(image: searchIcon)
-        self.toSearchBox.addGestureRecognizer(UITapGestureRecognizer(target: self.delegate, action: #selector(self.delegate?.onTapToBox)))
         self.addSubview(self.toSearchBox)
-
-        self.fromBoxHeight?.isActive = false
-        self.fromToBoxHeight?.isActive = true
-        NSLayoutConstraint.activate([
-            self.toSearchBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-            self.toSearchBox.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            self.toSearchBox.topAnchor.constraint(equalTo: self.fromSearchBox.bottomAnchor, constant: 2), // 5, 0
-            self.toSearchBox.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        self.sizeToFit()
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOpacity = 0.8
+        self.toSearchBox.pin.horizontally(pin.safeArea).below(of: self.fromSearchBox).height(35)
+        pin.wrapContent(padding: pin.safeArea)
     }
 
     func reloadStation(from station: Station, to destination: Station?) {
@@ -117,7 +100,6 @@ class SearchBoxField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .white
         self.layer.borderColor = UIColor("#D0D0D0").cgColor
         self.layer.borderWidth = 1
