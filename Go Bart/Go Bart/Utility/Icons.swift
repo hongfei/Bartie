@@ -13,4 +13,12 @@ class Icons {
     static let startDot = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: .red, backgroundColor: .clear)
     static let endDot = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: .green, backgroundColor: .clear)
     static let middleDot = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: .gray, backgroundColor: .clear)
+
+    static func trainIcon(of color: UIColor, width: Int = 20, height: Int = 20) -> UIImage {
+        return UIImage(icon: .fontAwesomeSolid(.train), size: CGSize(width: width, height: height), textColor: color, backgroundColor: .white)
+    }
+
+    static func dot(of color: UIColor, width: Int = 20, height: Int = 20) -> UIImage {
+        return UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: width, height: height), textColor: color, backgroundColor: .clear)
+    }
 }

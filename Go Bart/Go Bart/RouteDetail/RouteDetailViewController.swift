@@ -7,6 +7,7 @@ import UIKit
 import MapKit
 import Foundation
 import SwiftIcons
+import PinLayout
 
 class RouteDetailNavigationViewController: UINavigationController {
     var initialTouchPoint = CGPoint.zero
@@ -33,7 +34,7 @@ class RouteDetailNavigationViewController: UINavigationController {
 
 }
 
-class RouteDetailViewController: UIViewController, UITableViewDataSource {
+class RouteDetailViewController: UIViewController {
     var fromStation: Station!
     var toStation: Station?
     var departure: Departure?
@@ -68,89 +69,50 @@ class RouteDetailViewController: UIViewController, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let safeArea = self.view.safeAreaLayoutGuide
 
-        retrieveMissingData() { (station, destination, departure, trip) in
-            self.legends = trip.leg
-            self.tableView = RouteDetailContentList()
-            self.tableView.rowHeight = UITableViewAutomaticDimension
-            self.tableView.estimatedRowHeight = 100
-            self.view.addSubview(self.tableView)
-            NSLayoutConstraint.activate([
-                self.tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-                self.tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-                self.tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-                self.tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
-            ])
-            self.tableView.dataSource = self
-        }
-    }
+        self.tableView = RouteDetailContentList()
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 100
+        self.view.addSubview(self.tableView)
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 1
-        case 1: return self.legends.count
-        default: return 0
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "RouteDetailMapView") as! RouteDetailMapView
-            self.mapView = cell
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SingleTripView") as! SingleTripView
-            let leg = self.legends[indexPath.row]
-            BartRouteService.getAllRoutes() { routes in
-                if let route = routes.first(where: { route in route.routeID == leg.line }) {
-                    BartRouteService.getDetailRouteInfo(for: route) { routeDetail in
-                        DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
-                            self.mapView.showStations(stations: stations)
-                            cell.reloadData(with: stations, legend: leg, route: routeDetail)
-                        }
-                    }
-                }
+        if let actualTrip = self.trip {
+            self.tableView.trip = self.trip
+            self.retrieveDeparture(by: actualTrip) { departure in
+                self.tableView.reloadRouteDetail(from: self.fromStation, to: self.toStation, with: departure, of: actualTrip)
             }
-
-            return cell
-        default:
-            return UITableViewCell()
+        } else if let actualDeparture = self.departure {
+            self.tableView.departure = actualDeparture
+            self.retrieveTrip(by: actualDeparture) { trip in
+                self.tableView.reloadRouteDetail(from: self.fromStation, to: self.toStation, with: actualDeparture, of: trip)
+            }
         }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tableView.pin.all()
     }
 
     @IBAction func closeRouteDetail() {
         self.dismiss(animated: true)
     }
 
-    private func retrieveMissingData(completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {
-        if let actualTrip = self.trip {
-            self.retrieveDeparture(by: actualTrip, completionHandler: completionHandler)
-        } else if let actualDeparture = self.departure {
-            self.retrieveTrip(by: actualDeparture, completionHandler: completionHandler)
-        }
-    }
-
-    private func retrieveTrip(by departure: Departure, completionHandler: @escaping (Station, Station, Departure, Trip) -> Void) {
+    private func retrieveTrip(by departure: Departure, completionHandler: @escaping (Trip?) -> Void) {
         BartStationService.getAllStations() { stations in
             let destination = stations.first(where: { station in station.abbr == departure.abbreviation })!
             BartScheduleService.getTripPlan(from: self.fromStation, to: destination, count: 12) { trips in
                 let trip = DataUtil.findClosestTrip(in: trips, for: departure)
-                completionHandler(self.fromStation, destination, departure, trip!)
+                completionHandler(trip)
             }
         }
     }
 
-    private func retrieveDeparture(by trip: Trip, completionHandler: @escaping (Station, Station, Departure?, Trip) -> Void) {
+    private func retrieveDeparture(by trip: Trip, completionHandler: @escaping (Departure?) -> Void) {
         BartRealTimeService.getSelectedDepartures(for: self.fromStation) { departures in
             BartRouteService.getAllRoutes() { routes in
                 let dep = DataUtil.findClosestDeparture(in: departures, for: trip)
-                completionHandler(self.fromStation, self.toStation!, dep, trip)
+                completionHandler(dep)
             }
         }
     }

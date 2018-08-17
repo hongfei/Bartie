@@ -14,8 +14,8 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     let searchController = UISearchController(searchResultsController: nil)
 
     // data
-    var stations: [Station]?
-    var filteredStations: [Station]?
+    var stations: [Station] = []
+    var filteredStations: [Station] = []
 
     // inner controls
     var selectedHandler: ((Station) -> Void)?
@@ -55,7 +55,8 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
         let cell = tableView.dequeueReusableCell(withIdentifier: "StationCollectionCell", for: indexPath)
 
         if let stationCell = cell as? StationTableCell {
-            stationCell.setStation(station: (self.filteredStations?[indexPath.row])!)
+            stationCell.station = self.filteredStations[indexPath.row]
+            stationCell.reloadStation()
             return stationCell
         } else {
             return cell
@@ -63,20 +64,19 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch self.filteredStations {
-        case .some(let stns):
-            return stns.count
-        case .none:
-            return 0
-        }
+        return self.filteredStations.count
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedStation = (self.filteredStations?[indexPath.row])!
+        let selectedStation = self.filteredStations[indexPath.row]
         if let handler = self.selectedHandler {
             handler(selectedStation)
         }
         self.navigationController?.popViewController(animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 
     func with(barTitle: String?) -> StationPickerViewController {
@@ -91,7 +91,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            filteredStations = self.stations?.filter { station in
+            filteredStations = self.stations.filter { station in
                 return station.name.contains(searchText)
             }
         } else {

@@ -1,6 +1,6 @@
 //
 // Created by Hongfei on 2018/8/10.
-// Copyright ??(c) 2018? Hongfei Zhou. All rights reserved.
+// Copyrigh?t ??(c) 2018? Hongfei Zhou. All rights reserved.
 //
 
 import UIKit
@@ -117,7 +117,7 @@ class StationTime: UIView {
 
         self.time.pin.vertically(pin.safeArea).left(pin.safeArea).width(60)
         self.symbol.pin.after(of: self.time, aligned: .center).width(10).height(10)
-        self.station.pin.after(of: self.symbol).right(pin.safeArea).vertically(pin.safeArea)
+        self.station.pin.after(of: self.symbol).marginLeft(5).right(pin.safeArea).vertically(pin.safeArea)
     }
 
     func loadData(time: String, station: String?, symbol: UIImage) {

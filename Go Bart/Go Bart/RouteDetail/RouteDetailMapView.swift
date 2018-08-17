@@ -3,8 +3,8 @@
 // Copyright (c) 2018 Hongfei Zhou. All rights reserved.
 //
 
-import Foundation
 import MapKit
+import PinLayout
 
 class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     var map: MKMapView!
@@ -17,27 +17,17 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.safeArea = self.contentView.safeAreaLayoutGuide
-        self.insetsLayoutMarginsFromSafeArea = false
-        initializeCell()
-    }
-
-    private func initializeCell() {
+        self.isUserInteractionEnabled = false
         self.map = MKMapView()
         self.map.showsUserLocation = false
-        self.map.translatesAutoresizingMaskIntoConstraints = false
         self.map.delegate = self
-        self.contentView.addSubview(self.map)
+        self.addSubview(self.map)
+    }
 
-        NSLayoutConstraint.activate([
-            self.map.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            self.map.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.map.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.map.widthAnchor.constraint(equalToConstant: self.frame.width),
-            self.map.heightAnchor.constraint(equalToConstant: self.frame.width / 3 * 2),
-            self.map.bottomAnchor.constraint(lessThanOrEqualTo: self.safeArea.bottomAnchor)
-        ])
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.map.pin.all(pin.safeArea)
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

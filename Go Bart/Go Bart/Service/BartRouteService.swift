@@ -11,10 +11,14 @@ class BartRouteService: BartService {
     static let ROUTE_RESOURCE = "/route.aspx"
 
     static func getDetailRouteInfo(for route: Route,completionHandler: @escaping (DetailRoute) -> Void) {
-        if let detailRoute = DataCache.getDetailRoute(routeID: route.routeID) {
+        getDetailRouteInfo(with: route.routeID, completionHandler: completionHandler)
+    }
+
+    static func getDetailRouteInfo(with routeID: String, completionHandler: @escaping (DetailRoute) -> Void) {
+        if let detailRoute = DataCache.getDetailRoute(routeID: routeID) {
             completionHandler(detailRoute)
         } else {
-            getResponse(for: ROUTE_RESOURCE, withParams: ["cmd": "routeinfo", "route": route.number]) { response in
+            getResponse(for: ROUTE_RESOURCE, withParams: ["cmd": "routeinfo", "route": String(routeID.split(separator: " ").last!)]) { response in
                 if let json = response {
                     let detailRoute = try! decoder.decode(DetailRoute.self, from: JSON(json)["root"]["routes"]["route"].rawData())
                     DataCache.storeDetailRoutes(route: detailRoute)

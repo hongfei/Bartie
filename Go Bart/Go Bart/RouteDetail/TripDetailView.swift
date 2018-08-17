@@ -1,24 +1,25 @@
 //
 // Created by Hongfei on 2018/8/13.
-// Copyright (c) 2018 Hongfei Zhou. All rights reserved.
+// Copyright (c) 2018 Ho?ngfei Zhou. All rights reserved.
 //
 
 import UIKit
 import SwiftIcons
 import UIColor_Hex_Swift
+import PinLayout
 
 
 class SingleTripView: UITableViewCell {
     var safeArea: UILayoutGuide!
 
-    var orderLabel = UILabel()
-    var trainIcon = UIImageView()
-    var trainDestinationLabel = UILabel()
-    var departStation: StationTime = StationTime()
-    var destinationStation: StationTime = StationTime()
-    var middleStations: [StationTime] = []
+    var orderLabel: UILabel!
+    var trainIcon: UIImageView!
+    var trainDestinationLabel: UILabel!
+
+    var stations: [StationTime] = []
+
     override var safeAreaInsets: UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10)
+        return UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 10)
     }
 
     required init?(coder: NSCoder) {
@@ -27,60 +28,50 @@ class SingleTripView: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.isUserInteractionEnabled = false
-        self.safeArea = self.contentView.safeAreaLayoutGuide
+        self.orderLabel = UILabel()
+        self.addSubview(self.orderLabel)
 
-        self.orderLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.orderLabel)
+        self.trainIcon = UIImageView()
+        self.addSubview(self.trainIcon)
 
-        self.trainIcon.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.trainIcon)
+        self.trainDestinationLabel = UILabel()
+        self.addSubview(self.trainDestinationLabel)
+    }
 
-        self.trainDestinationLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.trainDestinationLabel)
+    override func layoutSubviews() {
+        super.layoutSubviews()
 
-        NSLayoutConstraint.activate([
-            self.orderLabel.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-            self.orderLabel.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.orderLabel.widthAnchor.constraint(equalToConstant: 30),
-            self.orderLabel.heightAnchor.constraint(equalToConstant: 30),
-            self.trainIcon.leadingAnchor.constraint(equalTo: self.orderLabel.trailingAnchor),
-            self.trainIcon.topAnchor.constraint(equalTo: self.safeArea.topAnchor, constant: 5),
-            self.trainIcon.widthAnchor.constraint(equalToConstant: 20),
-            self.trainIcon.heightAnchor.constraint(equalToConstant: 20),
-            self.trainIcon.bottomAnchor.constraint(lessThanOrEqualTo: self.orderLabel.bottomAnchor),
-            self.trainDestinationLabel.leadingAnchor.constraint(equalTo: self.trainIcon.trailingAnchor, constant: 5),
-            self.trainDestinationLabel.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
-            self.trainDestinationLabel.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-            self.trainDestinationLabel.heightAnchor.constraint(equalToConstant: 30)
-        ])
+        self.orderLabel.pin.left(pin.safeArea).top(pin.safeArea).width(30).height(30)
+        self.trainIcon.pin.after(of: self.orderLabel, aligned: .center).marginLeft(5).width(20).height(20)
+        self.trainDestinationLabel.pin.after(of: self.trainIcon, aligned: .center).marginLeft(5).right(pin.safeArea).height(30)
+
+        var previous: UIView = self.trainDestinationLabel
+        for st in self.stations {
+            st.pin.horizontally(pin.safeArea).below(of: previous).marginTop(0).height(25)
+            previous = st
+        }
     }
 
     func reloadData(with stations: [Station], legend: Legend, route: DetailRoute) {
+        self.stations.forEach({ st in st.removeFromSuperview() })
+        self.stations = []
         self.orderLabel.text = legend.order
 
         BartStationService.getAllStationMap() { stationsMap in
             self.trainDestinationLabel.text = stationsMap[legend.trainHeadStation]?.name
         }
 
-        self.trainIcon.image = UIImage(icon: .fontAwesomeSolid(.train), size: CGSize(width: 20, height: 20), textColor: UIColor(route.hexcolor), backgroundColor: .white)
-        let stationSymbol = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: UIColor(route.hexcolor), backgroundColor: .clear)
+        self.trainIcon.image = Icons.trainIcon(of: UIColor(route.hexcolor))
+        let stationSymbol = Icons.dot(of: UIColor(route.hexcolor), width: 9, height: 9)
 
-        var previous = self.trainDestinationLabel.bottomAnchor
         for station in stations {
             let st = StationTime()
             st.loadData(time: "", station: station.name, symbol: stationSymbol)
-            self.contentView.addSubview(st)
-            NSLayoutConstraint.activate([
-                st.leadingAnchor.constraint(equalTo: self.safeArea.leadingAnchor),
-                st.trailingAnchor.constraint(equalTo: self.safeArea.trailingAnchor),
-                st.topAnchor.constraint(equalTo: previous),
-                st.heightAnchor.constraint(equalToConstant: 25)
-            ])
-            previous = st.bottomAnchor
+            self.addSubview(st)
+            self.stations.append(st)
         }
-
-        self.safeArea.bottomAnchor.constraint(greaterThanOrEqualTo: previous).isActive = true
+        self.stations.first?.time.text = legend.origTimeMin
+        self.stations.last?.time.text = legend.destTimeMin
     }
 }

@@ -32,7 +32,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? TripListCell {
-//            self.tripListDelegate?.onTripSelected(trip: cell.trip, from: cell.station, to: cell.destination, with: cell.departure)
+            self.tripListDelegate?.onTripSelected(trip: cell.trip, from: cell.station, to: cell.destination, with: cell.departure)
         }
     }
 
@@ -67,12 +67,20 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row < self.trips.count {
-            let height = CGFloat(self.trips[indexPath.row].leg.count * 20 + 70)
-            return height
-        } else {
+        switch indexPath.section {
+        case 0:
+            if indexPath.row < self.trips.count {
+                let height = CGFloat(self.trips[indexPath.row].leg.count * 20 + 70)
+                return height
+            } else {
+                return 0
+            }
+        case 1:
+            return 44
+        default:
             return 0
         }
+
     }
 
     func reloadTripList(trips: [Trip], with departures: [Departure], from station: Station, to destination: Station) {
