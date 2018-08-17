@@ -29,6 +29,7 @@ class SingleTripView: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.isUserInteractionEnabled = false
+        
         self.orderLabel = UILabel()
         self.addSubview(self.orderLabel)
 

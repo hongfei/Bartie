@@ -26,7 +26,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     init() {
         super.init(nibName: nil, bundle: nil)
         self.title = "Trains"
-        self.tabBarItem = UITabBarItem(title: "Train", image: UIImage(icon: .fontAwesomeSolid(.subway), size: CGSize(width: 32, height: 32)), tag: 0)
+        self.tabBarItem = UITabBarItem(title: "Trains", image: UIImage(icon: .fontAwesomeSolid(.subway), size: CGSize(width: 32, height: 32)), tag: 0)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationItem.backBarButtonItem?.tintColor = .white
     }

@@ -33,13 +33,14 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? TripListCell {
             self.tripListDelegate?.onTripSelected(trip: cell.trip, from: cell.station, to: cell.destination, with: cell.departure)
+            cell.setSelected(false, animated: true)
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return self.trips.count
-        case 1: return 1
+        case 1: return self.trips.count > 0 ? 1 : 0
         default: return 0
         }
     }

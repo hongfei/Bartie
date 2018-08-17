@@ -18,13 +18,13 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
 
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.title = "Favorite"
+        self.title = "Favorites"
         self.view.backgroundColor = .white
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
     }
 
     override var navigationItem: UINavigationItem {
-        let navItem = UINavigationItem()
+        let navItem = UINavigationItem(title: "Favorites")
         navItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self.favoriteList, action: #selector(FavoriteListView.editFavorites))
         navItem.rightBarButtonItem?.tintColor = .white
         return navItem

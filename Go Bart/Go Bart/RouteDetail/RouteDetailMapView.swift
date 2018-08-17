@@ -17,6 +17,8 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
+        
         self.map = MKMapView()
         self.map.showsUserLocation = false
         self.map.showsCompass = true
@@ -37,13 +39,15 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     }
     
     func showStations(stations: [Station]) {
-        self.map.showAnnotations(stations.filter({ station in !self.stations.contains(station.abbr) }).map({ station in
+        let newStations = stations.filter({ station in !self.stations.contains(station.abbr) })
+        self.map.showAnnotations(newStations.map({ station in
             let point = MKPointAnnotation()
             let coord = CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
             point.coordinate = coord
             point.title = station.name
+            
             self.stations.append(station.abbr)
             return point
-        }), animated: true)
+        }), animated: false)
     }
 }

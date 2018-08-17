@@ -24,6 +24,7 @@ class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? DepartureListCell {
             self.departureListDelegate?.onDepartureSelected(departure: cell.departure)
+            cell.setSelected(false, animated: true)
         }
     }
 

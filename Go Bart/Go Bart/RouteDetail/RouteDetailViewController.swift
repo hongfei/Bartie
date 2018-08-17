@@ -71,10 +71,7 @@ class RouteDetailViewController: UIViewController {
         super.viewDidLoad()
 
         self.tableView = RouteDetailContentList()
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 100
         self.view.addSubview(self.tableView)
-
 
         if let actualTrip = self.trip {
             self.tableView.trip = self.trip
