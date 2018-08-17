@@ -49,7 +49,7 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate 
             guard let departures = self.departureMap[indexPath.section], let departure = DataUtil.findClosestDeparture(in: departures, for: trip) else {
                 return favoriteCell
             }
-            favoriteCell.reloadData(with: departure, of: trip, for: favorites[indexPath.row])
+            favoriteCell.reloadData(with: departure, of: trip, for: favorites[indexPath.section])
             return favoriteCell
         } else {
             return cell

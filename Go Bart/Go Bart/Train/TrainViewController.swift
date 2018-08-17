@@ -87,11 +87,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     @objc func updateTripList() {
         BartScheduleService.getTripPlan(from: self.fromStationData, to: self.toStationData) { trips in
             BartRealTimeService.getSelectedDepartures(for: self.fromStationData) { departures in
-                self.tripListView.trips = trips
-                self.tripListView.departures = departures
-                self.tripListView.station = self.fromStationData
-                self.tripListView.destination = self.toStationData
-                self.tripListView.reloadData()
+                self.tripListView.reloadTripList(trips: trips, with: departures, from: self.fromStationData, to: self.toStationData)
                 if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
                     self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 }

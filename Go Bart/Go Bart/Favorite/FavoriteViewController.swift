@@ -51,7 +51,7 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
                 self.favoriteList.tripsListMap[index] = trips
                 BartRealTimeService.getSelectedDepartures(for: favorite.station) { departures in
                     self.favoriteList.departureMap[index] = departures
-                    self.favoriteList.reloadSections(IndexSet(integer: index), with: .none)
+                    self.favoriteList.reloadData()
                     refreshCount -= 1
                     if refreshCount == 0 {
                         self.favoriteList.refreshControl?.endRefreshing()
