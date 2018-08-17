@@ -8,6 +8,8 @@ import PinLayout
 import UIColor_Hex_Swift
 
 class FavoriteListCell: UITableViewCell {
+    public static let HEIGHT = CGFloat(80)
+
     var minuteLabel: UILabel!
     var trainLabel: UILabel!
     var arrivalLabel: UILabel!
@@ -23,6 +25,7 @@ class FavoriteListCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.autoresizingMask = .flexibleHeight
+
         let view = self.contentView
 
         self.minuteLabel = UILabel()

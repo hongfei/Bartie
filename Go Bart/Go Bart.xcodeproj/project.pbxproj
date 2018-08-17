@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4130701FAA6B28393E17FF85 /* AddToFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307CB9221AB4D903E33506 /* AddToFavoriteCell.swift */; };
+		413070A81B2C079D7625FF8F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307D6489C62A21B01795B9 /* Settings.swift */; };
 		4130718F3C050DB2E10398BE /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413072F6B6AB6848B5DA04D6 /* Trip.swift */; };
 		41307201DC06DDDCC9CA8ECB /* RouteDetailNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307265F3BBE45AF644BE96 /* RouteDetailNavigationBar.swift */; };
 		41307273FAF06FCAFA2B5A04 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413075EE991F15BAD4DBE0F0 /* Favorite.swift */; };
@@ -25,6 +26,7 @@
 		413079AC61F58CE0CD1FE493 /* BartRouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DD9B46A122DFF3DCD7C /* BartRouteService.swift */; };
 		413079B062E31DB40F1A755E /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413074C9FA4228E892111447 /* TripDetailView.swift */; };
 		41307B8861EB138CF24A2AF8 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076193A7889F204B1D7AF /* BartTabBarController.swift */; };
+		41307B8C0A326E8D8BAE7405 /* FavoriteListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413079687826F9C5FBE435E1 /* FavoriteListHeader.swift */; };
 		41307D62B68984D10FC68B5D /* BartRealTimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413077A316DDFD7A7ABFAFFC /* BartRealTimeService.swift */; };
 		41307D7EC383E74F039DEC62 /* RouteDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307C821D7D5C7DCF8253E9 /* RouteDetailMapView.swift */; };
 		41307DC0983B8E2231D71B7B /* FavoriteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413071F369AD2101FC7DEE2F /* FavoriteListView.swift */; };
@@ -88,9 +90,11 @@
 		41307814C2BF08E75FBBC622 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		41307896C59B296ED0EFD428 /* FavoriteListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListCell.swift; sourceTree = "<group>"; };
 		4130792A4DCD280A43686EF2 /* RouteDetailContentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailContentList.swift; sourceTree = "<group>"; };
+		413079687826F9C5FBE435E1 /* FavoriteListHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListHeader.swift; sourceTree = "<group>"; };
 		41307B4AC844FE52CF5EBB1D /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		41307C821D7D5C7DCF8253E9 /* RouteDetailMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailMapView.swift; sourceTree = "<group>"; };
 		41307CB9221AB4D903E33506 /* AddToFavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoriteCell.swift; sourceTree = "<group>"; };
+		41307D6489C62A21B01795B9 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		41307DB78EA2212056B58896 /* BartScheduleService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartScheduleService.swift; sourceTree = "<group>"; };
 		41307DD9B46A122DFF3DCD7C /* BartRouteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartRouteService.swift; sourceTree = "<group>"; };
 		41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				41307B4AC844FE52CF5EBB1D /* DateUtil.swift */,
 				413074802997276ED007F83F /* DataUtil.swift */,
 				B6F69B9688087EAC29DFB3E2 /* Icons.swift */,
+				41307D6489C62A21B01795B9 /* Settings.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */,
 				413071F369AD2101FC7DEE2F /* FavoriteListView.swift */,
 				41307896C59B296ED0EFD428 /* FavoriteListCell.swift */,
+				413079687826F9C5FBE435E1 /* FavoriteListHeader.swift */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -572,6 +578,8 @@
 				41307DC0983B8E2231D71B7B /* FavoriteListView.swift in Sources */,
 				413076AE7F3E94BE061D44FB /* FavoriteListCell.swift in Sources */,
 				B6F695E7A9FAB13314F90503 /* Icons.swift in Sources */,
+				413070A81B2C079D7625FF8F /* Settings.swift in Sources */,
+				41307B8C0A326E8D8BAE7405 /* FavoriteListHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,9 +17,9 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.isUserInteractionEnabled = false
         self.map = MKMapView()
         self.map.showsUserLocation = false
+        self.map.showsCompass = true
         self.map.delegate = self
         self.addSubview(self.map)
     }

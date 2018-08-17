@@ -23,7 +23,12 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
     }
 
-    var flc = FavoriteListCell()
+    override var navigationItem: UINavigationItem {
+        let navItem = UINavigationItem()
+        navItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self.favoriteList, action: #selector(FavoriteListView.editFavorites))
+        navItem.rightBarButtonItem?.tintColor = .white
+        return navItem
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +50,11 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
         let favorites = DataCache.getAllFavorites()
         self.favoriteList.favorites = favorites
         var refreshCount = favorites.count
+
+        if refreshCount == 0 {
+            self.favoriteList.refreshControl?.endRefreshing()
+            return
+        }
 
         for (index, favorite) in favorites.enumerated() {
             BartScheduleService.getTripPlan(from: favorite.station, to: favorite.destination) { trips in

@@ -72,7 +72,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.tripListView.pin.horizontally(view.pin.safeArea).bottom(view.pin.safeArea).below(of: self.stationSearchBar)
     }
 
-    @objc func updateDepartureList() {
+    @IBAction func updateDepartureList() {
         BartRealTimeService.getSelectedDepartures(for: self.fromStationData) { departures in
             self.departureListView.departures = departures
             self.departureListView.reloadData()
@@ -84,7 +84,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         }
     }
 
-    @objc func updateTripList() {
+    @IBAction func updateTripList() {
         BartScheduleService.getTripPlan(from: self.fromStationData, to: self.toStationData) { trips in
             BartRealTimeService.getSelectedDepartures(for: self.fromStationData) { departures in
                 self.tripListView.reloadTripList(trips: trips, with: departures, from: self.fromStationData, to: self.toStationData)

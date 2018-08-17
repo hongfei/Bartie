@@ -92,6 +92,12 @@ class DataCache {
         try? favoriteStorage?.setObject(favorites, forKey: "favorites")
     }
 
+    class func deleteFavorite(favorite: Favorite) {
+        let newFavorites = getAllFavorites().filter({ fav in fav.station.abbr != favorite.station.abbr || fav.destination.abbr != favorite.destination.abbr })
+
+        try? favoriteStorage?.setObject(newFavorites, forKey: "favorites")
+    }
+
     class func getAllFavorites() -> [Favorite] {
         var favorites: [Favorite] = []
         if let storedData = try? favoriteStorage?.entry(forKey: "favorites").object {

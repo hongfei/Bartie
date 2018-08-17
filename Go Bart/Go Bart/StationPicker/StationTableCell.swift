@@ -43,8 +43,8 @@ class StationTableCell: UITableViewCell {
         super.layoutSubviews()
 
         self.name.pin.horizontally(pin.safeArea).top(pin.safeArea).height(30)
-        self.address.pin.below(of: self.name, aligned: .left).marginTop(5).before(of: self.county).marginRight(0).height(15)
         self.county.pin.below(of: self.name, aligned: .right).marginTop(5).width(80).height(15)
+        self.address.pin.below(of: self.name, aligned: .left).marginTop(5).before(of: self.county).marginRight(0).height(15)
     }
 
     func reloadStation() {
