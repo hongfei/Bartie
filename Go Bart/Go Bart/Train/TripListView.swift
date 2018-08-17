@@ -13,8 +13,6 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     var routeMap: [String: Route]!
     var departures: [Departure]!
 
-    var tripCells: [TripListCell] = []
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -40,7 +38,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return self.tripCells.count
+        case 0: return self.trips.count
         case 1: return 1
         default: return 0
         }
@@ -49,7 +47,13 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            return self.tripCells[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell") as! TripListCell
+            cell.trip = self.trips[indexPath.row]
+            cell.station = self.station
+            cell.destination = self.destination
+            cell.departure = DataUtil.findClosestDeparture(in: self.departures, for: cell.trip)
+            cell.reloadTripData()
+            return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddToFavoriteCell") as! AddToFavoriteCell
             cell.station = self.station
@@ -63,10 +67,9 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row < self.tripCells.count {
-            print("size before return ")
-            print(self.tripCells[indexPath.row].frame)
-            return self.tripCells[indexPath.row].frame.height
+        if indexPath.row < self.trips.count {
+            let height = CGFloat(self.trips[indexPath.row].leg.count * 20 + 70)
+            return height
         } else {
             return 0
         }
@@ -77,17 +80,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
         self.destination = destination
         self.trips = trips
         self.departures = departures
-        self.tripCells = []
 
-        for trip in trips {
-            let cell = TripListCell()
-            cell.station = station
-            cell.destination = destination
-            cell.trip = trip
-            cell.departure = DataUtil.findClosestDeparture(in: departures, for: trip)
-            cell.reloadTripData()
-            self.tripCells.append(cell)
-        }
         self.reloadData()
     }
 }

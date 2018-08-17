@@ -1,6 +1,6 @@
 //
 // Created by Hongfei on 2018/8/10.
-// Copyright ?(c) 2018? Hongfei Zhou. All rights reserved.
+// Copyright ??(c) 2018? Hongfei Zhou. All rights reserved.
 //
 
 import UIKit
@@ -40,14 +40,19 @@ class TripListCell: UITableViewCell {
         self.destLabel.adjustsFontSizeToFitWidth = true
         self.destLabel.minimumScaleFactor = 0.5
         self.addSubview(self.destLabel)
-
-        self.minute.pin.height(50).width(50).left(self.pin.safeArea).vCenter()
-        self.destLabel.pin.left().right(pin.safeArea).top(pin.safeArea).marginTop(0).height(25)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
+        self.minute.pin.height(50).width(50).left(pin.safeArea).vCenter()
+        self.destLabel.pin.after(of: self.minute).marginLeft(10).top(pin.safeArea).right(pin.safeArea).height(30)
+
+        var previous: UIView = self.destLabel!
+        for st in self.stations {
+            st.pin.below(of: previous, aligned: .left).marginTop(0).right(self.pin.safeArea).height(20)
+            previous = st
+        }
     }
 
     func reloadTripData() {
@@ -67,7 +72,7 @@ class TripListCell: UITableViewCell {
             self.stations.forEach({ station in station.removeFromSuperview() })
             self.stations = []
             let stations = DataUtil.clipStations(for: self.trip)
-            var previous: UIView = self.destLabel!
+
             for stnt in stations {
                 let st = StationTime()
                 st.loadData(
@@ -76,12 +81,8 @@ class TripListCell: UITableViewCell {
                         symbol: Icons.middleDot)
                 self.addSubview(st)
                 self.stations.append(st)
-                st.pin.below(of: previous, aligned: .left).marginTop(0).right(self.pin.safeArea).height(20)
-                previous = st
             }
-            self.minute.pin.vCenter()
-            self.pin.wrapContent(padding: self.pin.safeArea)
-            self.layoutSubviews()
+
             self.stations.first?.symbol.image = Icons.startDot
             self.stations.last?.symbol.image = Icons.endDot
         }
@@ -108,7 +109,7 @@ class StationTime: UIView {
         self.station.font = UIFont(name: self.station.font.fontName, size: 13)
         self.station.adjustsFontSizeToFitWidth = true
         self.station.minimumScaleFactor = 0.5
-        self.symbol.addSubview(self.station)
+        self.addSubview(self.station)
     }
 
     override func layoutSubviews() {
@@ -116,7 +117,7 @@ class StationTime: UIView {
 
         self.time.pin.vertically(pin.safeArea).left(pin.safeArea).width(60)
         self.symbol.pin.after(of: self.time, aligned: .center).width(10).height(10)
-        self.station.pin.after(of: self.symbol, aligned: .center).right(pin.safeArea)
+        self.station.pin.after(of: self.symbol).right(pin.safeArea).vertically(pin.safeArea)
     }
 
     func loadData(time: String, station: String?, symbol: UIImage) {
