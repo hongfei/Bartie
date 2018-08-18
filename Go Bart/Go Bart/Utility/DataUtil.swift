@@ -24,8 +24,11 @@ class DataUtil {
     
     class func findClosestDeparture(in departures: [Departure], for trip: Trip) -> Departure? {
         return departures.filter({ departure in
-            return departure.abbreviation == trip.leg.first!.trainHeadStation &&
-                    abs(DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin) - Int(departure.minutes)!) < 20
+            let sameDestination = trip.leg.first!.trainHeadStation == departure.abbreviation!
+            let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            let departureTime = Int(departure.minutes)!
+            let inTimeRange = tripTime - 5 < departureTime && departureTime < tripTime + 15
+            return sameDestination && inTimeRange
         }).min(by: { (dep1, dep2) in
             let tripDiff = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
             return abs(Int(dep1.minutes)! - tripDiff) < abs(Int(dep2.minutes)! - tripDiff)
@@ -34,8 +37,11 @@ class DataUtil {
 
     class func findClosestTrip(in trips: [Trip], for departure: Departure) -> Trip? {
         return trips.filter({ trip in
-            trip.leg.first!.trainHeadStation == departure.abbreviation! &&
-                    abs(DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin) - Int(departure.minutes)!) < 20
+            let sameDestination = trip.leg.first!.trainHeadStation == departure.abbreviation!
+            let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            let departureTime = Int(departure.minutes)!
+            let inTimeRange = departureTime - 15 < tripTime && tripTime < departureTime + 5
+            return sameDestination && inTimeRange
         }).min(by: { (trip1, trip2) in
             let tripDiff1 = DateUtil.getTimeDifferenceToNow(dateString: trip1.origTimeDate + trip1.origTimeMin)
             let tripDiff2 = DateUtil.getTimeDifferenceToNow(dateString: trip2.origTimeDate + trip2.origTimeMin)

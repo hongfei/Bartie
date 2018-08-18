@@ -6,7 +6,7 @@
 import UIKit
 import MapKit
 
-class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataSource {
+class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var station: Station!
     var destination: Station?
     var departure: Departure?
@@ -14,6 +14,14 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
     var mapView: RouteDetailMapView!
     var legStations: [String:[Station]] = [:]
     var legRouteDetails: [String: DetailRoute] = [:]
+
+    var parentControllerView: UINavigationController? {
+        didSet {
+            let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(dragToDismiss))
+            panRecognizer.delegate = self
+            parentControllerView?.view.addGestureRecognizer(panRecognizer)
+        }
+    }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -24,6 +32,7 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
 
         self.delegate = self
         self.dataSource = self
+        self.bounces = false
 
         self.register(RouteDetailMapView.self, forCellReuseIdentifier: "RouteDetailMapView")
         self.register(SingleTripView.self, forCellReuseIdentifier: "SingleTripView")
@@ -106,5 +115,53 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
         default:
             return UITableViewCell()
         }
+    }
+
+    var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+    var initialViewFrame: CGRect!
+    var isPanEnabled: Bool = true
+    var firstTouchInsideMap: Bool = false
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.isPanEnabled = scrollView.contentOffset.y == 0
+        self.bounces = !self.isPanEnabled
+    }
+
+    @IBAction func dragToDismiss(_ recognizer: UIPanGestureRecognizer) {
+        guard let navController = self.parentControllerView, let view = navController.view else {
+            return
+        }
+
+        if !self.isPanEnabled { return }
+
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let barHeight = navController.navigationBar.frame.height + statusBarHeight
+        let touchPoint = recognizer.location(in: view.window)
+        let mapFrame = self.mapView.frame
+
+        if recognizer.state == .began {
+            self.initialTouchPoint = touchPoint
+            self.initialViewFrame = view.frame
+            self.firstTouchInsideMap = mapFrame.minY + barHeight < touchPoint.y && touchPoint.y < mapFrame.maxY + barHeight
+            self.isScrollEnabled = !self.firstTouchInsideMap
+        } else if recognizer.state == .changed {
+            if self.firstTouchInsideMap { return }
+            self.bounces = touchPoint.y < initialTouchPoint.y
+            if touchPoint.y - initialTouchPoint.y > 0 {
+                view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y + statusBarHeight, width: view.frame.size.width, height: view.frame.size.height)
+            }
+        } else if recognizer.state == .ended || recognizer.state == .cancelled {
+            if self.firstTouchInsideMap { return }
+            if touchPoint.y - initialTouchPoint.y > 100 {
+                navController.dismiss(animated: true)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    view.frame = self.initialViewFrame
+                })
+            }
+        }
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

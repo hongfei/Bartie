@@ -39,8 +39,8 @@ class RouteDetailViewController: UIViewController {
     var toStation: Station?
     var departure: Departure?
     var trip: Trip?
-
     var legends: [Legend] = []
+
     var tableView: RouteDetailContentList!
     var mapView: RouteDetailMapView!
 
@@ -71,6 +71,7 @@ class RouteDetailViewController: UIViewController {
         super.viewDidLoad()
 
         self.tableView = RouteDetailContentList()
+        self.tableView.parentControllerView = self.navigationController
         self.view.addSubview(self.tableView)
 
         if let actualTrip = self.trip {

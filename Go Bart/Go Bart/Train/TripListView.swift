@@ -87,8 +87,8 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func reloadTripList(trips: [Trip], with departures: [Departure], from station: Station, to destination: Station) {
         self.station = station
         self.destination = destination
-        self.trips = trips
         self.departures = departures
+        self.trips = trips.filter({ trip in DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin) > -10 })
 
         self.reloadData()
     }
