@@ -21,9 +21,6 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     var locatingNavBarItem: UIBarButtonItem!
     var locatingIndicator: UIActivityIndicatorView!
 
-    var safeArea: UILayoutGuide!
-    var currentDetailViewController: RouteDetailViewController!
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -39,14 +36,12 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.getLocationNavBarItem.tintColor = .white
         self.locatingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
         self.locatingNavBarItem = UIBarButtonItem(customView: self.locatingIndicator)
-
         self.navigationItem.rightBarButtonItem = self.getLocationNavBarItem
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.safeArea = self.view.safeAreaLayoutGuide
 
         self.locationManager = CLLocationManager()
 
@@ -115,16 +110,15 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
     private func openStationPicker(with title: String, afterSelected: @escaping (Station) -> Void) {
         self.hidesBottomBarWhenPushed = true
-        let target = StationPickerViewController().with(barTitle: title).onStationSelected(selectedHandler: afterSelected)
+        let target = StationPickerViewController().onStationSelected(selectedHandler: afterSelected)
+        target.title = title
         self.show(target, sender: self)
         self.hidesBottomBarWhenPushed = false
     }
 
     private func openRouteDetail(from station: Station, to destination: Station? = nil, departure: Departure? = nil, trip: Trip? = nil) {
-        self.currentDetailViewController = RouteDetailViewController(from: station, to: destination, at: departure, on: trip)
-        self.present(RouteDetailNavigationViewController(
-                rootViewController: self.currentDetailViewController
-        ), animated: true)
+        let currentDetailViewController = RouteDetailViewController(from: station, to: destination, at: departure, on: trip)
+        self.present(RouteDetailNavigationViewController(rootViewController: currentDetailViewController), animated: true)
     }
 
     func onTapFromBox(textField: UITextField) {

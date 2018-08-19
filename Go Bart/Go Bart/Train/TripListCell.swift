@@ -14,10 +14,9 @@ class TripListCell: UITableViewCell {
     var destination: Station!
     var departure: Departure?
 
-    var minute: UILabel!
-    var destLabel: UILabel!
+    var minute: UILabel = UILabel()
+    var destLabel: UILabel = UILabel()
     var stations: [StationTime] = []
-    var trainLabel: UILabel!
 
     override var safeAreaInsets: UIEdgeInsets {
         return UIEdgeInsetsMake(10, 10, 10, 15)
@@ -30,12 +29,10 @@ class TripListCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        self.minute = UILabel()
         self.minute.layer.cornerRadius = 25
         self.minute.textAlignment = .center
         self.addSubview(self.minute)
 
-        self.destLabel = UILabel()
         self.destLabel.font = UIFont(name: self.destLabel.font.fontName, size: 20)
         self.destLabel.adjustsFontSizeToFitWidth = true
         self.destLabel.minimumScaleFactor = 0.5
@@ -48,7 +45,7 @@ class TripListCell: UITableViewCell {
         self.minute.pin.height(50).width(50).left(pin.safeArea).vCenter()
         self.destLabel.pin.after(of: self.minute).marginLeft(10).top(pin.safeArea).right(pin.safeArea).height(30)
 
-        var previous: UIView = self.destLabel!
+        var previous: UIView = self.destLabel
         for st in self.stations {
             st.pin.below(of: previous, aligned: .left).marginTop(0).right(self.pin.safeArea).height(20)
             previous = st
@@ -62,17 +59,20 @@ class TripListCell: UITableViewCell {
         } else {
             self.minute.text = String(DateUtil.getTimeDifferenceToNow(dateString: self.trip.origTimeDate + self.trip.origTimeMin))
             BartRouteService.getAllRoutes() { routes in
-                let route = routes.first(where: {route in route.routeID == self.trip.leg.first!.line})!
-                self.minute.layer.backgroundColor = UIColor(route.hexcolor).cgColor
+                if let leg = self.trip.leg.first, let route = routes.first(where: {route in route.routeID == leg.line}) {
+                    self.minute.layer.backgroundColor = UIColor(route.hexcolor).cgColor
+                }
             }
         }
 
         BartStationService.getAllStationMap() { stationsMap in
-            self.destLabel.text = stationsMap[self.trip.leg.first!.trainHeadStation]!.name
+            if let leg = self.trip.leg.first, let headStation = stationsMap[leg.trainHeadStation] {
+                self.destLabel.text = headStation.name
+            }
+
             self.stations.forEach({ station in station.removeFromSuperview() })
             self.stations = []
             let stations = DataUtil.clipStations(for: self.trip)
-
             for stnt in stations {
                 let st = StationTime()
                 st.loadData(

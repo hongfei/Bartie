@@ -11,10 +11,10 @@ class FavoriteListHeader: UITableViewHeaderFooterView {
 
     var favoriteListHeaderDelegate: FavoriteListHeaderDelegate?
     var favorite: Favorite!
-    var stationLabel: UILabel!
-    var destinationLabel: UILabel!
-    var deleteButton: UIButton!
-    var directionImage: UIImageView!
+    var stationLabel: UILabel = UILabel()
+    var destinationLabel: UILabel = UILabel()
+    var deleteButton: UIButton = UIButton()
+    var directionImage: UIImageView = UIImageView()
     var isDeleting: Bool = false
 
     override var safeAreaInsets: UIEdgeInsets {
@@ -28,21 +28,17 @@ class FavoriteListHeader: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
 
-        self.stationLabel = UILabel()
         self.stationLabel.minimumScaleFactor = 0.85
         self.stationLabel.adjustsFontSizeToFitWidth = true
         self.addSubview(self.stationLabel)
 
-        self.destinationLabel = UILabel()
         self.destinationLabel.minimumScaleFactor = 0.85
         self.destinationLabel.adjustsFontSizeToFitWidth = true
         self.addSubview(self.destinationLabel)
 
-        self.directionImage = UIImageView()
         self.directionImage.image = Icons.rightArrow
         self.addSubview(self.directionImage)
 
-        self.deleteButton = UIButton()
         self.deleteButton.setImage(Icons.delete, for: .normal)
         self.deleteButton.addTarget(self, action: #selector(deleteFavorite), for: .touchUpInside)
         self.addSubview(self.deleteButton)

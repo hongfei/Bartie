@@ -7,9 +7,8 @@ import MapKit
 import PinLayout
 
 class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
-    var map: MKMapView!
+    var map: MKMapView = MKMapView()
     var stations: [String] = []
-    var safeArea: UILayoutGuide!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -19,7 +18,6 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         
-        self.map = MKMapView()
         self.map.showsUserLocation = false
         self.map.showsCompass = true
         self.map.delegate = self
@@ -42,11 +40,12 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
         let newStations = stations.filter({ station in !self.stations.contains(station.abbr) })
         self.map.showAnnotations(newStations.map({ station in
             let point = MKPointAnnotation()
-            let coord = CLLocationCoordinate2D(latitude: Double(station.gtfs_latitude)!, longitude: Double(station.gtfs_longitude)!)
-            point.coordinate = coord
-            point.title = station.name
-            
-            self.stations.append(station.abbr)
+            if let latitude = Double(station.gtfs_latitude), let longitude = Double(station.gtfs_longitude) {
+                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                point.coordinate = coord
+                point.title = station.name
+                self.stations.append(station.abbr)
+            }
             return point
         }), animated: false)
     }

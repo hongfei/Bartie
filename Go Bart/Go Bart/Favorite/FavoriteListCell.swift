@@ -10,9 +10,9 @@ import UIColor_Hex_Swift
 class FavoriteListCell: UITableViewCell {
     public static let HEIGHT = CGFloat(80)
 
-    var minuteLabel: UILabel!
-    var trainLabel: UILabel!
-    var arrivalLabel: UILabel!
+    var minuteLabel: UILabel = UILabel()
+    var trainLabel: UILabel = UILabel()
+    var arrivalLabel: UILabel = UILabel()
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -28,25 +28,21 @@ class FavoriteListCell: UITableViewCell {
 
         let view = self.contentView
 
-        self.minuteLabel = UILabel()
         self.minuteLabel.layer.cornerRadius = 25
         self.minuteLabel.textAlignment = .center
         view.addSubview(self.minuteLabel)
 
-        self.trainLabel = UILabel()
         self.trainLabel.font = UIFont(name: self.trainLabel.font.fontName, size: 20)
         self.trainLabel.adjustsFontSizeToFitWidth = true
         self.trainLabel.minimumScaleFactor = 0.5
         view.addSubview(self.trainLabel)
 
-        self.arrivalLabel = UILabel()
         self.arrivalLabel.font = UIFont(name: self.arrivalLabel.font.fontName, size: 15)
         view.addSubview(self.arrivalLabel)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        let pin = self.contentView.pin
 
         self.minuteLabel.pin.left(pin.safeArea).height(50).width(50).centerLeft()
         self.trainLabel.pin.after(of: self.minuteLabel).top(pin.safeArea).marginLeft(15).height(30).right(pin.safeArea)
@@ -61,11 +57,14 @@ class FavoriteListCell: UITableViewCell {
         } else {
             self.minuteLabel.text = String(DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin))
             BartRouteService.getAllRoutes() { routes in
-                let route = routes.first(where: {route in route.routeID == trip.leg.first!.line})!
-                self.minuteLabel.layer.backgroundColor = UIColor(route.hexcolor).cgColor
+                if let leg = trip.leg.first, let route = routes.first(where: {route in route.routeID == leg.line}) {
+                    self.minuteLabel.layer.backgroundColor = UIColor(route.hexcolor).cgColor
+                }
             }
             BartStationService.getAllStationMap() { stationsMap in
-                self.trainLabel.text = stationsMap[trip.leg.first!.trainHeadStation]!.name
+                if let leg = trip.leg.first, let station = stationsMap[leg.trainHeadStation] {
+                    self.trainLabel.text = station.name
+                }
             }
         }
 

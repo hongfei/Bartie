@@ -13,11 +13,6 @@ class DataCache {
             maxSize: 10000,
             protectionType: .complete
     )
-    private static let memoryConfig = MemoryConfig(
-            expiry: .date(Date().addingTimeInterval(2 * 60)),
-            countLimit: 50,
-            totalCostLimit: 0
-    )
     private static let persistentConfig = DiskConfig(
             name: "PersistentData",
             expiry: .never,

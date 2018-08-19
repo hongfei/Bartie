@@ -96,22 +96,25 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "RouteDetailMapView") as! RouteDetailMapView
-            self.mapView = cell
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "RouteDetailMapView") as? RouteDetailMapView {
+                self.mapView = cell
+                return cell
+            }
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SingleTripView") as! SingleTripView
-            guard let legends = self.trip?.leg else {
-                return UITableViewCell()
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "SingleTripView") as? SingleTripView {
+                guard let legends = self.trip?.leg else {
+                    return UITableViewCell()
+                }
+
+                let leg = legends[indexPath.row]
+                if let stations = self.legStations[leg.order], let routeDetail = self.legRouteDetails[leg.order] {
+                    self.mapView.showStations(stations: stations)
+                    cell.reloadData(with: stations, legend: leg, route: routeDetail)
+                }
+
+                return cell
             }
 
-            let leg = legends[indexPath.row]
-            if let stations = self.legStations[leg.order], let routeDetail = self.legRouteDetails[leg.order] {
-                self.mapView.showStations(stations: stations)
-                cell.reloadData(with: stations, legend: leg, route: routeDetail)
-            }
-
-            return cell
         default:
             return UITableViewCell()
         }

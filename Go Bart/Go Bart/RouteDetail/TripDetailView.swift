@@ -10,11 +10,9 @@ import PinLayout
 
 
 class SingleTripView: UITableViewCell {
-    var safeArea: UILayoutGuide!
-
-    var orderLabel: UILabel!
-    var trainIcon: UIImageView!
-    var trainDestinationLabel: UILabel!
+    var orderLabel: UILabel = UILabel()
+    var trainIcon: UIImageView = UIImageView()
+    var trainDestinationLabel: UILabel = UILabel()
 
     var stations: [StationTime] = []
 
@@ -30,13 +28,8 @@ class SingleTripView: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.isUserInteractionEnabled = false
         
-        self.orderLabel = UILabel()
         self.addSubview(self.orderLabel)
-
-        self.trainIcon = UIImageView()
         self.addSubview(self.trainIcon)
-
-        self.trainDestinationLabel = UILabel()
         self.addSubview(self.trainDestinationLabel)
     }
 

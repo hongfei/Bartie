@@ -51,13 +51,13 @@ class StationSearchBar: UIView, UITextFieldDelegate {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.fromSearchBox.pin.horizontally(pin.safeArea).top(pin.safeArea).height(35)
+        self.fromSearchBox.pin.horizontally(pin.safeArea).top(pin.safeArea).height(40)
         pin.wrapContent(padding: pin.safeArea)
     }
 
     private func placeToSearchBox() {
         self.addSubview(self.toSearchBox)
-        self.toSearchBox.pin.horizontally(pin.safeArea).below(of: self.fromSearchBox).height(35)
+        self.toSearchBox.pin.horizontally(pin.safeArea).below(of: self.fromSearchBox).height(40)
         pin.wrapContent(padding: pin.safeArea)
     }
 

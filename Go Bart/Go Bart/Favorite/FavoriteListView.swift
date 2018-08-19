@@ -81,11 +81,7 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
 
     @IBAction func editFavorites(_ sender: UIBarButtonItem) {
         self.inDeleteFavoriteMode = !self.inDeleteFavoriteMode
-        if self.inDeleteFavoriteMode {
-            sender.title = "Done"
-        } else {
-            sender.title = "Edit"
-        }
+        sender.title = self.inDeleteFavoriteMode ? "Done" : "Edit"
         self.reloadData()
     }
 

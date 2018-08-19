@@ -9,7 +9,6 @@ import UIColor_Hex_Swift
 import PinLayout
 
 class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
-    var safeArea: UILayoutGuide!
     var favoriteList: FavoriteListView!
 
     required init?(coder: NSCoder) {
@@ -18,9 +17,8 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
 
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.title = "Favorites"
-        self.view.backgroundColor = .white
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        self.view.backgroundColor = .white
     }
 
     override var navigationItem: UINavigationItem {
@@ -33,17 +31,17 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.safeArea = self.view.safeAreaLayoutGuide
         self.favoriteList = FavoriteListView()
         self.favoriteList.favoriteListDelegate = self
         self.favoriteList.favorites = DataCache.getAllFavorites()
-        self.favoriteList.rowHeight = UITableViewAutomaticDimension
-        self.favoriteList.estimatedRowHeight = 80
 
         self.view.addSubview(self.favoriteList)
-        self.favoriteList.pin.all()
-
         self.onRefreshList()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.favoriteList.pin.all()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -69,9 +67,9 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
                 self.favoriteList.tripsListMap[index] = trips
                 BartRealTimeService.getSelectedDepartures(for: favorite.station) { departures in
                     self.favoriteList.departureMap[index] = departures
-                    self.favoriteList.reloadData()
                     refreshCount -= 1
                     if refreshCount == 0 {
+                        self.favoriteList.reloadData()
                         self.favoriteList.refreshControl?.endRefreshing()
                     }
                 }

@@ -48,40 +48,38 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell") as! TripListCell
-            cell.trip = self.trips[indexPath.row]
-            cell.station = self.station
-            cell.destination = self.destination
-            cell.departure = DataUtil.findClosestDeparture(in: self.departures, for: cell.trip)
-            cell.reloadTripData()
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell") as? TripListCell {
+                cell.trip = self.trips[indexPath.row]
+                cell.station = self.station
+                cell.destination = self.destination
+                cell.departure = DataUtil.findClosestDeparture(in: self.departures, for: cell.trip)
+                cell.reloadTripData()
+                return cell
+            }
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddToFavoriteCell") as! AddToFavoriteCell
-            cell.station = self.station
-            cell.destination = self.destination
-            cell.trips = self.trips
-            cell.refreshButton()
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "AddToFavoriteCell") as? AddToFavoriteCell {
+                cell.station = self.station
+                cell.destination = self.destination
+                cell.trips = self.trips
+                cell.refreshButton()
+                return cell
+            }
         default:
             return UITableViewCell()
         }
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            if indexPath.row < self.trips.count {
-                let height = CGFloat(self.trips[indexPath.row].leg.count * 20 + 70)
-                return height
-            } else {
-                return 0
-            }
+            let height = CGFloat(self.trips[indexPath.row].leg.count * 20 + 70)
+            return height
         case 1:
-            return 44
+            return AddToFavoriteCell.HEIGHT
         default:
             return 0
         }
-
     }
 
     func reloadTripList(trips: [Trip], with departures: [Departure], from station: Station, to destination: Station) {

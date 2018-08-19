@@ -15,17 +15,14 @@ class BartStationService: BartService {
             completionHandler(stations)
         } else {
             getResponse(for: STATION_RESOURCE, withParams: ["cmd": "stns"]) { result in
-                if let jsonResult = result {
-                    let optionalStations = JSON(jsonResult)["root"]["stations"]["station"].array?.map { json in
-                        return try! decoder.decode(Station.self, from: json.rawData())
-                    }
-                    if let stations = optionalStations {
-                        DataCache.storeStations(stations: stations)
-                        return completionHandler(stations)
-                    }
+                guard let jsonResult = result, let jsonStations = JSON(jsonResult)["root"]["stations"]["station"].array else {
+                    return completionHandler([])
                 }
-
-                return completionHandler([])
+                
+                let stations = jsonStations.map { json in try? decoder.decode(Station.self, from: json.rawData()) }
+                    .filter { station in station != nil }.map { station in station! }
+                DataCache.storeStations(stations: stations)
+                completionHandler(stations)
             }
         }
     }

@@ -33,14 +33,16 @@ class DepartureListView: UITableView, UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DepartureListCell", for: indexPath) as! DepartureListCell
-        cell.setDeparture(departure: departures[indexPath.row])
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DepartureListCell", for: indexPath)
+        if let departureCell = cell as? DepartureListCell {
+            departureCell.setDeparture(departure: departures[indexPath.row])
+            return departureCell
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return DepartureListCell.HEIGHT
     }
 }
 

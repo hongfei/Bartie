@@ -8,25 +8,14 @@ import UIColor_Hex_Swift
 
 
 class StationPickerViewController: UITableViewController, UISearchResultsUpdating {
-    // elements
-    var safeArea: UILayoutGuide!
-    var barTitle: String!
     let searchController = UISearchController(searchResultsController: nil)
 
-    // data
     var stations: [Station] = []
     var filteredStations: [Station] = []
-
-    // inner controls
     var selectedHandler: ((Station) -> Void)?
-
-    override func targetViewController(forAction action: Selector, sender: Any?) -> UIViewController? {
-        return super.targetViewController(forAction: action, sender: sender)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = barTitle
         self.view.backgroundColor = .white
         self.tableView.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -76,12 +65,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-
-    func with(barTitle: String?) -> StationPickerViewController {
-        self.barTitle = barTitle
-        return self
+        return StationTableCell.HEIGHT
     }
 
     func onStationSelected(selectedHandler: @escaping (Station) -> Void) -> StationPickerViewController {
@@ -91,9 +75,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            filteredStations = self.stations.filter { station in
-                return station.name.contains(searchText)
-            }
+            filteredStations = self.stations.filter { station in station.name.contains(searchText) }
         } else {
             filteredStations = self.stations
         }

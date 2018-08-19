@@ -6,8 +6,8 @@ import UIKit
 import PinLayout
 
 class AddToFavoriteCell: UITableViewCell {
-    var addButton: UIButton!
-    var safeArea: UILayoutGuide!
+    public static let HEIGHT = CGFloat(44)
+    var addButton: UIButton = UIButton(type: .system)
 
     var station: Station?
     var destination: Station?
@@ -24,7 +24,6 @@ class AddToFavoriteCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        self.addButton = UIButton(type: .system)
         self.addButton.setTitle("Add to Favorite", for: .normal)
         self.addButton.setTitle("Already added to favorite", for: .disabled)
         self.addButton.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)

@@ -15,15 +15,14 @@ class BartScheduleService: BartService {
                 for: SCHEDULE_RESOURCE,
                 withParams: ["cmd": "depart", "orig": from.abbr, "dest": to.abbr, "a": "3", "b": "0"]
         ) { response in
-            if let jsonResponse = response {
-                let optionalTrips: [Trip]? = JSON(jsonResponse)["root"]["schedule"]["request"]["trip"].array?.map { json in
-                    return try! decoder.decode(Trip.self, from: json.rawData())
-                }
-                if let trips = optionalTrips {
-                    return completionHandler(trips)
-                }
+            guard let jsonResponse = response, let jsonArray = JSON(jsonResponse)["root"]["schedule"]["request"]["trip"].array else {
+                return completionHandler([])
             }
-            completionHandler([])
+            
+            let trips = jsonArray.map({ json in return try? decoder.decode(Trip.self, from: json.rawData()) })
+                .filter({ trip in trip != nil }).map({ trip in trip! })
+            
+            completionHandler(trips)
         }
     }
 }

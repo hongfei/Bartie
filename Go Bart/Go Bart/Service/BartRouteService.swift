@@ -19,11 +19,13 @@ class BartRouteService: BartService {
             completionHandler(detailRoute)
         } else {
             getResponse(for: ROUTE_RESOURCE, withParams: ["cmd": "routeinfo", "route": String(routeID.split(separator: " ").last!)]) { response in
-                if let json = response {
-                    let detailRoute = try! decoder.decode(DetailRoute.self, from: JSON(json)["root"]["routes"]["route"].rawData())
-                    DataCache.storeDetailRoutes(route: detailRoute)
-                    completionHandler(detailRoute)
+                guard let json = response,
+                    let detailRoute = try? decoder.decode(DetailRoute.self, from: JSON(json)["root"]["routes"]["route"].rawData()) else {
+                    return
                 }
+                
+                DataCache.storeDetailRoutes(route: detailRoute)
+                completionHandler(detailRoute)
             }
         }
     }
@@ -33,15 +35,15 @@ class BartRouteService: BartService {
             completionHandler(routes)
         } else {
             getResponse(for: ROUTE_RESOURCE, withParams: ["cmd": "routes"]) { response in
-                if let json = response {
-                    let optionalRoutes = JSON(json)["root"]["routes"]["route"].array?.map { routeJson in
-                        return try! decoder.decode(Route.self, from: routeJson.rawData())
-                    }
-                    if let routes = optionalRoutes {
-                        DataCache.storeAllRoutes(routes: routes)
-                        completionHandler(routes)
-                    }
+                guard let json = response, let routeArray = JSON(json)["root"]["routes"]["route"].array else {
+                    return completionHandler([])
                 }
+                
+                let routes = routeArray.map({ routeJson in try? decoder.decode(Route.self, from: routeJson.rawData()) })
+                    .filter({ route in route != nil }).map({ route in route! })
+                
+                DataCache.storeAllRoutes(routes: routes)
+                completionHandler(routes)
             }
         }
     }

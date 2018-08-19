@@ -6,11 +6,11 @@ import UIKit
 import PinLayout
 
 class StationTableCell: UITableViewCell {
+    public static let HEIGHT = CGFloat(60)
     var station: Station!
-    var safeArea: UILayoutGuide!
-    var name: UILabel!
-    var county: UILabel!
-    var address: UILabel!
+    var name: UILabel = UILabel()
+    var county: UILabel = UILabel()
+    var address: UILabel = UILabel()
 
     override var safeAreaInsets: UIEdgeInsets {
         return UIEdgeInsetsMake(5, 20, 5, 20)
@@ -25,16 +25,13 @@ class StationTableCell: UITableViewCell {
 
         self.backgroundColor = .white
 
-        name = UILabel()
         name.font = UIFont(name: name.font.fontName, size: 17)
         self.addSubview(name)
 
-        county = UILabel()
         county.font = UIFont(name: county.font.fontName, size: 10)
         county.textAlignment = .right
         self.addSubview(county)
 
-        address = UILabel()
         address.font = UIFont(name: county.font.fontName, size: 10)
         self.addSubview(address)
     }
