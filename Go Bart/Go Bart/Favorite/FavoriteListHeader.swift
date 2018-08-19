@@ -55,7 +55,7 @@ class FavoriteListHeader: UITableViewHeaderFooterView {
         self.stationLabel.pin.left(pin.safeArea).vertically(pin.safeArea).width(40%)
         self.directionImage.pin.after(of: self.stationLabel, aligned: .center).height(20).width(20)
         self.destinationLabel.pin.after(of: directionImage, aligned: .center).height(of: self.stationLabel).width(40%)
-        self.deleteButton.pin.after(of: destinationLabel, aligned: .center).right(pin.safeArea).height(40).width(40)
+        self.deleteButton.pin.after(of: destinationLabel, aligned: .center).right(pin.safeArea).height(30).width(30)
     }
 
     func setData(favorite: Favorite, isDeleting: Bool) {

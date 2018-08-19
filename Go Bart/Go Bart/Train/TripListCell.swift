@@ -103,7 +103,7 @@ class StationTime: UIView {
         self.time.font = UIFont(name: self.time.font.fontName, size: 13)
         self.addSubview(self.time)
 
-        self.symbol.contentMode = .center
+        self.symbol.contentMode = .scaleAspectFit
         self.addSubview(self.symbol)
 
         self.station.font = UIFont(name: self.station.font.fontName, size: 13)

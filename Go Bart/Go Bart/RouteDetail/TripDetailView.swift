@@ -63,8 +63,8 @@ class SingleTripView: UITableViewCell {
             self.trainDestinationLabel.text = stationsMap[legend.trainHeadStation]?.name
         }
 
-        self.trainIcon.image = Icons.trainIcon(of: UIColor(route.hexcolor))
-        let stationSymbol = Icons.dot(of: UIColor(route.hexcolor), width: 9, height: 9)
+        self.trainIcon.image = Icons.train(of: UIColor(route.hexcolor))
+        let stationSymbol = Icons.dot(of: UIColor(route.hexcolor))
 
         for station in stations {
             let st = StationTime()

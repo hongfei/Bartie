@@ -11,10 +11,12 @@ import PinLayout
 class StationSearchBar: UIView, UITextFieldDelegate {
     var fromSearchBox = SearchBoxField().withPlaceholder(placeholder: "Station")
     var toSearchBox = SearchBoxField().withPlaceholder(placeholder: "Destination")
+    var deleteButton = UIButton()
     var delegate: StationSearchBarDelegate? {
         didSet {
             self.fromSearchBox.addTarget(delegate, action: #selector(StationSearchBarDelegate.onTapFromBox), for: .touchDown)
             self.toSearchBox.addTarget(delegate, action: #selector(StationSearchBarDelegate.onTapToBox), for: .touchDown)
+            self.deleteButton.addTarget(delegate, action: #selector(StationSearchBarDelegate.onDeleteTopBoxContent), for: .touchDown)
         }
     }
 
@@ -32,13 +34,13 @@ class StationSearchBar: UIView, UITextFieldDelegate {
         self.backgroundColor = UIColor("#E0E0E0")
 
         self.fromSearchBox.leftViewMode = .always
-        self.fromSearchBox.leftView = UIImageView(image: Icons.searchIcon)
-        self.fromSearchBox.rightView = UIImageView(image: Icons.locatingIcon)
-        self.fromSearchBox.rightViewMode = .always
+        self.fromSearchBox.leftView = UIImageView(image: Icons.search)
         self.fromSearchBox.isUserInteractionEnabled = true
 
         self.toSearchBox.rightViewMode = .always
-        self.toSearchBox.leftView = UIImageView(image: Icons.searchIcon)
+        self.toSearchBox.leftView = UIImageView(image: Icons.search)
+        self.deleteButton.setImage(Icons.delete, for: .normal)
+        self.toSearchBox.rightView = deleteButton
 
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -72,9 +74,11 @@ class StationSearchBar: UIView, UITextFieldDelegate {
         if let dst = destination {
             self.toSearchBox.text = dst.name
             self.toSearchBox.leftViewMode = .never
+            self.toSearchBox.rightViewMode = .always
         } else {
             self.toSearchBox.text = nil
             self.toSearchBox.leftViewMode = .always
+            self.toSearchBox.rightViewMode = .never
         }
     }
 
@@ -118,4 +122,6 @@ class SearchBoxField: UITextField {
     @objc func onTapFromBox(textField: UITextField)
 
     @objc func onTapToBox(textField: UITextField)
+
+    @objc func onDeleteTopBoxContent()
 }

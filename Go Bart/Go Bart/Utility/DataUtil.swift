@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class DataUtil {
     class func extractStations(for routeDetail: DetailRoute, from stationAbbr: String, to destinationAbbr: String, completionHandler: @escaping ([Station]) -> Void) {
@@ -27,7 +28,7 @@ class DataUtil {
             let sameDestination = trip.leg.first!.trainHeadStation == departure.abbreviation!
             let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
             let departureTime = Int(departure.minutes)!
-            let inTimeRange = tripTime - 5 < departureTime && departureTime < tripTime + 15
+            let inTimeRange = tripTime - 15 < departureTime && departureTime < tripTime + 15
             return sameDestination && inTimeRange
         }).min(by: { (dep1, dep2) in
             let tripDiff = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
@@ -37,11 +38,10 @@ class DataUtil {
 
     class func findClosestTrip(in trips: [Trip], for departure: Departure) -> Trip? {
         return trips.filter({ trip in
-            let sameDestination = trip.leg.first!.trainHeadStation == departure.abbreviation!
             let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
             let departureTime = Int(departure.minutes)!
-            let inTimeRange = departureTime - 15 < tripTime && tripTime < departureTime + 5
-            return sameDestination && inTimeRange
+            let inTimeRange = departureTime - 15 < tripTime && tripTime < departureTime + 15
+            return inTimeRange
         }).min(by: { (trip1, trip2) in
             let tripDiff1 = DateUtil.getTimeDifferenceToNow(dateString: trip1.origTimeDate + trip1.origTimeMin)
             let tripDiff2 = DateUtil.getTimeDifferenceToNow(dateString: trip2.origTimeDate + trip2.origTimeMin)
@@ -55,5 +55,14 @@ class DataUtil {
 
         allOrigins.append(last)
         return allOrigins
+    }
+
+
+    class func getClosestStation(in stations: [Station], to location: CLLocation) -> Station? {
+        return stations.min(by: { (s1, s2) in
+            let coordinate1 = CLLocation(latitude: Double(s1.gtfs_latitude)!, longitude: Double(s1.gtfs_longitude)!)
+            let coordinate2 = CLLocation(latitude: Double(s2.gtfs_latitude)!, longitude: Double(s2.gtfs_longitude)!)
+            return coordinate1.distance(from: location) < coordinate2.distance(from: location)
+        })
     }
 }

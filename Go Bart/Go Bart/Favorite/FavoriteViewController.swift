@@ -42,8 +42,16 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
 
         self.view.addSubview(self.favoriteList)
         self.favoriteList.pin.all()
+
         self.onRefreshList()
-        self.favoriteList.reloadData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if DataCache.getAllFavorites().count > self.favoriteList.favorites.count {
+            self.onRefreshList()
+        }
     }
 
     func onRefreshList() {

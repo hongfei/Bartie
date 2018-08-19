@@ -8,20 +8,21 @@ import SwiftIcons
 import UIColor_Hex_Swift
 
 class Icons {
-    static let iconSize = CGSize(width: 20, height: 20)
-    static let searchIcon = UIImage(icon: .icofont(.search), size: Icons.iconSize, textColor: UIColor("#C7C7CD"))
-    static let locatingIcon = UIImage(icon: .icofont(.locationArrow), size: Icons.iconSize, textColor: UIColor("#C7C7CD"))
-    static let startDot = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: .red)
-    static let endDot = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 9, height: 9), textColor: .green)
-    static let middleDot = UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: 7, height: 7), textColor: .gray)
+    static let iconSize = CGSize(width: 40, height: 40)
+    static let train = UIImage(icon: .fontAwesomeSolid(.subway), size: Icons.iconSize)
+    static let search = UIImage(icon: .icofont(.search), size: Icons.iconSize, textColor: UIColor("#C7C7CD"))
+    static let locating = UIImage(icon: .icofont(.locationArrow), size: CGSize(width: 27, height: 27), textColor: UIColor("#C7C7CD"))
+    static let startDot = UIImage(icon: .fontAwesomeSolid(.circle), size: Icons.iconSize, textColor: .red)
+    static let endDot = UIImage(icon: .fontAwesomeSolid(.circle), size: Icons.iconSize, textColor: .green)
+    static let middleDot = UIImage(icon: .fontAwesomeSolid(.circle), size:Icons.iconSize, textColor: .gray)
     static let rightArrow = UIImage(icon: .fontAwesomeSolid(.caretRight), size: Icons.iconSize)
     static let delete = UIImage(icon: .fontAwesomeSolid(.timesCircle), size: Icons.iconSize)
 
-    static func trainIcon(of color: UIColor, width: Int = 20, height: Int = 20) -> UIImage {
-        return UIImage(icon: .fontAwesomeSolid(.train), size: CGSize(width: width, height: height), textColor: color)
+    static func train(of color: UIColor) -> UIImage {
+        return UIImage(icon: .fontAwesomeSolid(.train), size: Icons.iconSize, textColor: color)
     }
 
-    static func dot(of color: UIColor, width: Int = 20, height: Int = 20) -> UIImage {
-        return UIImage(icon: .fontAwesomeSolid(.circle), size: CGSize(width: width, height: height), textColor: color)
+    static func dot(of color: UIColor) -> UIImage {
+        return UIImage(icon: .fontAwesomeSolid(.circle), size: Icons.iconSize, textColor: color)
     }
 }

@@ -36,7 +36,7 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.inDeleteFavoriteMode ? 0 : Settings.favoriteTripCount
+        return Settings.favoriteTripCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -150,6 +150,7 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
                 view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y + statusBarHeight, width: view.frame.size.width, height: view.frame.size.height)
             }
         } else if recognizer.state == .ended || recognizer.state == .cancelled {
+            self.isScrollEnabled = true
             if self.firstTouchInsideMap { return }
             if touchPoint.y - initialTouchPoint.y > 100 {
                 navController.dismiss(animated: true)
