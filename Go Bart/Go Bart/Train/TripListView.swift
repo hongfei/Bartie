@@ -64,8 +64,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
                 cell.refreshButton()
                 return cell
             }
-        default:
-            return UITableViewCell()
+        default: break
         }
         return UITableViewCell()
     }

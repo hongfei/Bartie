@@ -8,7 +8,6 @@ import PinLayout
 
 class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     var map: MKMapView = MKMapView()
-    var stations: [String] = []
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -37,14 +36,12 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     }
     
     func showStations(stations: [Station]) {
-        let newStations = stations.filter({ station in !self.stations.contains(station.abbr) })
-        self.map.showAnnotations(newStations.map({ station in
+        self.map.showAnnotations(stations.map({ station in
             let point = MKPointAnnotation()
             if let latitude = Double(station.gtfs_latitude), let longitude = Double(station.gtfs_longitude) {
                 let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 point.coordinate = coord
                 point.title = station.name
-                self.stations.append(station.abbr)
             }
             return point
         }), animated: false)
