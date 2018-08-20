@@ -8,6 +8,7 @@ import PinLayout
 
 class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     var map: MKMapView = MKMapView()
+    var shownAnnotations: [MKPointAnnotation] = []
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -36,6 +37,9 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
     }
     
     func showStations(stations: [Station]) {
+        if stations.count <= self.shownAnnotations.count { return }
+        self.map.removeAnnotations(self.shownAnnotations)
+        self.shownAnnotations = []
         self.map.showAnnotations(stations.map({ station in
             let point = MKPointAnnotation()
             if let latitude = Double(station.gtfs_latitude), let longitude = Double(station.gtfs_longitude) {
@@ -43,6 +47,7 @@ class RouteDetailMapView: UITableViewCell, MKMapViewDelegate {
                 point.coordinate = coord
                 point.title = station.name
             }
+            self.shownAnnotations.append(point)
             return point
         }), animated: false)
     }
