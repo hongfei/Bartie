@@ -44,7 +44,7 @@ class FavoriteListCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        self.minuteLabel.pin.left(pin.safeArea).height(50).width(50).centerLeft()
+        self.minuteLabel.pin.left(pin.safeArea).height(50).width(50).vCenter()
         self.trainLabel.pin.after(of: self.minuteLabel).top(pin.safeArea).marginLeft(15).height(30).right(pin.safeArea)
         self.arrivalLabel.pin.below(of: self.trainLabel, aligned: .left).width(of: self.trainLabel).height(20)
     }

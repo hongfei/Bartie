@@ -17,7 +17,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.tableView.register(StationTableCell.self, forCellReuseIdentifier: "StationCollectionCell")
+        self.tableView.register(StationTableCell.self, forCellReuseIdentifier: "StationTableCell")
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         setSearchController()
 
@@ -41,15 +41,13 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StationCollectionCell", for: indexPath)
-
-        if let stationCell = cell as? StationTableCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "StationTableCell"), let stationCell = cell as? StationTableCell  {
             stationCell.station = self.filteredStations[indexPath.row]
             stationCell.reloadStation()
             return stationCell
-        } else {
-            return cell
         }
+
+        return StationTableCell()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

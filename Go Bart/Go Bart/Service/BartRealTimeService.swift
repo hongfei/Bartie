@@ -23,7 +23,9 @@ class BartRealTimeService: BartService {
             if let jsonResult = result {
                 guard let estimateDepartures = JSON(jsonResult)["root"]["station"][0]["etd"].array?.map({ json in
                     return try? decoder.decode(EstimatedDeparture.self, from: json.rawData())
-                }) else { return }
+                }) else {
+                    return completionHandler([])
+                }
                 
                 let deps: [Departure] = estimateDepartures.reduce([], { (result: [Departure], estimateDeparture: EstimatedDeparture?) in
                     guard let estDep = estimateDeparture else {
@@ -45,7 +47,7 @@ class BartRealTimeService: BartService {
                 return completionHandler(sortedDeps)
                 
             }
-            completionHandler([])
+            return completionHandler([])
         }
     }
 }

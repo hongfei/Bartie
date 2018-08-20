@@ -12,7 +12,7 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
     var departure: Departure?
     var trip: Trip?
     var mapView: RouteDetailMapView!
-    var legStations: [String:[Station]] = [:]
+    var legStations: [String: [Station]] = [:]
     var legRouteDetails: [String: DetailRoute] = [:]
 
     var parentControllerView: UINavigationController? {
@@ -44,18 +44,18 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
         self.departure = departure
         self.trip = trip
 
-        if let actualTrip = trip {
-            for leg in actualTrip.leg {
-                BartRouteService.getDetailRouteInfo(with: leg.line) { routeDetail in
-                    DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
-                        self.legStations[leg.order] = stations
-                        self.legRouteDetails[leg.order] = routeDetail
-                        self.reloadData()
-                    }
+        guard let actualTrip = trip else { return }
+        for leg in actualTrip.leg {
+            BartRouteService.getDetailRouteInfo(with: leg.line) { detail in
+                guard let routeDetail = detail else { return }
+
+                DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
+                    self.legStations[leg.order] = stations
+                    self.legRouteDetails[leg.order] = routeDetail
+                    self.reloadData()
                 }
             }
         }
-
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -115,15 +115,16 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
                 return cell
             }
 
-        default:
-            return UITableViewCell()
+        default: break
         }
+        return UITableViewCell()
     }
 
-    var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     var initialViewFrame: CGRect!
     var isPanEnabled: Bool = true
     var firstTouchInsideMap: Bool = false
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.isPanEnabled = scrollView.contentOffset.y == 0
         self.bounces = !self.isPanEnabled
@@ -134,7 +135,9 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
             return
         }
 
-        if !self.isPanEnabled { return }
+        if !self.isPanEnabled {
+            return
+        }
 
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let barHeight = navController.navigationBar.frame.height + statusBarHeight
@@ -147,14 +150,18 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
             self.firstTouchInsideMap = mapFrame.minY + barHeight < touchPoint.y && touchPoint.y < mapFrame.maxY + barHeight
             self.isScrollEnabled = !self.firstTouchInsideMap
         } else if recognizer.state == .changed {
-            if self.firstTouchInsideMap { return }
+            if self.firstTouchInsideMap {
+                return
+            }
             self.bounces = touchPoint.y < initialTouchPoint.y
             if touchPoint.y - initialTouchPoint.y > 0 {
                 view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y + statusBarHeight, width: view.frame.size.width, height: view.frame.size.height)
             }
         } else if recognizer.state == .ended || recognizer.state == .cancelled {
             self.isScrollEnabled = true
-            if self.firstTouchInsideMap { return }
+            if self.firstTouchInsideMap {
+                return
+            }
             if touchPoint.y - initialTouchPoint.y > 100 {
                 navController.dismiss(animated: true)
             } else {
