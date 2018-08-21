@@ -47,10 +47,10 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
                 return favoriteCell
             }
             let trip = tripList[indexPath.row]
-            guard let departures = self.departureMap[indexPath.section], let departure = DataUtil.findClosestDeparture(in: departures, for: trip) else {
+            guard let departures = self.departureMap[indexPath.section] else {
                 return favoriteCell
             }
-            favoriteCell.departure = departure
+            favoriteCell.departure = DataUtil.findClosestDeparture(in: departures, for: trip)
             favoriteCell.trip = trip
             favoriteCell.station = favorites[indexPath.section].station
             favoriteCell.destination = favorites[indexPath.section].destination

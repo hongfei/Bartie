@@ -85,7 +85,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
         self.station = station
         self.destination = destination
         self.departures = departures
-        self.trips = trips.filter({ trip in DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin) > -10 })
+        self.trips = trips
 
         self.reloadData()
     }

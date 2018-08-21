@@ -29,8 +29,8 @@ class FavoriteDetailViewController: UITableViewController {
     var detourDeparture: Departure?
 
     var exchangeStation: Station?
-    var detourTime: Int?
-    var targetTime: Int?
+    var detourTime: Int = 0
+    var targetTime: Int = 999
 
     override var navigationItem: UINavigationItem {
         let navItem: UINavigationItem = UINavigationItem(title: "Detail")
@@ -50,6 +50,7 @@ class FavoriteDetailViewController: UITableViewController {
             return
         }
         self.targetTime = targetTime
+        self.exchangeStation = actualFavorite.station
         let targetDirection = actualDeparture.direction == "South" ? "North": "South"
         BartRealTimeService.getSelectedDepartures(for: actualFavorite.station) { departures in
             guard let detourDep = departures.filter({ dep in dep.direction == targetDirection }).first,
@@ -59,8 +60,6 @@ class FavoriteDetailViewController: UITableViewController {
             }
             self.detourDeparture = detourDep
             self.detourTime = detourTime
-            self.exchangeStation = actualFavorite.station
-
             BartStationService.getAllStationMap() { stationMap in
                 guard let destination = stationMap[detourDepAbbr] else { return }
                 BartScheduleService.getTripPlan(from: actualFavorite.station, to: destination, count: 2) { trips in
@@ -79,8 +78,8 @@ class FavoriteDetailViewController: UITableViewController {
     func pickStation(from stations: [Station], from depAbbr: String, to targetAbbr: String) {
         if let first = stations.first {
             BartRealTimeService.getSelectedDepartures(for: first) { departures in
-                if let newDep = departures.first(where: { dep in dep.abbreviation == depAbbr && Int(dep.minutes)! >= self.detourTime! }),
-                    let newTarget = departures.filter({ dep in dep.abbreviation == targetAbbr && Int(dep.minutes)! <= self.targetTime! }).last {
+                if let newDep = departures.first(where: { dep in dep.abbreviation == depAbbr && Int(dep.minutes)! >= self.detourTime }),
+                    let newTarget = departures.filter({ dep in dep.abbreviation == targetAbbr && Int(dep.minutes)! <= self.targetTime }).last {
                     let detourTime = Int(newDep.minutes)!
                     let targetTime = Int(newTarget.minutes)!
                     if detourTime < targetTime {
