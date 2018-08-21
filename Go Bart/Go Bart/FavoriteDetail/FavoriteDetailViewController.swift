@@ -33,13 +33,14 @@ class FavoriteDetailViewController: UITableViewController {
     var targetTime: Int = 999
 
     override var navigationItem: UINavigationItem {
-        let navItem: UINavigationItem = UINavigationItem(title: "Detail")
+        let navItem: UINavigationItem = UINavigationItem(title: "Detour Route")
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeFavoriteDetail))
         return navItem
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.register(CurrentStation.self, forCellReuseIdentifier: "CurrentStation")
         self.tableView.register(DetourRoute.self, forCellReuseIdentifier: "DetourRoute")
         calculateDetourRoute()
     }
@@ -100,34 +101,53 @@ class FavoriteDetailViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
+        case 1: return 1
         default: return 0
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return "Detour Route (experimental)"
+        case 0: return "Take same train at earlier station"
+        case 1: return nil
         default: return nil
         }
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return DetourRoute.HEIGHT
+        switch indexPath.section {
+        case 0: return CurrentStation.HEIGHT
+        case 1: return DetourRoute.HEIGHT
+        default: return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "DetourRoute"), let detourRoute = cell as? DetourRoute {
-            detourRoute.reloadCellData(detour: self.detourDeparture, target: self.departure, exchange: self.exchangeStation, detourTime: self.detourTime, targetTime: self.targetTime)
-            return detourRoute
+        switch indexPath.section {
+        case 0:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "CurrentStation"), let currentStation = cell as? CurrentStation {
+                if let actualFavorite = self.favorite {
+                    currentStation.setCurrentStation(for: actualFavorite.station)
+                }
+                return currentStation
+            }
+        case 1:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "DetourRoute"), let detourRoute = cell as? DetourRoute {
+                detourRoute.reloadCellData(detour: self.detourDeparture, target: self.departure, exchange: self.exchangeStation, detourTime: self.detourTime, targetTime: self.targetTime)
+                return detourRoute
+            }
+        default: return UITableViewCell()
         }
+
         return UITableViewCell()
     }
+
 
     @IBAction func closeFavoriteDetail() {
         self.dismiss(animated: true)
