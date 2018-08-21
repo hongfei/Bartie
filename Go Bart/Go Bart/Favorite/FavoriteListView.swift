@@ -34,6 +34,9 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let tripList = self.tripsListMap[section] {
+            return min(Settings.favoriteTripCount, tripList.count)
+        }
         return Settings.favoriteTripCount
     }
 

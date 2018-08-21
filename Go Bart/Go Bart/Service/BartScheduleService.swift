@@ -21,6 +21,7 @@ class BartScheduleService: BartService {
             
             let trips = jsonArray.map({ json in return try? decoder.decode(Trip.self, from: json.rawData()) })
                 .filter({ trip in trip != nil }).map({ trip in trip! })
+                    .filter({ trip in DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin ) > -5 })
             
             completionHandler(trips)
         }

@@ -12,7 +12,7 @@ class DateUtil {
         self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         if let tripTime = self.dateFormatter.date(from: dateString) {
-            return abs(Int(tripTime.timeIntervalSinceNow) / 60)
+            return Int(tripTime.timeIntervalSinceNow) / 60
         } else {
             return 10000
         }
