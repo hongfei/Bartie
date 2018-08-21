@@ -10,9 +10,6 @@ import SwiftIcons
 import PinLayout
 
 class RouteDetailNavigationViewController: UINavigationController {
-    var initialTouchPoint = CGPoint.zero
-    var initialFramePoint = CGPoint.zero
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -27,11 +24,6 @@ class RouteDetailNavigationViewController: UINavigationController {
         self.modalPresentationStyle = .overFullScreen
         self.navigationBar.isTranslucent = false
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
 }
 
 class RouteDetailViewController: UIViewController {

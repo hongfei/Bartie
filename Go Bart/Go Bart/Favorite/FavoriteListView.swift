@@ -21,12 +21,10 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
         super.init(frame: frame, style: style)
         self.delegate = self
         self.dataSource = self
-        self.register(FavoriteListCell.self, forCellReuseIdentifier: "FavoriteListCell")
+        self.register(TripListCell.self, forCellReuseIdentifier: "TripListCell")
         self.register(FavoriteListHeader.self, forHeaderFooterViewReuseIdentifier: "FavoriteListHeader")
 
-        self.allowsSelection = false
         self.tableFooterView = UIView(frame: CGRect.zero)
-
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(onTableRefresh), for: .valueChanged)
     }
@@ -40,8 +38,8 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteListCell", for: indexPath)
-        if let favoriteCell = cell as? FavoriteListCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell", for: indexPath)
+        if let favoriteCell = cell as? TripListCell {
             guard let tripList = self.tripsListMap[indexPath.section] else {
                 return favoriteCell
             }
@@ -49,7 +47,11 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
             guard let departures = self.departureMap[indexPath.section], let departure = DataUtil.findClosestDeparture(in: departures, for: trip) else {
                 return favoriteCell
             }
-            favoriteCell.reloadData(with: departure, of: trip, for: favorites[indexPath.section])
+            favoriteCell.departure = departure
+            favoriteCell.trip = trip
+            favoriteCell.station = favorites[indexPath.section].station
+            favoriteCell.destination = favorites[indexPath.section].destination
+            favoriteCell.reloadTripData()
             return favoriteCell
         } else {
             return cell
@@ -57,7 +59,12 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return FavoriteListCell.HEIGHT
+        if let trips = self.tripsListMap[indexPath.section] {
+            let height = CGFloat(trips[indexPath.row].leg.count * 20 + 70)
+            return height
+        } else {
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -73,6 +80,13 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
             return header
         }
         return cellHeader
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath), let favoriteCell = cell as? TripListCell {
+            self.favoriteListDelegate?.onSelectRow(for: favoriteCell.trip, with: favoriteCell.departure, from: favorites[indexPath.section])
+            favoriteCell.setSelected(false, animated: true)
+        }
     }
 
     @IBAction func onTableRefresh() {
@@ -94,4 +108,6 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
 
 protocol FavoriteListViewDelegate {
     func onRefreshList()
+
+    func onSelectRow(for trip: Trip, with departure: Departure?, from favorite: Favorite);
 }

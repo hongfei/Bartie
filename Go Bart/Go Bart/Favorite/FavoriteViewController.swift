@@ -76,4 +76,13 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
             }
         }
     }
+
+    func onSelectRow(for trip: Trip, with departure: Departure?, from favorite: Favorite) {
+        let favoriteDetail = FavoriteDetailViewController()
+        favoriteDetail.trip = trip
+        favoriteDetail.departure = departure
+        favoriteDetail.favorite = favorite
+
+        self.present(FavoriteDetailNavigationViewController(rootViewController: favoriteDetail), animated: true)
+    }
 }

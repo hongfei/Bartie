@@ -17,6 +17,8 @@ class Icons {
     static let middleDot = UIImage(icon: .fontAwesomeSolid(.circle), size:Icons.iconSize, textColor: .gray)
     static let rightArrow = UIImage(icon: .fontAwesomeSolid(.caretRight), size: Icons.iconSize)
     static let delete = UIImage(icon: .fontAwesomeSolid(.timesCircle), size: Icons.iconSize)
+    static let arrowDown = UIImage(icon: .fontAwesomeSolid(.arrowDown), size: Icons.iconSize)
+    static let arrowUp = UIImage(icon: .fontAwesomeSolid(.arrowUp), size: Icons.iconSize)
 
     static func train(of color: UIColor) -> UIImage {
         return UIImage(icon: .fontAwesomeSolid(.train), size: Icons.iconSize, textColor: color)

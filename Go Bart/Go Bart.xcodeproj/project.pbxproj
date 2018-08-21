@@ -15,9 +15,9 @@
 		4130727511B0282A2E27ED1B /* FavoriteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413076E81BB60956EEFCF142 /* FavoriteDetailViewController.swift */; };
 		41307456DB7C44B8C16655AB /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307364E5D83BA352CC2173 /* TrainViewController.swift */; };
 		4130749B7121E7D18C5CF818 /* StationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413071984BF6EB8C05A0B4B9 /* StationTableCell.swift */; };
+		413074A3AAAE3441D202B5AA /* DetourRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307218980153A3F9F910B2 /* DetourRoute.swift */; };
 		413075D712B8797C4BE0292F /* BartScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DB78EA2212056B58896 /* BartScheduleService.swift */; };
 		413076ABAAF5C14E6ED12C12 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413070C79BE5647A30B97FD0 /* Route.swift */; };
-		413076AE7F3E94BE061D44FB /* FavoriteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307896C59B296ED0EFD428 /* FavoriteListCell.swift */; };
 		41307730FA8A5116E284C483 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413074802997276ED007F83F /* DataUtil.swift */; };
 		413077C33F06D84A38299E65 /* TripListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307FFCD0D660C9DAC1E9CA /* TripListCell.swift */; };
 		4130784EC0F251D657BEBD0F /* RouteDetailContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130792A4DCD280A43686EF2 /* RouteDetailContentList.swift */; };
@@ -79,6 +79,7 @@
 		4130719292C09DE7B9E02C76 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		413071984BF6EB8C05A0B4B9 /* StationTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationTableCell.swift; sourceTree = "<group>"; };
 		413071F369AD2101FC7DEE2F /* FavoriteListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListView.swift; sourceTree = "<group>"; };
+		41307218980153A3F9F910B2 /* DetourRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetourRoute.swift; sourceTree = "<group>"; };
 		41307265F3BBE45AF644BE96 /* RouteDetailNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailNavigationBar.swift; sourceTree = "<group>"; };
 		413072F6B6AB6848B5DA04D6 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		41307364E5D83BA352CC2173 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
@@ -92,7 +93,6 @@
 		413077A316DDFD7A7ABFAFFC /* BartRealTimeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartRealTimeService.swift; sourceTree = "<group>"; };
 		413077F823C3C8259DB2867B /* EstimatedDeparture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatedDeparture.swift; sourceTree = "<group>"; };
 		41307814C2BF08E75FBBC622 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
-		41307896C59B296ED0EFD428 /* FavoriteListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListCell.swift; sourceTree = "<group>"; };
 		4130792A4DCD280A43686EF2 /* RouteDetailContentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailContentList.swift; sourceTree = "<group>"; };
 		413079687826F9C5FBE435E1 /* FavoriteListHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListHeader.swift; sourceTree = "<group>"; };
 		41307B4AC844FE52CF5EBB1D /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
@@ -199,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				413076E81BB60956EEFCF142 /* FavoriteDetailViewController.swift */,
+				41307218980153A3F9F910B2 /* DetourRoute.swift */,
 			);
 			path = FavoriteDetail;
 			sourceTree = "<group>";
@@ -300,7 +301,6 @@
 			children = (
 				41307E936B9FCB78FA91DDEB /* FavoriteViewController.swift */,
 				413071F369AD2101FC7DEE2F /* FavoriteListView.swift */,
-				41307896C59B296ED0EFD428 /* FavoriteListCell.swift */,
 				413079687826F9C5FBE435E1 /* FavoriteListHeader.swift */,
 			);
 			path = Favorite;
@@ -590,12 +590,12 @@
 				4130701FAA6B28393E17FF85 /* AddToFavoriteCell.swift in Sources */,
 				413077C33F06D84A38299E65 /* TripListCell.swift in Sources */,
 				41307DC0983B8E2231D71B7B /* FavoriteListView.swift in Sources */,
-				413076AE7F3E94BE061D44FB /* FavoriteListCell.swift in Sources */,
 				B6F695E7A9FAB13314F90503 /* Icons.swift in Sources */,
 				413070A81B2C079D7625FF8F /* Settings.swift in Sources */,
 				41307B8C0A326E8D8BAE7405 /* FavoriteListHeader.swift in Sources */,
 				4130727511B0282A2E27ED1B /* FavoriteDetailViewController.swift in Sources */,
 				41307B0DBFA32043376FC1BA /* BartFare.swift in Sources */,
+				413074A3AAAE3441D202B5AA /* DetourRoute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
