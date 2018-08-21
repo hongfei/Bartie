@@ -42,6 +42,8 @@ class FavoriteDetailViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.register(CurrentStation.self, forCellReuseIdentifier: "CurrentStation")
         self.tableView.register(DetourRoute.self, forCellReuseIdentifier: "DetourRoute")
+
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         calculateDetourRoute()
     }
 
