@@ -57,7 +57,9 @@ class TripListCell: UITableViewCell {
             self.minute.text = dep.minutes
             self.minute.layer.backgroundColor = UIColor(dep.hexcolor).cgColor
         } else {
-            self.minute.text = String(DateUtil.getTimeDifferenceToNow(dateString: self.trip.origTimeDate + self.trip.origTimeMin))
+            var timeDiff = DateUtil.getTimeDifferenceToNow(dateString: self.trip.origTimeDate + self.trip.origTimeMin)
+            timeDiff = timeDiff > 0 ? timeDiff : 0
+            self.minute.text = String(timeDiff)
             BartRouteService.getAllRoutes() { routes in
                 if let leg = self.trip.leg.first, let route = routes.first(where: {route in route.routeID == leg.line}) {
                     self.minute.layer.backgroundColor = UIColor(route.hexcolor).cgColor
