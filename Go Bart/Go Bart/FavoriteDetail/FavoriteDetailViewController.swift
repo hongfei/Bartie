@@ -85,7 +85,7 @@ class FavoriteDetailViewController: UITableViewController {
                     let newTarget = departures.filter({ dep in dep.abbreviation == targetAbbr && Int(dep.minutes)! <= self.targetTime }).last {
                     let detourTime = Int(newDep.minutes)!
                     let targetTime = Int(newTarget.minutes)!
-                    if detourTime < targetTime {
+                    if detourTime + 1 < targetTime {
                         self.detourTime = detourTime
                         self.targetTime = targetTime
                         self.exchangeStation = first
@@ -140,8 +140,9 @@ class FavoriteDetailViewController: UITableViewController {
                 return currentStation
             }
         case 1:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "DetourRoute"), let detourRoute = cell as? DetourRoute {
-                detourRoute.reloadCellData(detour: self.detourDeparture, target: self.departure, exchange: self.exchangeStation, detourTime: self.detourTime, targetTime: self.targetTime)
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "DetourRoute"), let detourRoute = cell as? DetourRoute,
+                let actualFavorite = self.favorite {
+                detourRoute.reloadCellData(current: actualFavorite.station, detour: self.detourDeparture, target: self.departure, exchange: self.exchangeStation, detourTime: self.detourTime, targetTime: self.targetTime)
                 return detourRoute
             }
         default: return UITableViewCell()
