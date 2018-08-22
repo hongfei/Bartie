@@ -1,6 +1,0 @@
-framework module Pods_Go_BartTests {
-  umbrella header "Pods-Go BartTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
