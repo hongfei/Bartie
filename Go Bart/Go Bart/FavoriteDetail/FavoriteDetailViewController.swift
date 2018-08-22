@@ -33,7 +33,7 @@ class FavoriteDetailViewController: UITableViewController {
     var targetTime: Int = 999
 
     override var navigationItem: UINavigationItem {
-        let navItem: UINavigationItem = UINavigationItem(title: "Detour Route")
+        let navItem: UINavigationItem = UINavigationItem(title: "Detour Route (slow)")
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeFavoriteDetail))
         return navItem
     }
