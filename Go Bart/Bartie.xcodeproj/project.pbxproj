@@ -110,14 +110,14 @@
 		57BA2E9EF9700FF270E405F0 /* Pods-Go BartUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go BartUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Go BartUITests/Pods-Go BartUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		947DA7ACADA62FD3E554F0FB /* Pods_Go_BartUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Go_BartUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB703A62211BD416005CF2FF /* DepartureListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartureListCell.swift; sourceTree = "<group>"; };
-		ABFAA6622117A9E9006C0B47 /* Go Bart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Bart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABFAA6622117A9E9006C0B47 /* Bartie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bartie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABFAA6652117A9E9006C0B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABFAA6702117A9EA006C0B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABFAA6752117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ABFAA67A2117A9EA006C0B47 /* Go BartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go BartTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABFAA67A2117A9EA006C0B47 /* BartieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABFAA67E2117A9EA006C0B47 /* Go_BartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_BartTests.swift; sourceTree = "<group>"; };
 		ABFAA6802117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ABFAA6852117A9EA006C0B47 /* Go BartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go BartUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABFAA6852117A9EA006C0B47 /* BartieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_BartUITests.swift; sourceTree = "<group>"; };
 		ABFAA68B2117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6F69343ECE3A8CF46BD8E33 /* BartService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartService.swift; sourceTree = "<group>"; };
@@ -220,9 +220,9 @@
 		ABFAA6592117A9E9006C0B47 = {
 			isa = PBXGroup;
 			children = (
-				ABFAA6642117A9E9006C0B47 /* Go Bart */,
-				ABFAA67D2117A9EA006C0B47 /* Go BartTests */,
-				ABFAA6882117A9EA006C0B47 /* Go BartUITests */,
+				ABFAA6642117A9E9006C0B47 /* Bartie */,
+				ABFAA67D2117A9EA006C0B47 /* BartieTests */,
+				ABFAA6882117A9EA006C0B47 /* BartieUITests */,
 				ABFAA6632117A9E9006C0B47 /* Products */,
 				41307814C2BF08E75FBBC622 /* .gitignore */,
 				31A192E01A4D4DEC561319AE /* Pods */,
@@ -233,14 +233,14 @@
 		ABFAA6632117A9E9006C0B47 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ABFAA6622117A9E9006C0B47 /* Go Bart.app */,
-				ABFAA67A2117A9EA006C0B47 /* Go BartTests.xctest */,
-				ABFAA6852117A9EA006C0B47 /* Go BartUITests.xctest */,
+				ABFAA6622117A9E9006C0B47 /* Bartie.app */,
+				ABFAA67A2117A9EA006C0B47 /* BartieTests.xctest */,
+				ABFAA6852117A9EA006C0B47 /* BartieUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ABFAA6642117A9E9006C0B47 /* Go Bart */ = {
+		ABFAA6642117A9E9006C0B47 /* Bartie */ = {
 			isa = PBXGroup;
 			children = (
 				ABFAA6752117A9EA006C0B47 /* Info.plist */,
@@ -256,25 +256,25 @@
 				413079A17D11B0E23AFBB70D /* RouteDetail */,
 				41307E5797ED09849EBD3DE4 /* FavoriteDetail */,
 			);
-			path = "Go Bart";
+			path = Bartie;
 			sourceTree = "<group>";
 		};
-		ABFAA67D2117A9EA006C0B47 /* Go BartTests */ = {
+		ABFAA67D2117A9EA006C0B47 /* BartieTests */ = {
 			isa = PBXGroup;
 			children = (
 				ABFAA67E2117A9EA006C0B47 /* Go_BartTests.swift */,
 				ABFAA6802117A9EA006C0B47 /* Info.plist */,
 			);
-			path = "Go BartTests";
+			path = BartieTests;
 			sourceTree = "<group>";
 		};
-		ABFAA6882117A9EA006C0B47 /* Go BartUITests */ = {
+		ABFAA6882117A9EA006C0B47 /* BartieUITests */ = {
 			isa = PBXGroup;
 			children = (
 				ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */,
 				ABFAA68B2117A9EA006C0B47 /* Info.plist */,
 			);
-			path = "Go BartUITests";
+			path = BartieUITests;
 			sourceTree = "<group>";
 		};
 		ABFAA6972117B22B006C0B47 /* Navigation */ = {
@@ -345,9 +345,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ABFAA6612117A9E9006C0B47 /* Go Bart */ = {
+		ABFAA6612117A9E9006C0B47 /* Bartie */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ABFAA68E2117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go Bart" */;
+			buildConfigurationList = ABFAA68E2117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Bartie" */;
 			buildPhases = (
 				284E5D671F3030B602085313 /* [CP] Check Pods Manifest.lock */,
 				ABFAA65E2117A9E9006C0B47 /* Sources */,
@@ -359,14 +359,14 @@
 			);
 			dependencies = (
 			);
-			name = "Go Bart";
+			name = Bartie;
 			productName = "Go Bart";
-			productReference = ABFAA6622117A9E9006C0B47 /* Go Bart.app */;
+			productReference = ABFAA6622117A9E9006C0B47 /* Bartie.app */;
 			productType = "com.apple.product-type.application";
 		};
-		ABFAA6792117A9EA006C0B47 /* Go BartTests */ = {
+		ABFAA6792117A9EA006C0B47 /* BartieTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ABFAA6912117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartTests" */;
+			buildConfigurationList = ABFAA6912117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "BartieTests" */;
 			buildPhases = (
 				6134602C998F5FF29A768EDB /* [CP] Check Pods Manifest.lock */,
 				ABFAA6762117A9EA006C0B47 /* Sources */,
@@ -378,14 +378,14 @@
 			dependencies = (
 				ABFAA67C2117A9EA006C0B47 /* PBXTargetDependency */,
 			);
-			name = "Go BartTests";
+			name = BartieTests;
 			productName = "Go BartTests";
-			productReference = ABFAA67A2117A9EA006C0B47 /* Go BartTests.xctest */;
+			productReference = ABFAA67A2117A9EA006C0B47 /* BartieTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		ABFAA6842117A9EA006C0B47 /* Go BartUITests */ = {
+		ABFAA6842117A9EA006C0B47 /* BartieUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ABFAA6942117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartUITests" */;
+			buildConfigurationList = ABFAA6942117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "BartieUITests" */;
 			buildPhases = (
 				9849AEDB765187819A64D89B /* [CP] Check Pods Manifest.lock */,
 				ABFAA6812117A9EA006C0B47 /* Sources */,
@@ -397,9 +397,9 @@
 			dependencies = (
 				ABFAA6872117A9EA006C0B47 /* PBXTargetDependency */,
 			);
-			name = "Go BartUITests";
+			name = BartieUITests;
 			productName = "Go BartUITests";
-			productReference = ABFAA6852117A9EA006C0B47 /* Go BartUITests.xctest */;
+			productReference = ABFAA6852117A9EA006C0B47 /* BartieUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -426,7 +426,7 @@
 					};
 				};
 			};
-			buildConfigurationList = ABFAA65D2117A9E9006C0B47 /* Build configuration list for PBXProject "Go Bart" */;
+			buildConfigurationList = ABFAA65D2117A9E9006C0B47 /* Build configuration list for PBXProject "Bartie" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -439,9 +439,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ABFAA6612117A9E9006C0B47 /* Go Bart */,
-				ABFAA6792117A9EA006C0B47 /* Go BartTests */,
-				ABFAA6842117A9EA006C0B47 /* Go BartUITests */,
+				ABFAA6612117A9E9006C0B47 /* Bartie */,
+				ABFAA6792117A9EA006C0B47 /* BartieTests */,
+				ABFAA6842117A9EA006C0B47 /* BartieUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -624,12 +624,12 @@
 /* Begin PBXTargetDependency section */
 		ABFAA67C2117A9EA006C0B47 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = ABFAA6612117A9E9006C0B47 /* Go Bart */;
+			target = ABFAA6612117A9E9006C0B47 /* Bartie */;
 			targetProxy = ABFAA67B2117A9EA006C0B47 /* PBXContainerItemProxy */;
 		};
 		ABFAA6872117A9EA006C0B47 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = ABFAA6612117A9E9006C0B47 /* Go Bart */;
+			target = ABFAA6612117A9E9006C0B47 /* Bartie */;
 			targetProxy = ABFAA6862117A9EA006C0B47 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -757,12 +757,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MG2A8FT82Y;
-				INFOPLIST_FILE = "Go Bart/Info.plist";
+				INFOPLIST_FILE = Bartie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-Bart";
+				PRODUCT_BUNDLE_IDENTIFIER = hongfeiwork.ios.bartie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -778,12 +778,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MG2A8FT82Y;
-				INFOPLIST_FILE = "Go Bart/Info.plist";
+				INFOPLIST_FILE = Bartie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "hongfeiwork.ios.Go-Bart";
+				PRODUCT_BUNDLE_IDENTIFIER = hongfeiwork.ios.bartie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -808,7 +808,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Go Bart.app/Go Bart";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bartie.app/Bartie";
 			};
 			name = Debug;
 		};
@@ -829,7 +829,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Go Bart.app/Go Bart";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bartie.app/Bartie";
 			};
 			name = Release;
 		};
@@ -876,7 +876,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ABFAA65D2117A9E9006C0B47 /* Build configuration list for PBXProject "Go Bart" */ = {
+		ABFAA65D2117A9E9006C0B47 /* Build configuration list for PBXProject "Bartie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ABFAA68C2117A9EA006C0B47 /* Debug */,
@@ -885,7 +885,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ABFAA68E2117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go Bart" */ = {
+		ABFAA68E2117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Bartie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ABFAA68F2117A9EA006C0B47 /* Debug */,
@@ -894,7 +894,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ABFAA6912117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartTests" */ = {
+		ABFAA6912117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "BartieTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ABFAA6922117A9EA006C0B47 /* Debug */,
@@ -903,7 +903,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ABFAA6942117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "Go BartUITests" */ = {
+		ABFAA6942117A9EA006C0B47 /* Build configuration list for PBXNativeTarget "BartieUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ABFAA6952117A9EA006C0B47 /* Debug */,
