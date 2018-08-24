@@ -8,8 +8,7 @@ import UIKit
 class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate, FavoriteListHeaderDelegate {
 
     var favorites: [Favorite] = []
-    var departureMap: [Int: [Departure]] = [:]
-    var tripsListMap: [Int: [Trip]] = [:]
+    var tripsListMap: [Int: [(Trip, Departure?)]] = [:]
     var favoriteListDelegate: FavoriteListViewDelegate?
     var inDeleteFavoriteMode: Bool = false
 
@@ -46,11 +45,11 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
             guard let tripList = self.tripsListMap[indexPath.section] else {
                 return favoriteCell
             }
-            let trip = tripList[indexPath.row]
-            guard let departures = self.departureMap[indexPath.section] else {
+            let trip = tripList[indexPath.row].0
+            guard let departure = tripList[indexPath.row].1 else {
                 return favoriteCell
             }
-            favoriteCell.departure = DataUtil.findClosestDeparture(in: departures, for: trip)
+            favoriteCell.departure = departure
             favoriteCell.trip = trip
             favoriteCell.station = favorites[indexPath.section].station
             favoriteCell.destination = favorites[indexPath.section].destination
@@ -63,7 +62,7 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let trips = self.tripsListMap[indexPath.section] {
-            let height = CGFloat(trips[indexPath.row].leg.count * 20 + 70)
+            let height = CGFloat(trips[indexPath.row].0.leg.count * 20 + 70)
             return height
         } else {
             return 0

@@ -63,10 +63,9 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
         }
 
         for (index, favorite) in favorites.enumerated() {
-            BartScheduleService.getTripPlan(from: favorite.station, to: favorite.destination) { trips in
-                self.favoriteList.tripsListMap[index] = trips
+            BartScheduleService.getTripPlan(from: favorite.station, to: favorite.destination, beforeCount: 1, afterCount: 2) { trips in
                 BartRealTimeService.getSelectedDepartures(for: favorite.station) { departures in
-                    self.favoriteList.departureMap[index] = departures
+                    self.favoriteList.tripsListMap[index] = DataUtil.regulateTripsWithDepartures(for: trips, with: departures)
                     refreshCount -= 1
                     if refreshCount == 0 {
                         self.favoriteList.reloadData()

@@ -65,7 +65,7 @@ class FavoriteDetailViewController: UITableViewController {
             self.detourTime = detourTime
             BartStationService.getAllStationMap() { stationMap in
                 guard let destination = stationMap[detourDepAbbr] else { return }
-                BartScheduleService.getTripPlan(from: actualFavorite.station, to: destination, count: 2) { trips in
+                BartScheduleService.getTripPlan(from: actualFavorite.station, to: destination, beforeCount: 0, afterCount: 2) { trips in
                     guard let detourTrip = trips.first, let leg = detourTrip.leg.first else { return }
                     BartRouteService.getDetailRouteInfo(with: leg.line) { detail in
                         guard let routeDetail = detail else { return }

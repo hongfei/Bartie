@@ -10,10 +10,10 @@ class BartScheduleService: BartService {
     static let SCHEDULE_RESOURCE = "/sched.aspx"
     static let decoder = JSONDecoder()
 
-    static func getTripPlan(from: Station, to: Station, count: Int = 3, completionHandler: @escaping ([Trip]) -> Void) {
+    static func getTripPlan(from: Station, to: Station, beforeCount: Int = 0, afterCount: Int = 3, completionHandler: @escaping ([Trip]) -> Void) {
         getResponse(
                 for: SCHEDULE_RESOURCE,
-                withParams: ["cmd": "depart", "orig": from.abbr, "dest": to.abbr, "a": "3", "b": "0"]
+                withParams: ["cmd": "depart", "orig": from.abbr, "dest": to.abbr, "a": String(afterCount), "b": String(beforeCount)]
         ) { response in
             guard let jsonResponse = response, let jsonArray = JSON(jsonResponse)["root"]["schedule"]["request"]["trip"].array else {
                 return completionHandler([])

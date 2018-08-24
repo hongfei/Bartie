@@ -110,3 +110,5 @@ iOSInjectionProject/
 
 Pods/
 Go Bart.xcworkspace/xcshareddata/
+.idea
+*.iml

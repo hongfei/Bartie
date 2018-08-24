@@ -97,7 +97,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         guard let dst = self.destination else {
             return
         }
-        BartScheduleService.getTripPlan(from: self.station, to: dst) { trips in
+        BartScheduleService.getTripPlan(from: self.station, to: dst, beforeCount: 1, afterCount: 4) { trips in
             BartRealTimeService.getSelectedDepartures(for: self.station) { departures in
                 self.tripListView.reloadTripList(trips: trips, with: departures, from: self.station, to: dst)
                 if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {

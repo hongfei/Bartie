@@ -7,7 +7,7 @@ import UIKit
 
 class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     var tripListDelegate: TripListViewDelegate?
-    var trips: [Trip] = []
+    var trips: [(Trip, Departure?)] = []
     var station: Station!
     var destination: Station!
     var routeMap: [String: Route]!
@@ -49,10 +49,10 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell") as? TripListCell {
-                cell.trip = self.trips[indexPath.row]
+                cell.trip = self.trips[indexPath.row].0
                 cell.station = self.station
                 cell.destination = self.destination
-                cell.departure = DataUtil.findClosestDeparture(in: self.departures, for: cell.trip)
+                cell.departure = self.trips[indexPath.row].1
                 cell.reloadTripData()
                 return cell
             }
@@ -72,7 +72,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            let height = CGFloat(self.trips[indexPath.row].leg.count * 20 + 70)
+            let height = CGFloat(self.trips[indexPath.row].0.leg.count * 20 + 70)
             return height
         case 1:
             return AddToFavoriteCell.HEIGHT
@@ -84,8 +84,7 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func reloadTripList(trips: [Trip], with departures: [Departure], from station: Station, to destination: Station) {
         self.station = station
         self.destination = destination
-        self.departures = departures
-        self.trips = trips
+        self.trips = DataUtil.regulateTripsWithDepartures(for: trips, with: departures)
 
         self.reloadData()
     }

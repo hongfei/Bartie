@@ -22,10 +22,11 @@ class DataUtil {
     
     class func findClosestDeparture(in departures: [Departure], for trip: Trip) -> Departure? {
         return departures.filter({ departure in
-            guard let leg = trip.leg.first, let departureTime = Int(departure.minutes) else { return false }
+            guard let leg = trip.leg.first, let departureTime = Int(departure.minutes), let delaySeconds = Int(departure.delay) else { return false }
             let sameDestination = leg.trainHeadStation == departure.abbreviation
             let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
-            let inTimeRange = tripTime - 15 < departureTime && departureTime < tripTime + 15
+            let regulatedDeparture = departureTime - delaySeconds / 60
+            let inTimeRange = tripTime - 5 < regulatedDeparture && regulatedDeparture < tripTime + 5
             return sameDestination && inTimeRange
         }).min(by: { (dep1, dep2) in
             guard let depTime1 = Int(dep1.minutes), let depTime2 = Int(dep2.minutes) else { return false }
@@ -67,5 +68,17 @@ class DataUtil {
             let coordinate2 = CLLocation(latitude: latitudeS2, longitude: longitudeS2)
             return coordinate1.distance(from: location) < coordinate2.distance(from: location)
         })
+    }
+    
+    class func regulateTripsWithDepartures(for trips: [Trip], with departures: [Departure]) -> [(Trip, Departure?)] {
+        let regulatedTrips = trips.map({ trip in (trip, findClosestDeparture(in: departures, for: trip))})
+        
+        if let first = regulatedTrips.first {
+            if first.1 == nil {
+                return Array(regulatedTrips.dropFirst())
+            }
+        }
+        
+        return regulatedTrips
     }
 }

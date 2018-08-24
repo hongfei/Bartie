@@ -11,7 +11,7 @@ class AddToFavoriteCell: UITableViewCell {
 
     var station: Station?
     var destination: Station?
-    var trips: [Trip] = []
+    var trips: [(Trip, Departure?)] = []
 
     override var safeAreaInsets: UIEdgeInsets {
         return UIEdgeInsetsMake(15, 10, 15, 10)
