@@ -162,10 +162,7 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
             self.initialViewFrame = view.frame
             self.firstTouchInsideMap = barHeight < touchPoint.y && touchPoint.y < mapHeight + barHeight
             self.isScrollEnabled = !self.firstTouchInsideMap
-        } else if recognizer.state == .changed {
-            if self.firstTouchInsideMap {
-                return
-            }
+        } else if recognizer.state == .changed && !self.firstTouchInsideMap {
             self.bounces = touchPoint.y < initialTouchPoint.y
             if touchPoint.y - initialTouchPoint.y > 0 {
                 view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y + statusBarHeight, width: view.frame.size.width, height: view.frame.size.height)
