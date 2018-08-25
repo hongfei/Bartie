@@ -7,4 +7,11 @@ import Foundation
 
 class Settings {
     static let favoriteTripCount = 2
+    
+    static let stationNameMapping = [
+        "alameda": "Alameda",
+        "sanfrancisco": "San Francisco",
+        "sanmateo": "San Mateo",
+        "contracosta": "Contra Costa"
+    ]
 }

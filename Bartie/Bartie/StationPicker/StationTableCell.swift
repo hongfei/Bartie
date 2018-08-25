@@ -47,6 +47,10 @@ class StationTableCell: UITableViewCell {
     func reloadStation() {
         self.name.text = self.station.name
         self.address.text = self.station.address
-        self.county.text = self.station.county
+        if let mappedCountyName = Settings.stationNameMapping[self.station.county] {
+            self.county.text = mappedCountyName
+        } else {
+            self.county.text = self.station.county
+        }
     }
 }
