@@ -46,10 +46,7 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
                 return favoriteCell
             }
             let trip = tripList[indexPath.row].0
-            guard let departure = tripList[indexPath.row].1 else {
-                return favoriteCell
-            }
-            favoriteCell.departure = departure
+            favoriteCell.departure = tripList[indexPath.row].1
             favoriteCell.trip = trip
             favoriteCell.station = favorites[indexPath.section].station
             favoriteCell.destination = favorites[indexPath.section].destination

@@ -61,11 +61,13 @@ class SingleTripView: UITableViewCell {
 
         for station in stations {
             let st = StationTime()
-            st.loadData(time: "", station: station.name, symbol: stationSymbol)
+            st.loadData(time: "", station: station.name, symbol: stationSymbol, stationProperty: Settings.stationProperties[station.abbr.lowercased()])
             self.addSubview(st)
             self.stations.append(st)
         }
         self.stations.first?.time.text = legend.origTimeMin
+        self.stations.first?.toiletIcon.isHidden = true
         self.stations.last?.time.text = legend.destTimeMin
+        self.stations.last?.toiletIcon.isHidden = true
     }
 }

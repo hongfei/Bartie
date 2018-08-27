@@ -1,6 +1,6 @@
 //
 // Created by Hongfei on 2018/8/10.
-// Copyrigh?t ??(c) 2018? Hongfei Zhou. All rights reserved.
+// Copyrigh?t ??(c) 2018? Hongfei ?Zhou. All rights reserved.
 //
 
 import UIKit
@@ -95,6 +95,7 @@ class StationTime: UIView {
     var time = UILabel()
     var station = UILabel()
     var symbol = UIImageView()
+    var toiletIcon = UIImageView()
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -112,6 +113,9 @@ class StationTime: UIView {
         self.station.adjustsFontSizeToFitWidth = true
         self.station.minimumScaleFactor = 0.5
         self.addSubview(self.station)
+
+        self.toiletIcon.image = Icons.toilet
+        self.addSubview(self.toiletIcon)
     }
 
     override func layoutSubviews() {
@@ -120,11 +124,13 @@ class StationTime: UIView {
         self.time.pin.vertically(pin.safeArea).left(pin.safeArea).width(60)
         self.symbol.pin.after(of: self.time, aligned: .center).width(10).height(10)
         self.station.pin.after(of: self.symbol).marginLeft(5).right(pin.safeArea).vertically(pin.safeArea)
+        self.toiletIcon.pin.before(of: self.symbol, aligned: .center).marginRight(10).width(15).height(15)
     }
 
-    func loadData(time: String, station: String?, symbol: UIImage) {
+    func loadData(time: String, station: String?, symbol: UIImage, stationProperty: StationProperty? = nil) {
         self.time.text = time
         self.station.text = station
         self.symbol.image = symbol
+        self.toiletIcon.isHidden = stationProperty == nil || !stationProperty!.hasToilet
     }
 }

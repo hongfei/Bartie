@@ -20,6 +20,7 @@ class Icons {
     static let arrowDown = UIImage(icon: .fontAwesomeSolid(.arrowDown), size: Icons.iconSize)
     static let arrowUp = UIImage(icon: .fontAwesomeSolid(.arrowUp), size: Icons.iconSize)
     static let location = UIImage(icon: .fontAwesomeSolid(.mapMarkerAlt), size: Icons.iconSize)
+    static let toilet = UIImage(icon: .emoji(.restroom), size: Icons.iconSize, textColor: .gray)
 
     static func train(of color: UIColor) -> UIImage {
         return UIImage(icon: .fontAwesomeSolid(.train), size: Icons.iconSize, textColor: color)

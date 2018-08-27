@@ -29,3 +29,11 @@ class Station: Codable {
         self.zipcode = zipcode
     }
 }
+
+class StationProperty: Codable {
+    var hasToilet: Bool
+
+    init(hasToilet: Bool) {
+        self.hasToilet = hasToilet
+    }
+}
