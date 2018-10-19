@@ -10,7 +10,6 @@
 		06AAE95E4A1F2949B1E7C964 /* Pods_BartieTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E91DD02289E9511C4717779 /* Pods_BartieTests.framework */; };
 		0B653ED9A4659498B9B19DE7 /* Pods_BartieUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243CF3C0265611F11968284A /* Pods_BartieUITests.framework */; };
 		3D9018AD94F24D453A274807 /* Pods_Bartie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710BA11CE9F8DAD053D60EBA /* Pods_Bartie.framework */; };
-		4130702961F0A039544C0E20 /* FavoriteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307FC7E720FF3CC226F28E /* FavoriteListView.swift */; };
 		4130705922634D476A3948F1 /* DepartureListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130764DE41C5C7741C1BF9A /* DepartureListView.swift */; };
 		413070A81B2C079D7625FF8F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307D6489C62A21B01795B9 /* Settings.swift */; };
 		4130718F3C050DB2E10398BE /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413072F6B6AB6848B5DA04D6 /* Trip.swift */; };
@@ -131,7 +130,6 @@
 		41307EF97B0ED91273610786 /* RouteDetailNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailNavigationBar.swift; sourceTree = "<group>"; };
 		41307F76C8FFC128C0D60A69 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
 		41307FC19F36ACB4F94A700D /* AddToFavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoriteCell.swift; sourceTree = "<group>"; };
-		41307FC7E720FF3CC226F28E /* FavoriteListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListView.swift; sourceTree = "<group>"; };
 		4331D8CCFC94A074F1702A16 /* Pods-Go Bart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go Bart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Go Bart/Pods-Go Bart.debug.xcconfig"; sourceTree = "<group>"; };
 		476D011A4C4049DB0397FAEC /* Pods_Go_Bart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Go_Bart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE003E28F691FC91A019358 /* Pods-Go BartUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Go BartUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Go BartUITests/Pods-Go BartUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				41307ACFBB3B5EF7DA8F9FF1 /* FavoriteViewController.swift */,
-				41307FC7E720FF3CC226F28E /* FavoriteListView.swift */,
 				413077C3F5A202383A5A8716 /* FavoriteListHeader.swift */,
 			);
 			path = Favorite;
@@ -658,7 +655,6 @@
 				413079A1774ACB8CC4057AD6 /* DetourRoute.swift in Sources */,
 				41307289FFED85A9C8AEF8E7 /* CurrentStation.swift in Sources */,
 				41307975F18829619C739946 /* FavoriteViewController.swift in Sources */,
-				4130702961F0A039544C0E20 /* FavoriteListView.swift in Sources */,
 				41307C8E5E43E2744A48C05A /* FavoriteListHeader.swift in Sources */,
 				4130745F3AC3171045664FA8 /* StationPickerViewController.swift in Sources */,
 				41307B4D1F77E5C10B4E9308 /* StationTableCell.swift in Sources */,
