@@ -67,7 +67,7 @@ class TripListCell: UITableViewCell {
             }
         }
 
-        BartStationService.getAllStationMap() { stationsMap in
+        StationService.getAllStationMap() { stationsMap in
             if let leg = self.trip.leg.first, let headStation = stationsMap[leg.trainHeadStation] {
                 self.destLabel.text = headStation.name
             }

@@ -21,7 +21,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         setSearchController()
 
-        BartStationService.getAllStations() { stations in
+        StationService.getAllStations() { stations in
             self.stations = stations
             self.filteredStations = stations
             self.tableView.reloadData()

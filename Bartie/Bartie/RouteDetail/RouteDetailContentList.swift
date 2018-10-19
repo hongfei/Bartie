@@ -46,9 +46,7 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
 
         guard let actualTrip = trip else { return }
         for leg in actualTrip.leg {
-            BartRouteService.getDetailRouteInfo(with: leg.line) { detail in
-                guard let routeDetail = detail else { return }
-
+            BartRouteService.getDetailRouteInfo(with: leg.line) { routeDetail in
                 DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
                     self.legStations[leg.order] = stations
                     self.legRouteDetails[leg.order] = routeDetail

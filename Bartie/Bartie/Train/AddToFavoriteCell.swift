@@ -40,7 +40,7 @@ class AddToFavoriteCell: UITableViewCell {
         guard let station = self.station, let destination = self.destination else {
             return
         }
-        if let _ = DataCache.getFavorite(from: station, to: destination) {
+        if let _ = FavoriteService.getFavorite(from: station, to: destination) {
             self.addButton.isEnabled = false
         } else {
             self.addButton.isEnabled = !trips.isEmpty
@@ -51,7 +51,7 @@ class AddToFavoriteCell: UITableViewCell {
         guard let station = self.station, let destination = self.destination else {
             return
         }
-        DataCache.saveFavorite(from: station, to: destination)
+        FavoriteService.saveFavorite(from: station, to: destination)
         refreshButton()
     }
 }

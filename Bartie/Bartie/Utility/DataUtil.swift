@@ -14,7 +14,7 @@ class DataUtil {
         }
 
         let choppedStations: [String] = start < end ? Array(stations[start...end]) : Array(stations[end...start]).reversed()
-        BartStationService.getAllStationMap() { stationsMap in
+        StationService.getAllStationMap() { stationsMap in
             let stations = choppedStations.map({ stnt in stationsMap[stnt] }).filter({ stnt in stnt != nil }).map({ stnt in stnt! })
             completionHandler(stations)
         }

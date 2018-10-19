@@ -99,8 +99,8 @@ class FavoriteListView: UITableView, UITableViewDataSource, UITableViewDelegate,
     }
 
     func onDeleteFavorite(favorite: Favorite) {
-        DataCache.deleteFavorite(favorite: favorite)
-        self.favorites = DataCache.getAllFavorites()
+        FavoriteService.deleteFavorite(favorite: favorite)
+        self.favorites = FavoriteService.getAllFavorites()
         self.reloadData()
     }
 }

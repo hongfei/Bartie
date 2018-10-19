@@ -55,7 +55,7 @@ class FavoriteDetailViewController: UITableViewController {
         self.targetTime = targetTime
         self.exchangeStation = actualFavorite.station
         let targetDirection = actualDeparture.direction == "South" ? "North": "South"
-        BartRealTimeService.getSelectedDepartures(for: actualFavorite.station) { departures in
+        RealTimeService.getSelectedDepartures(for: actualFavorite.station) { departures in
             guard let detourDep = departures.filter({ dep in dep.direction == targetDirection }).first,
                     let detourDepAbbr = detourDep.abbreviation,
                     let detourTime = Int(detourDep.minutes) else {
@@ -63,13 +63,12 @@ class FavoriteDetailViewController: UITableViewController {
             }
             self.detourDeparture = detourDep
             self.detourTime = detourTime
-            BartStationService.getAllStationMap() { stationMap in
+            StationService.getAllStationMap() { stationMap in
                 guard let destination = stationMap[detourDepAbbr] else { return }
-                BartScheduleService.getTripPlan(from: actualFavorite.station, to: destination, beforeCount: 0, afterCount: 2) { trips in
+                ScheduleService.getTripPlan(from: actualFavorite.station, to: destination, beforeCount: 0, afterCount: 2) { trips in
                     guard let detourTrip = trips.first, let leg = detourTrip.leg.first else { return }
                     BartRouteService.getDetailRouteInfo(with: leg.line) { detail in
-                        guard let routeDetail = detail else { return }
-                        DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
+                        DataUtil.extractStations(for: detail, from: leg.origin, to: leg.destination) { stations in
                             self.pickStation(from: Array(stations.dropFirst()), from: detourDep.abbreviation!, to: actualDeparture.abbreviation!)
                         }
                     }
@@ -80,7 +79,7 @@ class FavoriteDetailViewController: UITableViewController {
 
     func pickStation(from stations: [Station], from depAbbr: String, to targetAbbr: String) {
         if let first = stations.first {
-            BartRealTimeService.getSelectedDepartures(for: first) { departures in
+            RealTimeService.getSelectedDepartures(for: first) { departures in
                 if let newDep = departures.first(where: { dep in dep.abbreviation == depAbbr && Int(dep.minutes)! >= self.detourTime }),
                     let newTarget = departures.filter({ dep in dep.abbreviation == targetAbbr && Int(dep.minutes)! <= self.targetTime }).last {
                     let detourTime = Int(newDep.minutes)!

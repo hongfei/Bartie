@@ -60,6 +60,8 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
 
         self.view.addSubview(self.stationSearchBar)
+        
+        self.setFromStationByLocation()
     }
 
     override func viewDidLayoutSubviews() {
@@ -82,7 +84,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     @IBAction func updateDepartureList() {
-        BartRealTimeService.getSelectedDepartures(for: self.station) { departures in
+        RealTimeService.getSelectedDepartures(for: self.station) { departures in
             self.departureListView.departures = departures
             self.departureListView.reloadData()
 
@@ -97,8 +99,8 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         guard let dst = self.destination else {
             return
         }
-        BartScheduleService.getTripPlan(from: self.station, to: dst, beforeCount: 1, afterCount: 4) { trips in
-            BartRealTimeService.getSelectedDepartures(for: self.station) { departures in
+        ScheduleService.getTripPlan(from: self.station, to: dst, beforeCount: 1, afterCount: 4) { trips in
+            RealTimeService.getSelectedDepartures(for: self.station) { departures in
                 self.tripListView.reloadTripList(trips: trips, with: departures, from: self.station, to: dst)
                 if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
                     self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
@@ -185,7 +187,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = manager.location {
-            BartStationService.getAllStations() { stations in
+            StationService.getAllStations() { stations in
                 self.station = DataUtil.getClosestStation(in: stations, to: currentLocation)
                 self.reloadList()
                 self.locatingIndicator.stopAnimating()

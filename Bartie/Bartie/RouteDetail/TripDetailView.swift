@@ -52,7 +52,7 @@ class SingleTripView: UITableViewCell {
         self.stations = []
         self.orderLabel.text = legend.order
 
-        BartStationService.getAllStationMap() { stationsMap in
+        StationService.getAllStationMap() { stationsMap in
             self.trainDestinationLabel.text = stationsMap[legend.trainHeadStation]?.name
         }
 

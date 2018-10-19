@@ -33,7 +33,7 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
 
         self.favoriteList = FavoriteListView()
         self.favoriteList.favoriteListDelegate = self
-        self.favoriteList.favorites = DataCache.getAllFavorites()
+        self.favoriteList.favorites = FavoriteService.getAllFavorites()
 
         self.view.addSubview(self.favoriteList)
         self.onRefreshList()
@@ -47,13 +47,13 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if DataCache.getAllFavorites().count > self.favoriteList.favorites.count {
+        if FavoriteService.getAllFavorites().count > self.favoriteList.favorites.count {
             self.onRefreshList()
         }
     }
 
     func onRefreshList() {
-        let favorites = DataCache.getAllFavorites()
+        let favorites = FavoriteService.getAllFavorites()
         self.favoriteList.favorites = favorites
         var refreshCount = favorites.count
 
@@ -63,8 +63,8 @@ class FavoriteViewController: UIViewController, FavoriteListViewDelegate {
         }
 
         for (index, favorite) in favorites.enumerated() {
-            BartScheduleService.getTripPlan(from: favorite.station, to: favorite.destination, beforeCount: 1, afterCount: 2) { trips in
-                BartRealTimeService.getSelectedDepartures(for: favorite.station) { departures in
+            ScheduleService.getTripPlan(from: favorite.station, to: favorite.destination, beforeCount: 1, afterCount: 2) { trips in
+                RealTimeService.getSelectedDepartures(for: favorite.station) { departures in
                     self.favoriteList.tripsListMap[index] = DataUtil.regulateTripsWithDepartures(for: trips, with: departures)
                     refreshCount -= 1
                     if refreshCount == 0 {
