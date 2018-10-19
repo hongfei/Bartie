@@ -22,8 +22,7 @@ class CacheStationRepository {
 
     class func getStations() -> [Station]? {
         guard let stationMap = getStationsMap() else {
-            return []
-
+            return nil
         }
 
         return stationMap.values.sorted { stnt1, stnt2 in

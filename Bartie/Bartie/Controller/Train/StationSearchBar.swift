@@ -61,8 +61,10 @@ class StationSearchBar: UIView, UITextFieldDelegate {
         pin.wrapContent(padding: pin.safeArea)
     }
 
-    func reloadStation(from station: Station, to destination: Station?) {
-        self.fromSearchBox.text = station.name
+    func reloadStation(from station: Station?, to destination: Station?) {
+        guard let stnt = station else { return }
+
+        self.fromSearchBox.text = stnt.name
         self.fromSearchBox.leftViewMode = .never
 
         if !self.toSearchBox.isDescendant(of: self) {

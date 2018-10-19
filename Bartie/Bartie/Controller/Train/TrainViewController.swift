@@ -10,7 +10,7 @@ import PinLayout
 import CoreLocation
 
 class TrainViewController: UIViewController, StationSearchBarDelegate, DepartureListViewDelegate, TripListViewDelegate, CLLocationManagerDelegate {
-    var station: Station!
+    var station: Station?
     var destination: Station?
 
     var stationSearchBar: StationSearchBar!
@@ -84,7 +84,8 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     @IBAction func updateDepartureList() {
-        RealTimeService.getSelectedDepartures(for: self.station) { departures in
+        guard let stnt = self.station else { return }
+        RealTimeService.getSelectedDepartures(for: stnt) { departures in
             self.departureListView.departures = departures
             self.departureListView.reloadData()
 
@@ -96,12 +97,12 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     @IBAction func updateTripList() {
-        guard let dst = self.destination else {
+        guard let stnt = self.station, let dst = self.destination else {
             return
         }
-        ScheduleService.getTripPlan(from: self.station, to: dst, beforeCount: 1, afterCount: 4) { trips in
-            RealTimeService.getSelectedDepartures(for: self.station) { departures in
-                self.tripListView.reloadTripList(trips: trips, with: departures, from: self.station, to: dst)
+        ScheduleService.getTripPlan(from: stnt, to: dst, beforeCount: 1, afterCount: 4) { trips in
+            RealTimeService.getSelectedDepartures(for: stnt) { departures in
+                self.tripListView.reloadTripList(trips: trips, with: departures, from: stnt, to: dst)
                 if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
                     self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 }
@@ -143,11 +144,11 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     func onDepartureSelected(departure: Departure) {
-        self.openRouteDetail(from: self.station, departure: departure)
+        self.openRouteDetail(from: self.station!, departure: departure)
     }
 
     func onTripSelected(trip: Trip, from station: Station, to destination: Station, with departure: Departure?) {
-        self.openRouteDetail(from: self.station, to: self.destination, departure: departure, trip: trip)
+        self.openRouteDetail(from: self.station!, to: self.destination, departure: departure, trip: trip)
     }
 
     func onDeleteTopBoxContent() {
