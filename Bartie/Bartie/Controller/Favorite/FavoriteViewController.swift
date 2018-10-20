@@ -36,8 +36,6 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
         self.tableView.register(FavoriteListHeader.self, forHeaderFooterViewReuseIdentifier: "FavoriteListHeader")
         self.tableView.tableFooterView = UIView(frame: .zero)
 
-        self.favorites = FavoriteService.getAllFavorites()
-
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
     }

@@ -174,7 +174,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = 30
+            self.locationManager.desiredAccuracy = 20
             self.locationManager.startUpdatingLocation()
             self.navigationItem.rightBarButtonItem = self.locatingNavBarItem
             self.locatingIndicator.startAnimating()

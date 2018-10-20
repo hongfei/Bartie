@@ -29,9 +29,6 @@ class DataUtil {
         return allOrigins
     }
 
-
-
-
     class func regulateTripsWithDepartures(for trips: [Trip], with departures: [Departure]) -> [(Trip, Departure?)] {
         let regulatedTrips = trips.map({ trip in (trip, RealTimeService.findClosestDeparture(in: departures, for: trip)) })
 
