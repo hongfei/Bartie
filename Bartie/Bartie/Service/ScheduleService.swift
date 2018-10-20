@@ -12,4 +12,12 @@ class ScheduleService {
             completionHandler(validTrips)
         }
     }
+
+    class func getTripsWithDeparture(from station: Station, to destination: Station, beforeCount: Int = 0, afterCount: Int = 3, completionHandler: @escaping ([(Trip, Departure?)]) -> Void) {
+        getTripPlan(from: station, to: destination) { trips in
+            RealTimeService.getSelectedDepartures(for: station) { departures in
+                completionHandler(DataUtil.regulateTripsWithDepartures(for: trips, with: departures))
+            }
+        }
+    }
 }

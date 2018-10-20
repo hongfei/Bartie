@@ -5,7 +5,7 @@
 
 import UIKit
 
-class RouteDetailNavigationBar: UINavigationBar {
+class RoundCornerNavigationBar: UINavigationBar {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

@@ -15,7 +15,7 @@ class FavoriteDetailNavigationViewController: UINavigationController {
     }
 
     override init(rootViewController: UIViewController) {
-        super.init(navigationBarClass: RouteDetailNavigationBar.self, toolbarClass: nil)
+        super.init(navigationBarClass: RoundCornerNavigationBar.self, toolbarClass: nil)
         self.pushViewController(rootViewController, animated: false)
         self.modalPresentationStyle = .overFullScreen
         self.navigationBar.isTranslucent = false
