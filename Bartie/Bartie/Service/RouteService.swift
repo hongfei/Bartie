@@ -5,7 +5,7 @@
 
 import Foundation
 
-class BartRouteService: BartService {
+class BartRouteService {
     static func getDetailRouteInfo(with routeID: String, completionHandler: @escaping (DetailRoute) -> Void) {
         if let detailRoute = CacheRouteRepository.getDetailRoute(routeID: routeID) {
             return completionHandler(detailRoute)

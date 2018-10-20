@@ -20,4 +20,20 @@ class ScheduleService {
             }
         }
     }
+
+    class func findClosestTrip(in trips: [Trip], for departure: Departure) -> Trip? {
+        guard let departureMinutes = Int(departure.minutes), let delaySeconds = Int(departure.minutes) else {
+            return nil
+        }
+        let regulatedDeparture = departureMinutes - delaySeconds / 60
+        return trips.filter({ trip in
+            let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            let inTimeRange = regulatedDeparture - 15 < tripTime && tripTime < regulatedDeparture + 15
+            return inTimeRange
+        }).min(by: { (trip1, trip2) in
+            let tripDiff1 = DateUtil.getTimeDifferenceToNow(dateString: trip1.origTimeDate + trip1.origTimeMin)
+            let tripDiff2 = DateUtil.getTimeDifferenceToNow(dateString: trip2.origTimeDate + trip2.origTimeMin)
+            return abs(tripDiff1 - regulatedDeparture) < abs(tripDiff2 - regulatedDeparture)
+        })
+    }
 }

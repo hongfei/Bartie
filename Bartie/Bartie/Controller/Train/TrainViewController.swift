@@ -188,8 +188,8 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = manager.location {
-            StationService.getAllStations() { stations in
-                self.station = DataUtil.getClosestStation(in: stations, to: currentLocation)
+            StationService.getClosestStation(from: currentLocation) { station in
+                self.station = station
                 self.reloadList()
                 self.locatingIndicator.stopAnimating()
                 self.navigationItem.rightBarButtonItem = self.getLocationNavBarItem

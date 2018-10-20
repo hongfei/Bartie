@@ -6,16 +6,32 @@
 import Foundation
 import SwiftyJSON
 
-class RealTimeService: BartService {
-    static let REALTIME_RESOURCE = "/etd.aspx"
-    static let decoder = JSONDecoder()
-
+class RealTimeService {
     class func getSelectedDepartures(for station: Station, completionHandler: @escaping ([Departure]) -> Void) {
         getDepartures(for: station.abbr, completionHandler: completionHandler)
     }
 
     class func getAllDepartures(completionHandler: @escaping ([Departure]) -> Void) {
         getDepartures(for: "ALL", completionHandler: completionHandler)
+    }
+    
+    class func findClosestDeparture(in departures: [Departure], for trip: Trip) -> Departure? {
+        return departures.filter({ departure in
+            guard let leg = trip.leg.first, let departureTime = Int(departure.minutes), let delaySeconds = Int(departure.delay) else {
+                return false
+            }
+            let sameDestination = leg.trainHeadStation == departure.abbreviation
+            let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            let regulatedDeparture = departureTime - delaySeconds / 60
+            let inTimeRange = tripTime - 5 < regulatedDeparture && regulatedDeparture < tripTime + 5
+            return sameDestination && inTimeRange
+        }).min(by: { (dep1, dep2) in
+            guard let depTime1 = Int(dep1.minutes), let depTime2 = Int(dep2.minutes) else {
+                return false
+            }
+            let tripDiff = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            return abs(depTime1 - tripDiff) < abs(depTime2 - tripDiff)
+        })
     }
 
     private class func getDepartures(for stationAbbr: String, completionHandler: @escaping ([Departure]) -> Void) {

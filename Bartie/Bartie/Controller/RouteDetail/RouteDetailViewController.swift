@@ -88,11 +88,14 @@ class RouteDetailViewController: UIViewController {
         self.dismiss(animated: true)
     }
 
-    private func retrieveTrip(by departure: Departure, completionHandler: @escaping (Trip?) -> Void) {
-        StationService.getAllStations() { stations in
-            if let destination = stations.first(where: { station in station.abbr == departure.abbreviation }) {
-                ScheduleService.getTripPlan(from: self.fromStation, to: destination, beforeCount: 1, afterCount: 4) { trips in
-                    let trip = DataUtil.findClosestTrip(in: trips, for: departure)
+    private func retrieveTrip(by departure: Departure, completionHandler: @escaping (Trip) -> Void) {
+        guard let destinationAbbr = departure.abbreviation else {
+            return
+        }
+
+        StationService.getStation(by: destinationAbbr) { destination in
+            ScheduleService.getTripPlan(from: self.fromStation, to: destination, beforeCount: 1, afterCount: 4) { trips in
+                if let trip = ScheduleService.findClosestTrip(in: trips, for: departure) {
                     completionHandler(trip)
                 }
             }
@@ -102,7 +105,7 @@ class RouteDetailViewController: UIViewController {
     private func retrieveDeparture(by trip: Trip, completionHandler: @escaping (Departure?) -> Void) {
         RealTimeService.getSelectedDepartures(for: self.fromStation) { departures in
             BartRouteService.getAllRoutes() { routes in
-                let dep = DataUtil.findClosestDeparture(in: departures, for: trip)
+                let dep = RealTimeService.findClosestDeparture(in: departures, for: trip)
                 completionHandler(dep)
             }
         }
