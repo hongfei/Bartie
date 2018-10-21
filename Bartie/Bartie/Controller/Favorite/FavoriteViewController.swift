@@ -12,6 +12,7 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
     var favorites: [Favorite] = []
     var tripsListMap: [Int: [(Trip, Departure?)]] = [:]
     var inDeleteFavoriteMode: Bool = false
+    var updateTimer: Timer!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -38,6 +39,8 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
 
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        
+        self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTable), userInfo: nil, repeats: true)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

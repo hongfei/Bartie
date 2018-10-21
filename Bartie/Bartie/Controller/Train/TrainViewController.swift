@@ -20,6 +20,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     var getLocationNavBarItem: UIBarButtonItem!
     var locatingNavBarItem: UIBarButtonItem!
     var locatingIndicator: UIActivityIndicatorView!
+    var updateTimer: Timer!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -62,6 +63,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.view.addSubview(self.stationSearchBar)
         
         self.setFromStationByLocation()
+        self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(reloadList), userInfo: nil, repeats: true)
     }
 
     override func viewDidLayoutSubviews() {
@@ -156,7 +158,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.reloadList()
     }
 
-    func reloadList() {
+    @IBAction func reloadList() {
         self.removeCurrentList()
         self.stationSearchBar.reloadStation(from: self.station, to: self.destination)
 
