@@ -9,7 +9,7 @@ import UIColor_Hex_Swift
 
 class Icons {
     static let iconSize = CGSize(width: 40, height: 40)
-    static let train = UIImage(icon: .fontAwesomeSolid(.subway), size: Icons.iconSize)
+    static let train = UIImage(icon: .fontAwesomeSolid(.subway), size: CGSize(width: 33, height: 33))
     static let search = UIImage(icon: .icofont(.search), size: Icons.iconSize, textColor: UIColor("#C7C7CD"))
     static let locating = UIImage(icon: .icofont(.locationArrow), size: CGSize(width: 27, height: 27), textColor: UIColor("#C7C7CD"))
     static let startDot = UIImage(icon: .fontAwesomeSolid(.circle), size: Icons.iconSize, textColor: .red)

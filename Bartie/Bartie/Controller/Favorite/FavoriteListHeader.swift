@@ -30,10 +30,12 @@ class FavoriteListHeader: UITableViewHeaderFooterView {
 
         self.stationLabel.minimumScaleFactor = 0.85
         self.stationLabel.adjustsFontSizeToFitWidth = true
+        self.stationLabel.textAlignment = .center
         self.addSubview(self.stationLabel)
 
         self.destinationLabel.minimumScaleFactor = 0.85
         self.destinationLabel.adjustsFontSizeToFitWidth = true
+        self.destinationLabel.textAlignment = .center
         self.addSubview(self.destinationLabel)
 
         self.directionImage.image = Icons.rightArrow
@@ -48,10 +50,10 @@ class FavoriteListHeader: UITableViewHeaderFooterView {
         super.layoutSubviews()
 
         pin.height(44)
-        self.stationLabel.pin.left(pin.safeArea).vertically(pin.safeArea).width(40%)
-        self.directionImage.pin.after(of: self.stationLabel, aligned: .center).height(20).width(20)
-        self.destinationLabel.pin.after(of: directionImage, aligned: .center).height(of: self.stationLabel).width(40%)
-        self.deleteButton.pin.after(of: destinationLabel, aligned: .center).right(pin.safeArea).height(30).width(30)
+        self.deleteButton.pin.right(pin.safeArea).vCenter().height(30).width(30)
+        self.stationLabel.pin.left(pin.safeArea).vCenter().minWidth(30%).maxWidth(50%).sizeToFit(.widthFlexible)
+        self.directionImage.pin.after(of: self.stationLabel).vCenter().height(20).width(20)
+        self.destinationLabel.pin.after(of: directionImage).before(of: self.deleteButton).vCenter().minWidth(30%).sizeToFit(.widthFlexible)
     }
 
     func setData(favorite: Favorite, isDeleting: Bool) {
