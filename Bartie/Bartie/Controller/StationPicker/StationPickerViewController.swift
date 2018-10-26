@@ -37,6 +37,10 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
         self.searchController.searchResultsUpdater = self
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.dimsBackgroundDuringPresentation = false
+        self.searchController.searchBar.barTintColor = .white
+        if let textfield = self.searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textfield.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        }
         self.tableView.tableHeaderView = self.searchController.searchBar
     }
 
