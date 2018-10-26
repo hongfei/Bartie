@@ -31,16 +31,19 @@ class StationSearchBar: UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.backgroundColor = UIColor("#E0E0E0")
-
+//        self.backgroundColor = UIColor("#E0E0E0")
+        self.backgroundColor = .white
+        
         self.fromSearchBox.leftViewMode = .always
         self.fromSearchBox.leftView = UIImageView(image: Icons.search)
         self.fromSearchBox.isUserInteractionEnabled = true
+        self.fromSearchBox.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
 
         self.toSearchBox.rightViewMode = .always
         self.toSearchBox.leftView = UIImageView(image: Icons.search)
         self.deleteButton.setImage(Icons.delete, for: .normal)
         self.toSearchBox.rightView = deleteButton
+        self.toSearchBox.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
 
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -108,8 +111,8 @@ class SearchBoxField: UITextField {
         super.init(frame: frame)
 
         self.backgroundColor = .white
-        self.layer.borderColor = UIColor("#D0D0D0").cgColor
-        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 1.5
         self.layer.cornerRadius = 10
         self.textAlignment = .center
     }
