@@ -14,7 +14,8 @@ class BartTabBarController: UITabBarController {
         super.init(nibName: nil, bundle: nil)
         self.viewControllers = [
             TrainViewController(),
-            FavoriteViewController()
+            FavoriteViewController(),
+            AdvisoryViewController()
         ].map { vc in
             let nav = UINavigationController(rootViewController: vc)
             nav.navigationBar.barTintColor = UIColor("#3359D1")
