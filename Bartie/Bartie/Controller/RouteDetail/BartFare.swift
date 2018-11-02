@@ -17,7 +17,7 @@ class BartFare: UITableViewCell {
     var youth: UILabel = UILabel()
     var youthAmount: UILabel = UILabel()
     override var safeAreaInsets: UIEdgeInsets {
-        return UIEdgeInsetsMake(5, 30, 5, 10)
+        return UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
     }
 
     required init?(coder: NSCoder) {

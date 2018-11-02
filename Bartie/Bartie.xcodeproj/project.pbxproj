@@ -58,8 +58,13 @@
 		ABFAA6712117A9EA006C0B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABFAA6702117A9EA006C0B47 /* Assets.xcassets */; };
 		ABFAA67F2117A9EA006C0B47 /* Go_BartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA67E2117A9EA006C0B47 /* Go_BartTests.swift */; };
 		ABFAA68A2117A9EA006C0B47 /* Go_BartUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */; };
+		B6F69103B11D4D3BDF901FC1 /* AdvisoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69109EC9749A2FEA48CFB /* AdvisoryViewController.swift */; };
+		B6F69148B2DE40D1F53FBA6F /* Advisory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F693D2E01D4D9B76FFCAF1 /* Advisory.swift */; };
 		B6F695E7A9FAB13314F90503 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69B9688087EAC29DFB3E2 /* Icons.swift */; };
+		B6F6974C32FF3288A0B858EC /* AdvisoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69BA801882ED6F8B4EE9D /* AdvisoryService.swift */; };
 		B6F697CA4AA061A552E9ACFD /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F69F01A95831136D1740AF /* Station.swift */; };
+		B6F6985555EB84B3808BC205 /* BartAdvisoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F6936F89B0BC523DBFC341 /* BartAdvisoryRepository.swift */; };
+		B6F69DA0C218DC24E7CC1008 /* AdvisoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F691ECC616F1B851DD977B /* AdvisoryCell.swift */; };
 		B6F69EA701ADF1B4F5FD4396 /* StationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F6971508E39DCC4CC5652E /* StationService.swift */; };
 /* End PBXBuildFile section */
 
@@ -149,8 +154,13 @@
 		ABFAA6892117A9EA006C0B47 /* Go_BartUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_BartUITests.swift; sourceTree = "<group>"; };
 		ABFAA68B2117A9EA006C0B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6796C331BA4AB5AAA7367AA /* Pods-BartieTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BartieTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BartieTests/Pods-BartieTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B6F69109EC9749A2FEA48CFB /* AdvisoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvisoryViewController.swift; sourceTree = "<group>"; };
+		B6F691ECC616F1B851DD977B /* AdvisoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvisoryCell.swift; sourceTree = "<group>"; };
+		B6F6936F89B0BC523DBFC341 /* BartAdvisoryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartAdvisoryRepository.swift; sourceTree = "<group>"; };
+		B6F693D2E01D4D9B76FFCAF1 /* Advisory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advisory.swift; sourceTree = "<group>"; };
 		B6F6971508E39DCC4CC5652E /* StationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationService.swift; sourceTree = "<group>"; };
 		B6F69B9688087EAC29DFB3E2 /* Icons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
+		B6F69BA801882ED6F8B4EE9D /* AdvisoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvisoryService.swift; sourceTree = "<group>"; };
 		B6F69F01A95831136D1740AF /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		E3D836CA3402C337142E0865 /* Pods-Bartie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bartie.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bartie/Pods-Bartie.debug.xcconfig"; sourceTree = "<group>"; };
 		E896756EB5EB17F2A1D03854 /* Pods_Go_BartTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Go_BartTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,6 +237,7 @@
 				41307A0427FDC9C81691C5A3 /* StationPicker */,
 				41307F0419B99564CB13317D /* Train */,
 				41307BD2DBD2D37CC13E00F0 /* BartTabBarController.swift */,
+				B6F69F8B80C4D4B5941F8B23 /* Advisory */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -241,6 +252,7 @@
 				4130734058972DA44E142AE0 /* BartRouteRepository.swift */,
 				41307EF57EBAB1ECDF21F12D /* BartScheduleRepository.swift */,
 				41307B359C984F8FA27E3F40 /* BartRealTimeRepository.swift */,
+				B6F6936F89B0BC523DBFC341 /* BartAdvisoryRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -385,6 +397,7 @@
 				41307DD9B46A122DFF3DCD7C /* RouteService.swift */,
 				413077C94FD4CCB84D1120FB /* ScheduleService.swift */,
 				41307919A12CA528FFD4313A /* FavoriteService.swift */,
+				B6F69BA801882ED6F8B4EE9D /* AdvisoryService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -397,8 +410,18 @@
 				413070C79BE5647A30B97FD0 /* Route.swift */,
 				413072F6B6AB6848B5DA04D6 /* Trip.swift */,
 				413075EE991F15BAD4DBE0F0 /* Favorite.swift */,
+				B6F693D2E01D4D9B76FFCAF1 /* Advisory.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		B6F69F8B80C4D4B5941F8B23 /* Advisory */ = {
+			isa = PBXGroup;
+			children = (
+				B6F69109EC9749A2FEA48CFB /* AdvisoryViewController.swift */,
+				B6F691ECC616F1B851DD977B /* AdvisoryCell.swift */,
+			);
+			path = Advisory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -666,6 +689,11 @@
 				413077CED986DA9634EEF547 /* BartTabBarController.swift in Sources */,
 				41307F0F52B4863F97CD798F /* TripListCell.swift in Sources */,
 				413076C921670C17FF7D83C7 /* RoundCornerNavigationBar.swift in Sources */,
+				B6F6985555EB84B3808BC205 /* BartAdvisoryRepository.swift in Sources */,
+				B6F69148B2DE40D1F53FBA6F /* Advisory.swift in Sources */,
+				B6F6974C32FF3288A0B858EC /* AdvisoryService.swift in Sources */,
+				B6F69103B11D4D3BDF901FC1 /* AdvisoryViewController.swift in Sources */,
+				B6F69DA0C218DC24E7CC1008 /* AdvisoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
