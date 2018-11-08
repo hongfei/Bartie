@@ -8,10 +8,14 @@ import Foundation
 class Advisory: Codable {
     let station: String
     let description: AdvisoryDescription
+    let type: String?
+    let posted: String?
 
-    init(station: String, description: AdvisoryDescription) {
+    init(station: String, type: String, description: AdvisoryDescription, posted: String) {
         self.station = station
+        self.type = type
         self.description = description
+        self.posted = posted
     }
 }
 
