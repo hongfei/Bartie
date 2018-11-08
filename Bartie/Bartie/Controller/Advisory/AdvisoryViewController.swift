@@ -29,7 +29,7 @@ class AdvisoryViewController: UITableViewController {
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
 
-//        self.refreshTable()
+        self.refreshTable()
     }
 
     @IBAction func refreshTable() {
