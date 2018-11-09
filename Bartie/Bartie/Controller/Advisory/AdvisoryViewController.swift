@@ -57,13 +57,24 @@ class AdvisoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return heightForAdvisoryCell(text: advisories[indexPath.row].description.cdData) + CGFloat(50)
+        let advisory = advisories[indexPath.row]
+        return heightForAdvisoryCell(text: advisory.description.cdData) + (advisory.type == nil ? CGFloat(20) : CGFloat(50))
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case 0: return "Advisory"
-        default: return ""
+        case 0:
+            let advisoryHead = WideHeadCell()
+            advisoryHead.loadViewData(text: "Advisory")
+            return advisoryHead
+        default: return nil
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0: return WideHeadCell.HEIGHT
+        default: return CGFloat(0)
         }
     }
 

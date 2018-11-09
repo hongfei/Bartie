@@ -32,6 +32,7 @@
 		413076C921670C17FF7D83C7 /* RoundCornerNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307283170E3B402604ED90 /* RoundCornerNavigationBar.swift */; };
 		41307730FA8A5116E284C483 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413074802997276ED007F83F /* DataUtil.swift */; };
 		41307745E3889186354343C3 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307B7C4DF8EA846DE09B5F /* TripDetailView.swift */; };
+		413077A4DB6C43F7981CD785 /* WideHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413071AFA31217554B045840 /* WideHeadCell.swift */; };
 		413077CED986DA9634EEF547 /* BartTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307BD2DBD2D37CC13E00F0 /* BartTabBarController.swift */; };
 		4130780E1A7CD3366BB79035 /* CacheRouteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307E06BA97D0334D8F0F0A /* CacheRouteRepository.swift */; };
 		41307946F36AC9E909BCB8F8 /* StationSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307D41E84EACEEDC2C09EF /* StationSearchBar.swift */; };
@@ -99,6 +100,7 @@
 		41307116678EE8816CC76228 /* TripListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripListCell.swift; sourceTree = "<group>"; };
 		41307152E7F34B032CBC8C15 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		41307173079DB74D48953F63 /* DataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
+		413071AFA31217554B045840 /* WideHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WideHeadCell.swift; sourceTree = "<group>"; };
 		413071B1BA34BC38E060BCB4 /* CacheStationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheStationRepository.swift; sourceTree = "<group>"; };
 		41307283170E3B402604ED90 /* RoundCornerNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundCornerNavigationBar.swift; sourceTree = "<group>"; };
 		41307293FFF8F6FEEEA4BEAD /* RouteDetailContentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailContentList.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			children = (
 				41307116678EE8816CC76228 /* TripListCell.swift */,
 				41307283170E3B402604ED90 /* RoundCornerNavigationBar.swift */,
+				413071AFA31217554B045840 /* WideHeadCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				B6F6974C32FF3288A0B858EC /* AdvisoryService.swift in Sources */,
 				B6F69103B11D4D3BDF901FC1 /* AdvisoryViewController.swift in Sources */,
 				B6F69DA0C218DC24E7CC1008 /* AdvisoryCell.swift in Sources */,
+				413077A4DB6C43F7981CD785 /* WideHeadCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

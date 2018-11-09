@@ -85,27 +85,27 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.tripListView.pin.horizontally(view.pin.safeArea).bottom(view.pin.safeArea).below(of: self.stationSearchBar)
     }
 
-    @IBAction func updateDepartureList() {
+    @IBAction func updateDepartureList(scrollToTop: Bool = false) {
         guard let stnt = self.station else { return }
         RealTimeService.getSelectedDepartures(for: stnt) { departures in
             self.departureListView.departures = departures
             self.departureListView.reloadData()
 
-            if (departures.count > 0 && self.departureListView.numberOfRows(inSection: 0) > 0) {
+            if (scrollToTop && departures.count > 0 && self.departureListView.numberOfRows(inSection: 0) > 0) {
                 self.departureListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             }
             self.departureListView.refreshControl?.endRefreshing()
         }
     }
 
-    @IBAction func updateTripList() {
+    @IBAction func updateTripList(scrollToTop: Bool = false) {
         guard let stnt = self.station, let dst = self.destination else {
             return
         }
         ScheduleService.getTripPlan(from: stnt, to: dst, beforeCount: 1, afterCount: 4) { trips in
             RealTimeService.getSelectedDepartures(for: stnt) { departures in
                 self.tripListView.reloadTripList(trips: trips, with: departures, from: stnt, to: dst)
-                if (trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
+                if (scrollToTop && trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
                     self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 }
                 self.tripListView.refreshControl?.endRefreshing()
@@ -129,14 +129,14 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     func onTapFromBox(textField: UITextField) {
         self.openStationPicker(with: "Pick Station") { station in
             self.station = station
-            self.reloadList()
+            self.reloadList(scrollToTop: true)
         }
     }
 
     func onTapToBox(textField: UITextField) {
         self.openStationPicker(with: "Pick Destination") { station in
             self.destination = station
-            self.reloadList()
+            self.reloadList(scrollToTop: true)
         }
     }
 
@@ -155,19 +155,19 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
     func onDeleteTopBoxContent() {
         self.destination = nil
-        self.reloadList()
+        self.reloadList(scrollToTop: true)
     }
 
-    @IBAction func reloadList() {
+    @IBAction func reloadList(scrollToTop: Bool = false) {
         self.removeCurrentList()
         self.stationSearchBar.reloadStation(from: self.station, to: self.destination)
 
         if let _ = self.destination {
             self.placeTripList()
-            self.updateTripList()
+            self.updateTripList(scrollToTop: scrollToTop)
         } else {
             self.placeDepartureList()
-            self.updateDepartureList()
+            self.updateDepartureList(scrollToTop: scrollToTop)
         }
     }
 
@@ -192,7 +192,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         if let currentLocation = manager.location {
             StationService.getClosestStation(from: currentLocation) { station in
                 self.station = station
-                self.reloadList()
+                self.reloadList(scrollToTop: true)
                 self.locatingIndicator.stopAnimating()
                 self.navigationItem.rightBarButtonItem = self.getLocationNavBarItem
             }
