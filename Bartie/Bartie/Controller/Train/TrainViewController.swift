@@ -87,7 +87,11 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
 
     @IBAction func updateDepartureList(scrollToTop: Bool = false) {
         guard let stnt = self.station else { return }
-        RealTimeService.getSelectedDepartures(for: stnt) { departures in
+        RealTimeService.getSelectedDepartures(for: stnt) { optionalDepartures in
+            guard let departures = optionalDepartures else {
+                return
+            }
+
             self.departureListView.departures = departures
             self.departureListView.reloadData()
 
@@ -102,8 +106,12 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         guard let stnt = self.station, let dst = self.destination else {
             return
         }
-        ScheduleService.getTripPlan(from: stnt, to: dst, beforeCount: 1, afterCount: 4) { trips in
-            RealTimeService.getSelectedDepartures(for: stnt) { departures in
+        ScheduleService.getTripPlan(from: stnt, to: dst, beforeCount: 1, afterCount: 4) { optionalTrips in
+            RealTimeService.getSelectedDepartures(for: stnt) { optionalDepartures in
+                guard let trips = optionalTrips, let departures = optionalDepartures else {
+                    return
+                }
+
                 self.tripListView.reloadTripList(trips: trips, with: departures, from: stnt, to: dst)
                 if (scrollToTop && trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
                     self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
