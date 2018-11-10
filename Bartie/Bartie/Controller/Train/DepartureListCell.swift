@@ -22,7 +22,7 @@ class DepartureListCell: UITableViewCell {
     var delay: UILabel = UILabel()
 
     override var safeAreaInsets: UIEdgeInsets {
-        return UIEdgeInsetsMake(10, 10, 10, 5)
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
     required init?(coder: NSCoder) {
@@ -44,15 +44,18 @@ class DepartureListCell: UITableViewCell {
 
         self.length.font = FontUtil.pingFangTCRegular(size: 15)
         self.length.textColor = .darkGray
+        self.length.textAlignment = .right
         self.addSubview(self.length)
 
         self.platform.font = FontUtil.pingFangTCRegular(size: 15)
         self.platform.textColor = .darkGray
+        self.platform.textAlignment = .right
         self.addSubview(self.platform)
 
         self.delay.font = FontUtil.pingFangTCRegular(size: 15)
         self.delay.textColor = .darkGray
         self.delay.isHidden = true
+        self.delay.textAlignment = .right
         self.addSubview(self.delay)
     }
 
