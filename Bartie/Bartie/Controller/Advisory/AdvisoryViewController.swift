@@ -28,7 +28,10 @@ class AdvisoryViewController: UITableViewController {
         self.tableView.register(AdvisoryCell.self, forCellReuseIdentifier: "AdvisoryCell")
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.refreshTable()
     }
 
