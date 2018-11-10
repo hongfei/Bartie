@@ -37,18 +37,21 @@ class DepartureListCell: UITableViewCell {
         self.minute.textAlignment = .center
         self.addSubview(self.minute)
 
-        self.destination.font = UIFont(name: self.destination.font.fontName, size: 20)
+        self.destination.font = FontUtil.pingFangTCRegular(size: 22.5)
         self.destination.adjustsFontSizeToFitWidth = true
         self.destination.minimumScaleFactor = 0.5
         self.addSubview(self.destination)
 
-        self.length.font = UIFont(name: self.length.font.fontName, size: 15)
+        self.length.font = FontUtil.pingFangTCRegular(size: 15)
+        self.length.textColor = .darkGray
         self.addSubview(self.length)
 
-        self.platform.font = UIFont(name: self.platform.font.fontName, size: 15)
+        self.platform.font = FontUtil.pingFangTCRegular(size: 15)
+        self.platform.textColor = .darkGray
         self.addSubview(self.platform)
 
-        self.delay.font = UIFont(name: self.delay.font.fontName, size: 15)
+        self.delay.font = FontUtil.pingFangTCRegular(size: 15)
+        self.delay.textColor = .darkGray
         self.delay.isHidden = true
         self.addSubview(self.delay)
     }
@@ -57,9 +60,9 @@ class DepartureListCell: UITableViewCell {
         super.layoutSubviews()
 
         self.minute.pin.vertically(pin.safeArea).left(pin.safeArea).height(50).width(50)
-        self.platform.pin.top(pin.safeArea).right(pin.safeArea).width(95).height(15)
-        self.length.pin.below(of: self.platform, aligned: .right).width(of: self.platform).height(15)
-        self.delay.pin.below(of: self.length, aligned: .right).width(of: self.platform).height(15)
+        self.platform.pin.top(pin.safeArea).right(pin.safeArea).width(90).height(17)
+        self.length.pin.below(of: self.platform, aligned: .right).width(of: self.platform).height(17)
+        self.delay.pin.below(of: self.length, aligned: .right).width(of: self.platform).height(17)
         self.destination.pin.after(of: self.minute, aligned: .center).marginLeft(10).before(of: self.length).marginRight(5).height(30)
     }
 

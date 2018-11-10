@@ -28,13 +28,21 @@ class BartFare: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.isUserInteractionEnabled = false
 
+        self.clipper.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.clipper)
+        self.clipperAmount.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.clipperAmount)
+        self.cash.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.cash)
+        self.cashAmount.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.cashAmount)
+        self.senior.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.senior)
+        self.seniorAmount.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.seniorAmount)
+        self.youth.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.youth)
+        self.youthAmount.font = FontUtil.pingFangTCRegular17
         self.addSubview(self.youthAmount)
     }
 

@@ -30,6 +30,8 @@ class SingleTripView: UITableViewCell {
         
         self.addSubview(self.orderLabel)
         self.addSubview(self.trainIcon)
+
+        self.trainDestinationLabel.font = FontUtil.pingFangTCRegular(size: 17)
         self.addSubview(self.trainDestinationLabel)
     }
 

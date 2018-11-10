@@ -33,7 +33,7 @@ class TripListCell: UITableViewCell {
         self.minute.textAlignment = .center
         self.addSubview(self.minute)
 
-        self.destLabel.font = UIFont(name: self.destLabel.font.fontName, size: 20)
+        self.destLabel.font = FontUtil.pingFangTCRegular(size: 20)
         self.destLabel.adjustsFontSizeToFitWidth = true
         self.destLabel.minimumScaleFactor = 0.5
         self.addSubview(self.destLabel)
@@ -103,13 +103,13 @@ class StationTime: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.time.font = UIFont(name: self.time.font.fontName, size: 13)
+        self.time.font = FontUtil.pingFangTCRegular(size: 13)
         self.addSubview(self.time)
 
         self.symbol.contentMode = .scaleAspectFit
         self.addSubview(self.symbol)
 
-        self.station.font = UIFont(name: self.station.font.fontName, size: 13)
+        self.station.font = FontUtil.pingFangTCRegular(size: 13)
         self.station.adjustsFontSizeToFitWidth = true
         self.station.minimumScaleFactor = 0.5
         self.addSubview(self.station)

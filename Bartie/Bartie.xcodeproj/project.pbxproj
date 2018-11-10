@@ -43,6 +43,7 @@
 		413079A1774ACB8CC4057AD6 /* DetourRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DCEA1FEB8055747F050 /* DetourRoute.swift */; };
 		413079AC61F58CE0CD1FE493 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307DD9B46A122DFF3DCD7C /* RouteService.swift */; };
 		41307B0BB2E004EB49E9B1E2 /* BartStationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307555D947DBEA73309FF3 /* BartStationRepository.swift */; };
+		41307B20069BC2CEB587F9BB /* FontUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41307C9B14CD3857473D7B82 /* FontUtil.swift */; };
 		41307B4D1F77E5C10B4E9308 /* StationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413074942B498CB850962821 /* StationTableCell.swift */; };
 		41307B8ABDC1FB86CDBBCB88 /* TripListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130766E0F3E04F5CE2C2061 /* TripListView.swift */; };
 		41307C6A617FD45DE21E6DDA /* BartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130703FB6F15D30C027D117 /* BartService.swift */; };
@@ -126,6 +127,7 @@
 		41307B4AC844FE52CF5EBB1D /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		41307B7C4DF8EA846DE09B5F /* TripDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
 		41307BD2DBD2D37CC13E00F0 /* BartTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BartTabBarController.swift; sourceTree = "<group>"; };
+		41307C9B14CD3857473D7B82 /* FontUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontUtil.swift; sourceTree = "<group>"; };
 		41307D0F6D75DDD7C2FDE0A4 /* CurrentStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStation.swift; sourceTree = "<group>"; };
 		41307D41E84EACEEDC2C09EF /* StationSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationSearchBar.swift; sourceTree = "<group>"; };
 		41307D6489C62A21B01795B9 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				B6F69B9688087EAC29DFB3E2 /* Icons.swift */,
 				41307D6489C62A21B01795B9 /* Settings.swift */,
 				4130703FB6F15D30C027D117 /* BartService.swift */,
+				41307C9B14CD3857473D7B82 /* FontUtil.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -698,6 +701,7 @@
 				B6F69103B11D4D3BDF901FC1 /* AdvisoryViewController.swift in Sources */,
 				B6F69DA0C218DC24E7CC1008 /* AdvisoryCell.swift in Sources */,
 				413077A4DB6C43F7981CD785 /* WideHeadCell.swift in Sources */,
+				41307B20069BC2CEB587F9BB /* FontUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

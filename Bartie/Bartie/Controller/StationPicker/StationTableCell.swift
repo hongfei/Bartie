@@ -25,14 +25,14 @@ class StationTableCell: UITableViewCell {
 
         self.backgroundColor = .white
 
-        name.font = UIFont(name: name.font.fontName, size: 17)
+        name.font = FontUtil.pingFangTCRegular(size: 17)
         self.addSubview(name)
 
-        county.font = UIFont(name: county.font.fontName, size: 10)
+        county.font = FontUtil.pingFangTCRegular(size: 10)
         county.textAlignment = .right
         self.addSubview(county)
 
-        address.font = UIFont(name: county.font.fontName, size: 10)
+        address.font = FontUtil.pingFangTCRegular(size: 10)
         self.addSubview(address)
     }
 

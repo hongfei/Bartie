@@ -24,6 +24,7 @@ class WideHeadCell: UITableViewHeaderFooterView {
 
         self.headerNameLabel.minimumScaleFactor = 0.85
         self.headerNameLabel.adjustsFontSizeToFitWidth = true
+        self.headerNameLabel.font = FontUtil.pingFangTCRegular(size: 17)
         self.addSubview(self.headerNameLabel)
     }
 

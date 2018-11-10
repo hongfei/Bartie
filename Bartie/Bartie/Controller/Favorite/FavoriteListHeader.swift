@@ -31,11 +31,13 @@ class FavoriteListHeader: UITableViewHeaderFooterView {
         self.stationLabel.minimumScaleFactor = 0.85
         self.stationLabel.adjustsFontSizeToFitWidth = true
         self.stationLabel.textAlignment = .center
+        self.stationLabel.font = FontUtil.pingFangTCRegular(size: 17)
         self.addSubview(self.stationLabel)
 
         self.destinationLabel.minimumScaleFactor = 0.85
         self.destinationLabel.adjustsFontSizeToFitWidth = true
         self.destinationLabel.textAlignment = .center
+        self.destinationLabel.font = FontUtil.pingFangTCRegular(size: 17)
         self.addSubview(self.destinationLabel)
 
         self.directionImage.image = Icons.rightArrow
