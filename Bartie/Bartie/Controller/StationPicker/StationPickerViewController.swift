@@ -60,10 +60,10 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedStation = self.filteredStations[indexPath.row]
+        self.navigationController?.popViewController(animated: true)
         if let handler = self.selectedHandler {
             handler(selectedStation)
         }
-        self.navigationController?.popViewController(animated: true)
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

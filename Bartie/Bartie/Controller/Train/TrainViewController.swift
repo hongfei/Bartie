@@ -122,11 +122,10 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     private func openStationPicker(with title: String, afterSelected: @escaping (Station) -> Void) {
-        self.hidesBottomBarWhenPushed = true
         let target = StationPickerViewController().onStationSelected(selectedHandler: afterSelected)
         target.title = title
+        target.hidesBottomBarWhenPushed = true
         self.show(target, sender: self)
-        self.hidesBottomBarWhenPushed = false
     }
 
     private func openRouteDetail(from station: Station, to destination: Station? = nil, departure: Departure? = nil, trip: Trip? = nil) {
