@@ -41,7 +41,7 @@ class AdvisoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let advisoryCell = tableView.dequeueReusableCell(withIdentifier: "AdvisoryCell", for: indexPath) as? AdvisoryCell {
+        if let advisoryCell = tableView.dequeueReusableCell(withIdentifier: "AdvisoryCell") as? AdvisoryCell {
             advisoryCell.loadViewData(advisory: advisories[indexPath.row])
             return advisoryCell
         }
