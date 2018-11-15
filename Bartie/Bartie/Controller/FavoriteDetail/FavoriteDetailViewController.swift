@@ -49,24 +49,31 @@ class FavoriteDetailViewController: UITableViewController {
 
     func calculateDetourRoute() {
         guard let actualFavorite = self.favorite, let actualDeparture = self.departure, let _ = self.trip,
-                let targetTime = Int(actualDeparture.minutes) else {
+              let targetTime = Int(actualDeparture.minutes) else {
             return
         }
         self.targetTime = targetTime
         self.exchangeStation = actualFavorite.station
-        let targetDirection = actualDeparture.direction == "South" ? "North": "South"
-        RealTimeService.getSelectedDepartures(for: actualFavorite.station) { departures in
-            guard let detourDep = departures.filter({ dep in dep.direction == targetDirection }).first,
-                    let detourDepAbbr = detourDep.abbreviation,
-                    let detourTime = Int(detourDep.minutes) else {
+        let targetDirection = actualDeparture.direction == "South" ? "North" : "South"
+        RealTimeService.getSelectedDepartures(for: actualFavorite.station) { optionalDepartures in
+            guard let departures = optionalDepartures,
+                  let detourDep = departures.filter({ dep in dep.direction == targetDirection }).first,
+                  let detourDepAbbr = detourDep.abbreviation,
+                  let detourTime = Int(detourDep.minutes) else {
                 return
             }
+
             self.detourDeparture = detourDep
             self.detourTime = detourTime
             StationService.getAllStationMap() { stationMap in
-                guard let destination = stationMap[detourDepAbbr] else { return }
-                ScheduleService.getTripPlan(from: actualFavorite.station, to: destination, beforeCount: 0, afterCount: 2) { trips in
-                    guard let detourTrip = trips.first, let leg = detourTrip.leg.first else { return }
+                guard let destination = stationMap[detourDepAbbr] else {
+                    return
+                }
+                ScheduleService.getTripPlan(from: actualFavorite.station, to: destination, beforeCount: 0, afterCount: 2) { optionalTrips in
+                    guard let trips = optionalTrips, let detourTrip = trips.first, let leg = detourTrip.leg.first else {
+                        return
+                    }
+
                     BartRouteService.getDetailRouteInfo(with: leg.line) { detail in
                         DataUtil.extractStations(for: detail, from: leg.origin, to: leg.destination) { stations in
                             self.pickStation(from: Array(stations.dropFirst()), from: detourDep.abbreviation!, to: actualDeparture.abbreviation!)
@@ -79,9 +86,10 @@ class FavoriteDetailViewController: UITableViewController {
 
     func pickStation(from stations: [Station], from depAbbr: String, to targetAbbr: String) {
         if let first = stations.first {
-            RealTimeService.getSelectedDepartures(for: first) { departures in
-                if let newDep = departures.first(where: { dep in dep.abbreviation == depAbbr && Int(dep.minutes)! >= self.detourTime }),
-                    let newTarget = departures.filter({ dep in dep.abbreviation == targetAbbr && Int(dep.minutes)! <= self.targetTime }).last {
+            RealTimeService.getSelectedDepartures(for: first) { optionalDepartures in
+                if let departures = optionalDepartures,
+                   let newDep = departures.first(where: { dep in dep.abbreviation == depAbbr && Int(dep.minutes)! >= self.detourTime }),
+                   let newTarget = departures.filter({ dep in dep.abbreviation == targetAbbr && Int(dep.minutes)! <= self.targetTime }).last {
                     let detourTime = Int(newDep.minutes)!
                     let targetTime = Int(newTarget.minutes)!
                     if detourTime + 1 < targetTime {
@@ -140,7 +148,7 @@ class FavoriteDetailViewController: UITableViewController {
             }
         case 1:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DetourRoute"), let detourRoute = cell as? DetourRoute,
-                let actualFavorite = self.favorite {
+               let actualFavorite = self.favorite {
                 detourRoute.reloadCellData(current: actualFavorite.station, detour: self.detourDeparture, target: self.departure, exchange: self.exchangeStation, detourTime: self.detourTime, targetTime: self.targetTime)
                 return detourRoute
             }

@@ -6,17 +6,21 @@
 import Foundation
 
 class ScheduleService {
-    class func getTripPlan(from station: Station, to destination: Station, beforeCount: Int = 0, afterCount: Int = 3, completionHandler: @escaping ([Trip]) -> Void) {
+    class func getTripPlan(from station: Station, to destination: Station, beforeCount: Int = 0, afterCount: Int = 3, completionHandler: @escaping ([Trip]?) -> Void) {
         BartScheduleRepository.getTripPlan(from: station, to: destination) { trips in
-            let validTrips = trips.filter({ trip in DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin ) > -10 })
+            let validTrips = trips?.filter({ trip in DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin ) > -10 })
             completionHandler(validTrips)
         }
     }
 
-    class func getTripsWithDeparture(from station: Station, to destination: Station, beforeCount: Int = 0, afterCount: Int = 3, completionHandler: @escaping ([(Trip, Departure?)]) -> Void) {
-        getTripPlan(from: station, to: destination) { trips in
-            RealTimeService.getSelectedDepartures(for: station) { departures in
-                completionHandler(DataUtil.regulateTripsWithDepartures(for: trips, with: departures))
+    class func getTripsWithDeparture(from station: Station, to destination: Station, beforeCount: Int = 0, afterCount: Int = 3, completionHandler: @escaping ([(Trip, Departure?)]?) -> Void) {
+        getTripPlan(from: station, to: destination) { optionalTrips in
+            RealTimeService.getSelectedDepartures(for: station) { optionalDepartures in
+                if let trips = optionalTrips, let departures = optionalDepartures {
+                    completionHandler(DataUtil.regulateTripsWithDepartures(for: trips, with: departures))
+                } else {
+                    completionHandler(nil)
+                }
             }
         }
     }

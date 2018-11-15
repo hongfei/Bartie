@@ -40,36 +40,38 @@ class DetourRoute: UITableViewCell {
 
         self.detourTrainSymbol.layer.cornerRadius = 17.5
         view.addSubview(self.detourTrainSymbol)
-        self.detourTrainExplain.font = UIFont(name: self.detourTrainExplain.font.fontName, size: CGFloat(13))
+        self.detourTrainExplain.font = FontUtil.pingFangTCRegular(size: 13)
         view.addSubview(self.detourTrainExplain)
         self.detourTrainName.text = "Not Available"
-        self.detourTrainName.font = UIFont(name: self.detourTrainName.font.fontName, size: CGFloat(20))
+        self.detourTrainName.font = FontUtil.pingFangTCRegular(size: 20)
         self.detourTrainName.adjustsFontSizeToFitWidth = true
         self.detourTrainName.minimumScaleFactor = 0.5
         view.addSubview(self.detourTrainName)
         self.detourMinutes.text = "Not Available"
+        self.detourMinutes.font = FontUtil.pingFangTCRegular(size: 17)
         view.addSubview(self.detourMinutes)
 
         self.targetTrainSymbol.layer.cornerRadius = 17.5
         view.addSubview(self.targetTrainSymbol)
-        self.targetTrainExplain.font = UIFont(name: self.targetTrainExplain.font.fontName, size: CGFloat(13))
+        self.targetTrainExplain.font = FontUtil.pingFangTCRegular(size: 13)
         view.addSubview(self.targetTrainExplain)
         self.targetTrainName.text = "Not Available"
-        self.targetTrainName.font = UIFont(name: self.targetTrainName.font.fontName, size: CGFloat(20))
+        self.targetTrainName.font = FontUtil.pingFangTCRegular(size: 20)
         self.targetTrainName.adjustsFontSizeToFitWidth = true
         self.targetTrainName.minimumScaleFactor = 0.5
         view.addSubview(self.targetTrainName)
         self.targetTrainMinutes.text = "Not Available"
+        self.targetTrainMinutes.font = FontUtil.pingFangTCRegular(size: 17)
         view.addSubview(self.targetTrainMinutes)
 
 
         self.exchangeSymbol.layer.cornerRadius = 17.5
         self.exchangeSymbol.layer.backgroundColor = UIColor.gray.cgColor
         view.addSubview(self.exchangeSymbol)
-        self.exchangeStationExplain.font = UIFont(name: self.exchangeStationExplain.font.fontName, size: CGFloat(13))
+        self.exchangeStationExplain.font = FontUtil.pingFangTCRegular(size: 13)
         view.addSubview(self.exchangeStationExplain)
         self.exchangeStation.text = "Not Available"
-        self.exchangeStation.font = UIFont(name: self.exchangeStation.font.fontName, size: CGFloat(20))
+        self.exchangeStation.font = FontUtil.pingFangTCRegular(size: 20)
         self.exchangeStation.adjustsFontSizeToFitWidth = true
         self.exchangeStation.minimumScaleFactor = 0.5
         view.addSubview(self.exchangeStation)

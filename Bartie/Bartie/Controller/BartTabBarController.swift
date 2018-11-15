@@ -12,6 +12,7 @@ class BartTabBarController: UITabBarController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
+        self.tabBar.isTranslucent = false
         self.viewControllers = [
             TrainViewController(),
             FavoriteViewController(),

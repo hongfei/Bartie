@@ -115,6 +115,7 @@ class SearchBoxField: UITextField {
         self.layer.borderWidth = 1.5
         self.layer.cornerRadius = 10
         self.textAlignment = .center
+        self.font = FontUtil.pingFangTCRegular(size: 18)
     }
 
     func withPlaceholder(placeholder: String) -> SearchBoxField {

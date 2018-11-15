@@ -7,11 +7,11 @@ import Foundation
 import SwiftyJSON
 
 class RealTimeService {
-    class func getSelectedDepartures(for station: Station, completionHandler: @escaping ([Departure]) -> Void) {
+    class func getSelectedDepartures(for station: Station, completionHandler: @escaping ([Departure]?) -> Void) {
         getDepartures(for: station.abbr, completionHandler: completionHandler)
     }
 
-    class func getAllDepartures(completionHandler: @escaping ([Departure]) -> Void) {
+    class func getAllDepartures(completionHandler: @escaping ([Departure]?) -> Void) {
         getDepartures(for: "ALL", completionHandler: completionHandler)
     }
     
@@ -34,9 +34,9 @@ class RealTimeService {
         })
     }
 
-    private class func getDepartures(for stationAbbr: String, completionHandler: @escaping ([Departure]) -> Void) {
+    private class func getDepartures(for stationAbbr: String, completionHandler: @escaping ([Departure]?) -> Void) {
         BartRealTimeRepository.getDepartures(for: stationAbbr) { departures in
-            let sortedDeps = departures.sorted(by: { dep1, dep2 in
+            let sortedDeps = departures?.sorted(by: { dep1, dep2 in
                 guard let min1 = Int(dep1.minutes), let min2 = Int(dep2.minutes) else {
                     return true
                 }
