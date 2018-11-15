@@ -36,10 +36,12 @@ class AdvisoryViewController: UITableViewController {
     }
 
     @IBAction func refreshTable() {
-        AdvisoryService.getLatestAdvisories { advisories in
-            self.advisories = advisories
-            self.tableView.reloadData()
+        AdvisoryService.getLatestAdvisories { optionalAdvisories in
             self.refreshControl?.endRefreshing()
+            if let advisories = optionalAdvisories {
+                self.advisories = advisories
+                self.tableView.reloadData()
+            }
         }
     }
 

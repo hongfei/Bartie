@@ -19,7 +19,7 @@ class BartRealTimeRepository {
             guard let estimateDepartures = JSON(jsonResult)["root"]["station"][0]["etd"].array?.map({ json in
                 return try? decoder.decode(EstimatedDeparture.self, from: json.rawData())
             }) else {
-                return completionHandler(nil)
+                return completionHandler([])
             }
 
             let deps: [Departure] = estimateDepartures.reduce([], { (result: [Departure], estimateDeparture: EstimatedDeparture?) in

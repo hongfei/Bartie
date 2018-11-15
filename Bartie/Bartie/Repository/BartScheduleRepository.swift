@@ -15,8 +15,11 @@ class BartScheduleRepository {
                 for: SCHEDULE_RESOURCE,
                 withParams: ["cmd": "depart", "orig": from.abbr, "dest": to.abbr, "a": String(afterCount), "b": String(beforeCount)]
         ) { response in
-            guard let jsonResponse = response, let jsonArray = JSON(jsonResponse)["root"]["schedule"]["request"]["trip"].array else {
+            guard let jsonResponse = response else {
                 return completionHandler(nil)
+            }
+            guard let jsonArray = JSON(jsonResponse)["root"]["schedule"]["request"]["trip"].array else {
+                return completionHandler([])
             }
 
             let trips = jsonArray.map({ json in return try? decoder.decode(Trip.self, from: json.rawData()) })

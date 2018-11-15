@@ -88,17 +88,17 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     @IBAction func updateDepartureList(scrollToTop: Bool = false) {
         guard let stnt = self.station else { return }
         RealTimeService.getSelectedDepartures(for: stnt) { optionalDepartures in
+            self.departureListView.refreshControl?.endRefreshing()
+
             guard let departures = optionalDepartures else {
                 return
             }
 
             self.departureListView.departures = departures
             self.departureListView.reloadData()
-
             if (scrollToTop && departures.count > 0 && self.departureListView.numberOfRows(inSection: 0) > 0) {
                 self.departureListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             }
-            self.departureListView.refreshControl?.endRefreshing()
         }
     }
 
@@ -108,6 +108,8 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         }
         ScheduleService.getTripPlan(from: stnt, to: dst, beforeCount: 1, afterCount: 4) { optionalTrips in
             RealTimeService.getSelectedDepartures(for: stnt) { optionalDepartures in
+                self.tripListView.refreshControl?.endRefreshing()
+
                 guard let trips = optionalTrips, let departures = optionalDepartures else {
                     return
                 }
@@ -116,7 +118,6 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
                 if (scrollToTop && trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
                     self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 }
-                self.tripListView.refreshControl?.endRefreshing()
             }
         }
     }

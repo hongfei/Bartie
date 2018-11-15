@@ -6,7 +6,7 @@
 import Foundation
 
 class AdvisoryService {
-    class func getLatestAdvisories(completionHandler: @escaping ([Advisory]) -> Void) {
+    class func getLatestAdvisories(completionHandler: @escaping ([Advisory]?) -> Void) {
         BartAdvisoryRepository.getCurrentAdvisory(completionHandler: completionHandler)
     }
 }
