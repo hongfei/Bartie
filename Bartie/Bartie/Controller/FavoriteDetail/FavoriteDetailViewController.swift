@@ -140,14 +140,14 @@ class FavoriteDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "CurrentStation"), let currentStation = cell as? CurrentStation {
+            if let currentStation = tableView.dequeueReusableCell(withIdentifier: "CurrentStation") as? CurrentStation {
                 if let actualFavorite = self.favorite {
                     currentStation.setCurrentStation(for: actualFavorite.station)
                 }
                 return currentStation
             }
         case 1:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "DetourRoute"), let detourRoute = cell as? DetourRoute,
+            if let detourRoute = tableView.dequeueReusableCell(withIdentifier: "DetourRoute") as? DetourRoute,
                let actualFavorite = self.favorite {
                 detourRoute.reloadCellData(current: actualFavorite.station, detour: self.detourDeparture, target: self.departure, exchange: self.exchangeStation, detourTime: self.detourTime, targetTime: self.targetTime)
                 return detourRoute

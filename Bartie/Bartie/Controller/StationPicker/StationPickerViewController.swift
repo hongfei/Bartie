@@ -45,7 +45,7 @@ class StationPickerViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "StationTableCell"), let stationCell = cell as? StationTableCell  {
+        if let stationCell = tableView.dequeueReusableCell(withIdentifier: "StationTableCell") as? StationTableCell  {
             stationCell.station = self.filteredStations[indexPath.row]
             stationCell.reloadStation()
             return stationCell
