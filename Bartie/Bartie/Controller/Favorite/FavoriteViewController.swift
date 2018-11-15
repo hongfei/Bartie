@@ -55,9 +55,9 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TripListCell", for: indexPath)
-        guard let favoriteCell = cell as? TripListCell, let tripList = self.tripsListMap[indexPath.section] else {
-            return cell
+        guard let favoriteCell = tableView.dequeueReusableCell(withIdentifier: "TripListCell") as? TripListCell,
+              let tripList = self.tripsListMap[indexPath.section] else {
+            return UITableViewCell()
         }
 
         favoriteCell.trip = tripList[indexPath.row].0
@@ -120,7 +120,7 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath), let favoriteCell = cell as? TripListCell {
+        if let favoriteCell = tableView.cellForRow(at: indexPath) as? TripListCell {
             let favoriteDetail = FavoriteDetailViewController()
             favoriteDetail.trip = favoriteCell.trip
             favoriteDetail.departure = favoriteCell.departure
