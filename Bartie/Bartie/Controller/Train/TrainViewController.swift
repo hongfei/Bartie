@@ -109,7 +109,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
             return
         }
 
-        ScheduleService.getTripsWithDeparture(from: stnt, to: dst) { optionalTripsWithDeparture in
+        ScheduleService.getTripsWithDeparture(from: stnt, to: dst, beforeCount: 1) { optionalTripsWithDeparture in
             self.tripListView.refreshControl?.endRefreshing()
 
             guard let tripsWithDeparture = optionalTripsWithDeparture else {
