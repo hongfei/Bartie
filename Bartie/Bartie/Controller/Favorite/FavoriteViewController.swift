@@ -108,7 +108,7 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
 
         var refreshCount = self.favorites.count
         for (index, favorite) in self.favorites.enumerated() {
-            ScheduleService.getTripsWithDeparture(from: favorite.station, to: favorite.destination) { tripsWithDeparture in
+            ScheduleService.getTripsWithDeparture(from: favorite.station, to: favorite.destination, beforeCount: 1) { tripsWithDeparture in
                 self.tripsListMap[index] = tripsWithDeparture
                 refreshCount -= 1
                 if refreshCount == 0 {
