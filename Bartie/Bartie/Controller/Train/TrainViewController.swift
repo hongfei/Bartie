@@ -33,7 +33,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationItem.backBarButtonItem?.tintColor = .white
 
-        self.getLocationNavBarItem = UIBarButtonItem(image: Icons.locating, style: .plain, target: self, action:  #selector(setFromStationByLocation))
+        self.getLocationNavBarItem = UIBarButtonItem(image: Icons.locating, style: .plain, target: self, action: #selector(setFromStationByLocation))
         self.getLocationNavBarItem.tintColor = .white
         self.locatingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
         self.locatingNavBarItem = UIBarButtonItem(customView: self.locatingIndicator)
@@ -61,7 +61,7 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         self.tripListView.refreshControl?.addTarget(self, action: #selector(updateTripList), for: .valueChanged)
 
         self.view.addSubview(self.stationSearchBar)
-        
+
         self.setFromStationByLocation()
         self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(reloadList), userInfo: nil, repeats: true)
     }
@@ -86,7 +86,9 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
     }
 
     @IBAction func updateDepartureList(scrollToTop: Bool = false) {
-        guard let stnt = self.station else { return }
+        guard let stnt = self.station else {
+            return
+        }
         RealTimeService.getSelectedDepartures(for: stnt) { optionalDepartures in
             self.departureListView.refreshControl?.endRefreshing()
 
@@ -106,18 +108,17 @@ class TrainViewController: UIViewController, StationSearchBarDelegate, Departure
         guard let stnt = self.station, let dst = self.destination else {
             return
         }
-        ScheduleService.getTripPlan(from: stnt, to: dst, beforeCount: 1, afterCount: 4) { optionalTrips in
-            RealTimeService.getSelectedDepartures(for: stnt) { optionalDepartures in
-                self.tripListView.refreshControl?.endRefreshing()
 
-                guard let trips = optionalTrips, let departures = optionalDepartures else {
-                    return
-                }
+        ScheduleService.getTripsWithDeparture(from: stnt, to: dst) { optionalTripsWithDeparture in
+            self.tripListView.refreshControl?.endRefreshing()
 
-                self.tripListView.reloadTripList(trips: trips, with: departures, from: stnt, to: dst)
-                if (scrollToTop && trips.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
-                    self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                }
+            guard let tripsWithDeparture = optionalTripsWithDeparture else {
+                return
+            }
+
+            self.tripListView.reloadTripList(tripsWithDepartures: tripsWithDeparture, from: stnt, to: dst)
+            if (scrollToTop && tripsWithDeparture.count > 0 && self.tripListView.numberOfRows(inSection: 0) > 0) {
+                self.tripListView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             }
         }
     }

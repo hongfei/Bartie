@@ -81,10 +81,10 @@ class TripListView: UITableView, UITableViewDataSource, UITableViewDelegate {
         }
     }
 
-    func reloadTripList(trips: [Trip], with departures: [Departure], from station: Station, to destination: Station) {
+    func reloadTripList(tripsWithDepartures: [(Trip, Departure?)], from station: Station, to destination: Station) {
         self.station = station
         self.destination = destination
-        self.trips = DataUtil.regulateTripsWithDepartures(for: trips, with: departures)
+        self.trips = tripsWithDepartures
 
         self.reloadData()
     }
