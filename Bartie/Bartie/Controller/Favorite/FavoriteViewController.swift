@@ -39,7 +39,8 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
 
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
-        
+
+        refreshTable()
         self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTable), userInfo: nil, repeats: true)
     }
 
@@ -91,30 +92,23 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
         return cellHeader
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if FavoriteService.getAllFavorites().count > self.favorites.count {
-            self.refreshTable()
-        }
-    }
-
     @IBAction func refreshTable() {
-        self.favorites = FavoriteService.getAllFavorites()
+        let newFavorites = FavoriteService.getAllFavorites()
+
+        if newFavorites.count > self.favorites.count {
+            self.favorites = newFavorites
+            self.tableView.reloadData()
+        }
 
         if self.favorites.count == 0 {
             self.refreshControl?.endRefreshing()
         }
 
-        var refreshCount = self.favorites.count
         for (index, favorite) in self.favorites.enumerated() {
             ScheduleService.getTripsWithDeparture(from: favorite.station, to: favorite.destination, beforeCount: 1) { tripsWithDeparture in
                 self.tripsListMap[index] = tripsWithDeparture
-                refreshCount -= 1
-                if refreshCount == 0 {
-                    self.tableView.reloadData()
-                    self.refreshControl?.endRefreshing()
-                }
+                self.tableView.reloadSections(IndexSet(integer: index), with: .automatic)
+                self.refreshControl?.endRefreshing()
             }
         }
     }
