@@ -43,6 +43,13 @@ class FavoriteViewController: UITableViewController, FavoriteListHeaderDelegate 
         refreshTable()
         self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTable), userInfo: nil, repeats: true)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let newFavorites = FavoriteService.getAllFavorites()
+        if newFavorites.count > self.favorites.count {
+            refreshTable()
+        }
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.favorites.count
