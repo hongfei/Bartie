@@ -44,7 +44,9 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
         self.departure = departure
         self.trip = trip
 
-        guard let actualTrip = trip else { return }
+        guard let actualTrip = trip else {
+            return
+        }
         for leg in actualTrip.leg {
             BartRouteService.getDetailRouteInfo(with: leg.line) { routeDetail in
                 DataUtil.extractStations(for: routeDetail, from: leg.origin, to: leg.destination) { stations in
@@ -97,13 +99,20 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
         case 0:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "RouteDetailMapView") as? RouteDetailMapView {
                 var stations: [Station] = []
-                self.legStations.forEach({ (_, stns) in stations.append(contentsOf: stns) })
-                cell.showStations(stations: stations)
+                var colorMap: [String: String] = [:]
+                self.legStations.forEach({ (leg, stns) in
+                    stations.append(contentsOf: stns)
+                    stns.forEach({ stn in colorMap[stn.name] = self.legRouteDetails[leg]?.hexcolor })
+                })
+
+                cell.showStations(stations: stations, colorMap: colorMap)
                 return cell
             }
         case 1:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "SingleTripView") as? SingleTripView {
-                guard let legends = self.trip?.leg else { break }
+                guard let legends = self.trip?.leg else {
+                    break
+                }
 
                 let leg = legends[indexPath.row]
                 if let stations = self.legStations[leg.order], let routeDetail = self.legRouteDetails[leg.order] {
