@@ -8,6 +8,7 @@ import PinLayout
 
 class AdvisoryViewController: UITableViewController {
     var advisories: [Advisory] = []
+    var updateTimer: Timer!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,6 +29,9 @@ class AdvisoryViewController: UITableViewController {
         self.tableView.register(AdvisoryCell.self, forCellReuseIdentifier: "AdvisoryCell")
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+
+        refreshTable()
+        self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTable), userInfo: nil, repeats: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
