@@ -88,6 +88,11 @@ class TripListCell: UITableViewCell {
             self.stations.first?.symbol.image = Icons.startDot
             self.stations.last?.symbol.image = Icons.endDot
         }
+        
+        if self.minute.text == "0" {
+            self.minute.alpha = 0.3
+            UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.minute.alpha = 1.0}, completion: nil)
+        }
     }
 }
 

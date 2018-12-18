@@ -84,5 +84,10 @@ class DepartureListCell: UITableViewCell {
             self.delay.text = "Delay: " + String(delay / 60) + " min"
         }
         self.delay.isHidden = self.departure.delay == "0"
+        
+        if self.minute.text == "0" {
+            self.minute.alpha = 0.3
+            UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.minute.alpha = 1.0}, completion: nil)
+        }
     }
 }
