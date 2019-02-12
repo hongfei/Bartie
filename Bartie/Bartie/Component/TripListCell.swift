@@ -57,7 +57,7 @@ class TripListCell: UITableViewCell {
             self.minute.text = dep.minutes
             self.minute.layer.backgroundColor = UIColor(dep.hexcolor).cgColor
         } else {
-            var timeDiff = DateUtil.getTimeDifferenceToNow(dateString: self.trip.origTimeDate + self.trip.origTimeMin)
+            var timeDiff = DateUtil.getTimeDifferenceToNow(date: self.trip.origTimeDate, time: self.trip.origTimeMin)
             timeDiff = timeDiff > 0 ? timeDiff : 0
             self.minute.text = String(timeDiff)
             BartRouteService.getAllRoutes() { routes in
@@ -68,8 +68,8 @@ class TripListCell: UITableViewCell {
         }
 
         StationService.getAllStationMap() { stationsMap in
-            if let leg = self.trip.leg.first, let headStation = stationsMap[leg.trainHeadStation] {
-                self.destLabel.text = headStation.name
+            if let leg = self.trip.leg.first {
+                self.destLabel.text = leg.trainHeadStation
             }
 
             self.stations.forEach({ station in station.removeFromSuperview() })

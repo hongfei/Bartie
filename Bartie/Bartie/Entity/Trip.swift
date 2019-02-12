@@ -13,15 +13,11 @@ class Trip: Codable {
     var origTimeDate: String
     var destTimeMin: String
     var destTimeDate: String
-    var clipper: String
     var tripTime: String
-    var co2: String
-    var fares: Fares
     var leg: [Legend]
 
     init(origin: String, destination: String, fare: String, origTimeMin: String, origTimeDate: String,
-         destTimeMin: String, destTimeDate: String, clipper: String, tripTime: String, co2: String, fares: Fares,
-         leg: [Legend]) {
+         destTimeMin: String, destTimeDate: String, clipper: String, tripTime: String, leg: [Legend]) {
         self.origin = origin
         self.destination = destination
         self.fare = fare
@@ -29,10 +25,7 @@ class Trip: Codable {
         self.origTimeDate = origTimeDate
         self.destTimeMin = destTimeMin
         self.destTimeDate = destTimeDate
-        self.clipper = clipper
         self.tripTime = tripTime
-        self.co2 = co2
-        self.fares = fares
         self.leg = leg
     }
 
@@ -44,10 +37,7 @@ class Trip: Codable {
         case origTimeDate = "@origTimeDate"
         case destTimeMin = "@destTimeMin"
         case destTimeDate = "@destTimeDate"
-        case clipper = "@clipper"
         case tripTime = "@tripTime"
-        case co2 = "@co2"
-        case fares = "fares"
         case leg = "leg"
     }
 
@@ -85,7 +75,6 @@ class Fare: Codable {
 
 class Legend: Codable {
     var order: String
-    var transfercode: String
     var origin: String
     var destination: String
     var origTimeMin: String
@@ -96,14 +85,11 @@ class Legend: Codable {
     var bikeflag: String
     var trainHeadStation: String
     var load: String
-    var trainId: String
-    var trainIdx: String
 
-    init(order: String, transfercode: String, origin: String, destination: String, origTimeMin: String,
+    init(order: String, origin: String, destination: String, origTimeMin: String,
          origTimeDate: String, destTimeMin: String, destTimeDate: String, line: String, bikeflag: String,
-         trainHeadStation: String, load: String, trainId: String, trainIdx: String) {
+         trainHeadStation: String, load: String) {
         self.order = order
-        self.transfercode = transfercode
         self.origin = origin
         self.destination = destination
         self.origTimeMin = origTimeMin
@@ -114,13 +100,10 @@ class Legend: Codable {
         self.bikeflag = bikeflag
         self.trainHeadStation = trainHeadStation
         self.load = load
-        self.trainId = trainId
-        self.trainIdx = trainIdx
     }
 
     private enum CodingKeys: String, CodingKey {
         case order = "@order"
-        case transfercode = "@transfercode"
         case origin = "@origin"
         case destination = "@destination"
         case origTimeMin = "@origTimeMin"
@@ -131,7 +114,5 @@ class Legend: Codable {
         case bikeflag = "@bikeflag"
         case trainHeadStation = "@trainHeadStation"
         case load = "@load"
-        case trainId = "@trainId"
-        case trainIdx = "@trainIdx"
     }
 }

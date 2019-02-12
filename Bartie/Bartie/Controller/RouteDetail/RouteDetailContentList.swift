@@ -11,6 +11,7 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
     var destination: Station?
     var departure: Departure?
     var trip: Trip?
+    var fares: [Fare] = []
     var legStations: [String: [Station]] = [:]
     var legRouteDetails: [String: DetailRoute] = [:]
 
@@ -55,6 +56,11 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
                     self.reloadData()
                 }
             }
+        }
+
+        ScheduleService.getTripFare(from: actualTrip.origin, to: actualTrip.destination, date: actualTrip.origTimeDate) { fares in
+            self.fares = fares
+            self.reloadData()
         }
     }
 
@@ -123,7 +129,7 @@ class RouteDetailContentList: UITableView, UITableViewDelegate, UITableViewDataS
             }
         case 2:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "BartFare") as? BartFare {
-                cell.reloadData(trip: self.trip)
+                cell.reloadData(trip: self.trip, fares: self.fares)
                 return cell
             }
         default: break

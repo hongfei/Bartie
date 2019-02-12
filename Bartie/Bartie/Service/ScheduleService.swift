@@ -8,7 +8,7 @@ import Foundation
 class ScheduleService {
     class func getTripPlan(from station: Station, to destination: Station, beforeCount: Int = 0, afterCount: Int = 3, completionHandler: @escaping ([Trip]?) -> Void) {
         BartScheduleRepository.getTripPlan(from: station, to: destination, beforeCount: beforeCount, afterCount: afterCount) { trips in
-            let validTrips = trips?.filter({ trip in DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin ) > -10 })
+            let validTrips = trips?.filter({ trip in DateUtil.getTimeDifferenceToNow(date: trip.origTimeDate, time: trip.origTimeMin) > -10 })
             completionHandler(validTrips)
         }
     }
@@ -31,13 +31,18 @@ class ScheduleService {
         }
         let regulatedDeparture = departureMinutes - delaySeconds / 60
         return trips.filter({ trip in
-            let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            let tripTime = DateUtil.getTimeDifferenceToNow(date: trip.origTimeDate, time: trip.origTimeMin)
             let inTimeRange = regulatedDeparture - 15 < tripTime && tripTime < regulatedDeparture + 15
             return inTimeRange
         }).min(by: { (trip1, trip2) in
-            let tripDiff1 = DateUtil.getTimeDifferenceToNow(dateString: trip1.origTimeDate + trip1.origTimeMin)
-            let tripDiff2 = DateUtil.getTimeDifferenceToNow(dateString: trip2.origTimeDate + trip2.origTimeMin)
+            let tripDiff1 = DateUtil.getTimeDifferenceToNow(date: trip1.origTimeDate, time: trip1.origTimeMin)
+            let tripDiff2 = DateUtil.getTimeDifferenceToNow(date: trip2.origTimeDate, time: trip2.origTimeMin)
             return abs(tripDiff1 - regulatedDeparture) < abs(tripDiff2 - regulatedDeparture)
         })
     }
+
+    class func getTripFare(from station: String, to destination: String, date: String, completionHandler: @escaping ([Fare]) -> Void) {
+        BartScheduleRepository.getTripFare(from: station, to: destination, date: date, completionHandler: completionHandler)
+    }
+
 }

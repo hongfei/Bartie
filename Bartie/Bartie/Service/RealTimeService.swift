@@ -14,14 +14,14 @@ class RealTimeService {
     class func getAllDepartures(completionHandler: @escaping ([Departure]?) -> Void) {
         getDepartures(for: "ALL", completionHandler: completionHandler)
     }
-    
+
     class func findClosestDeparture(in departures: [Departure], for trip: Trip) -> Departure? {
         return departures.filter({ departure in
             guard let leg = trip.leg.first, let departureTime = Int(departure.minutes), let delaySeconds = Int(departure.delay) else {
                 return false
             }
-            let sameDestination = leg.trainHeadStation == departure.abbreviation
-            let tripTime = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            let sameDestination = leg.trainHeadStation == departure.destination
+            let tripTime = DateUtil.getTimeDifferenceToNow(date: trip.origTimeDate, time: trip.origTimeMin)
             let regulatedDeparture = departureTime - delaySeconds / 60
             let inTimeRange = tripTime - 5 < regulatedDeparture && regulatedDeparture < tripTime + 5
             return sameDestination && inTimeRange
@@ -29,7 +29,7 @@ class RealTimeService {
             guard let depTime1 = Int(dep1.minutes), let depTime2 = Int(dep2.minutes) else {
                 return false
             }
-            let tripDiff = DateUtil.getTimeDifferenceToNow(dateString: trip.origTimeDate + trip.origTimeMin)
+            let tripDiff = DateUtil.getTimeDifferenceToNow(date: trip.origTimeDate, time: trip.origTimeMin)
             return abs(depTime1 - tripDiff) < abs(depTime2 - tripDiff)
         })
     }

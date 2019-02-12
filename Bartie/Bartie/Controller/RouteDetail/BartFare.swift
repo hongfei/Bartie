@@ -59,8 +59,7 @@ class BartFare: UITableViewCell {
         self.youth.pin.below(of: self.senior, aligned: .left).before(of: self.youthAmount).height(of: self.clipper)
     }
 
-    func reloadData(trip: Trip?) {
-        guard let fares = trip?.fares.fare else { return }
+    func reloadData(trip: Trip?, fares: [Fare]) {
         var fareMap: [String: Fare] = [:]
         for fare in fares {
             fareMap[fare.fareClass] = fare

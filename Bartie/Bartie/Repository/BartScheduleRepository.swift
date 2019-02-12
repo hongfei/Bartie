@@ -27,4 +27,22 @@ class BartScheduleRepository {
             completionHandler(trips)
         }
     }
+
+    static func getTripFare(from station: String, to destination: String, date: String, completionHandler: @escaping ([Fare]) -> Void) {
+        BartService.getResponse(
+                for: SCHEDULE_RESOURCE,
+                withParams: ["cmd": "fare", "orig": station, "dest": destination, "date": date]) { response in
+            guard let jsonResponse = response else {
+                return completionHandler([])
+            }
+
+            guard let jsonArray = JSON(jsonResponse)["root"]["fares"]["fare"].array else {
+                return completionHandler([])
+            }
+
+            let fares = jsonArray.map({ json in return try? decoder.decode(Fare.self, from: json.rawData()) })
+                    .filter({ fare in fare != nil }).map({ fare in fare! })
+            completionHandler(fares)
+        }
+    }
 }
